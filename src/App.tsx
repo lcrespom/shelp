@@ -5,11 +5,9 @@ import Welcome from './pages/welcome'
 
 import './App.css'
 
-function App() {
+function NavBar() {
   return (
-    <div>
-      <h1>Shelp</h1>
-
+    <>
       <h2>Pages</h2>
       <ul>
         <li>
@@ -19,7 +17,15 @@ function App() {
           <a href="/demo">FE to BE demo</a>
         </li>
       </ul>
+    </>
+  )
+}
 
+function App() {
+  return (
+    <div>
+      <h1>Shelp</h1>
+      <NavBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Welcome />} />
