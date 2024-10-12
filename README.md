@@ -6,7 +6,7 @@ A shell helper popup.
 
 - Rust
   - [ ] Frist time use (if .shelp directory does not exist)
-    - [ ] Create ~/.shelp directory
+    - [x] Create ~/.shelp directory
     - [ ] Write shelp.zsh in ~/.shelp
     - [ ] Emit instructions in console, show welcome URL
   - [ ] Configuration
