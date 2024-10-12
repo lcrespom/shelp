@@ -15,7 +15,7 @@ pub fn setup_http_server(app: &mut tauri::App) {
             let url = request.url();
             println!("Got request: {}", url);
             let response = if url.starts_with("/_") {
-                handle_back_end_command(url)
+                handle_back_end_command(&url[2..])
             } else {
                 handle_front_end_command(url)
             };
@@ -28,12 +28,12 @@ pub fn setup_http_server(app: &mut tauri::App) {
     });
 }
 
-fn handle_back_end_command(_url: &str) -> &str {
-    println!("Back end command");
+fn handle_back_end_command(url: &str) -> &str {
+    println!("Back end command: {}", url);
     "Command handled by Tauri back end\n"
 }
 
-fn handle_front_end_command(_url: &str) -> &str {
-    println!("Front end command");
+fn handle_front_end_command(url: &str) -> &str {
+    println!("Front end command: {}", url);
     "Command sent to Tauri webview\n"
 }
