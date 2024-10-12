@@ -1,39 +1,33 @@
-import { useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+import Demo from './pages/demo'
+import Welcome from './pages/welcome'
+
+import './App.css'
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
   return (
     <div>
       <h1>Shelp</h1>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          autoFocus
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        &nbsp;&nbsp;
-        <button type="submit">Greet</button>
-      </form>
+      <h2>Pages</h2>
+      <ul>
+        <li>
+          <a href="/">Welcome</a>
+        </li>
+        <li>
+          <a href="/demo">FE to BE demo</a>
+        </li>
+      </ul>
 
-      <p>{greetMsg}</p>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/demo" element={<Demo />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

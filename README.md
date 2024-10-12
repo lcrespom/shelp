@@ -20,7 +20,7 @@ A shell helper popup.
     - [ ] Receive initial configuration from rust
     - [ ] Set window size and position
   - [ ] Show / Hide window
-  - [ ] Install router
+  - [x] Install router
   - [ ] Install UI library
   - [ ] Welcome / home page
   - [ ] Dirhistory
