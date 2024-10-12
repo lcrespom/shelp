@@ -1,5 +1,5 @@
 use std::thread;
-use tauri::{Emitter, Manager};
+use tauri::{Emitter, Manager, WebviewWindow};
 use tiny_http::{Response, Server};
 
 const SERVER_ADDRESS: &str = "127.0.0.1:7878";
@@ -17,10 +17,8 @@ pub fn setup_http_server(app: &mut tauri::App) {
             let response = if url.starts_with("/_") {
                 handle_back_end_command(&url[2..])
             } else {
-                handle_front_end_command(url)
+                handle_front_end_command(url, &main_window)
             };
-            // Send the event to the Tauri webview
-            main_window.emit("tash-command", url).unwrap();
             // Respond to the HTTP request
             let response = Response::from_string(response);
             request.respond(response).unwrap();
@@ -33,7 +31,9 @@ fn handle_back_end_command(url: &str) -> &str {
     "Command handled by Tauri back end\n"
 }
 
-fn handle_front_end_command(url: &str) -> &str {
+fn handle_front_end_command(url: &str, window: &WebviewWindow) -> &'static str {
     println!("Front end command: {}", url);
+    // Send the event to the Tauri webview
+    window.emit("tash-command", url).unwrap();
     "Command sent to Tauri webview\n"
 }
