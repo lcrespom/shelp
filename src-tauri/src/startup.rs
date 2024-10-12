@@ -5,7 +5,7 @@ const SHELP_HOME: &str = ".shelp";
 
 pub fn check_first_use() {
     if create_shelp_directory() {
-        //TODO write .zsh file
+        //TODO write shelp.zsh file
     }
 }
 

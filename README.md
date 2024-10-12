@@ -16,6 +16,10 @@ A shell helper popup.
     - [ ] New routes / UIs
     - [ ] Global hotkeys
 - React
+  - [ ] Startup
+    - [ ] Receive initial configuration from rust
+    - [ ] Set window size and position
+  - [ ] Show / Hide window
   - [ ] Install router
   - [ ] Install UI library
   - [ ] Welcome / home page
