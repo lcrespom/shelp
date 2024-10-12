@@ -26,8 +26,16 @@ pub fn setup_http_server(app: &mut tauri::App) {
     });
 }
 
-fn handle_back_end_command(url: &str) -> &str {
-    println!("Back end command: {}", url);
+fn handle_back_end_command(command: &str) -> &str {
+    println!("Back end command: {}", command);
+    let parts: Vec<&str> = command.split(':').collect();
+    let verb = parts.get(0).unwrap();
+    let params = parts.get(1..).unwrap();
+    println!("Verb: {}, params: {:?}", verb, params);
+    match *verb {
+        //"chpwd" => chpwd(params[0]),
+        _ => println!("Unknown command"),
+    }
     "Command handled by Tauri back end\n"
 }
 

@@ -1,5 +1,5 @@
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 const SHELP_HOME: &str = ".shelp";
 
@@ -9,34 +9,32 @@ pub fn check_first_use() {
     }
 }
 
-fn create_shelp_directory() -> bool {
-    // Get the home directory
-    if let Some(home_dir) = dirs::home_dir() {
-        // Create the .shelp directory path
-        let shelp_dir = home_dir.join(SHELP_HOME);
+pub fn get_shelp_dir() -> PathBuf {
+    let home_dir = dirs::home_dir().unwrap();
+    home_dir.join(SHELP_HOME)
+}
 
-        // Check if the directory exists
-        if !Path::new(&shelp_dir).exists() {
-            // Create the directory
-            match fs::create_dir(&shelp_dir) {
-                Ok(_) => {
-                    println!(
-                        "Welcome to SHelp.\nDirectory {} created successfully.",
-                        SHELP_HOME
-                    );
-                    true
-                }
-                Err(e) => {
-                    eprintln!("Failed to create {} directory: {}", SHELP_HOME, e);
-                    false
-                }
+fn create_shelp_directory() -> bool {
+    // Get the .shelp directory path
+    let shelp_dir = get_shelp_dir();
+    // Check if the directory exists
+    if !Path::new(&shelp_dir).exists() {
+        // Create the directory
+        match fs::create_dir(&shelp_dir) {
+            Ok(_) => {
+                println!(
+                    "Welcome to SHelp.\nDirectory {} created successfully.",
+                    SHELP_HOME
+                );
+                true
             }
-        } else {
-            println!("Welcome back to SHelp.");
-            false
+            Err(e) => {
+                eprintln!("Failed to create {} directory: {}", SHELP_HOME, e);
+                false
+            }
         }
     } else {
-        eprintln!("Could not determine home directory.");
-        false //TODO panic
+        println!("Welcome back to SHelp.");
+        false
     }
 }
