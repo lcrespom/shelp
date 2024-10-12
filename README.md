@@ -27,6 +27,11 @@ A shell helper popup.
   - [ ] History
   - [ ] Tab completion
   - [ ] Home / end
+- Documentation
+  - [ ] This readme
+    - [ ] Installation
+    - [ ] Development / contribution
+  - [ ] User manual in HTML
 
 ## zsh setup examples
 
