@@ -1,5 +1,6 @@
 import { listen } from '@tauri-apps/api/event'
 import { isTauri } from '@tauri-apps/api/core'
+import { addDirToHistory, getDirHistory } from './commands/dirhistory'
 
 export function listenTauriEvents() {
   if (isTauri()) {
@@ -23,6 +24,13 @@ function runCommand(cmd: string) {
 const commands: Record<string, Function> = {
   // Called when the user changes directory
   chpwd(params: URLSearchParams) {
-    console.log(`ToDo: add ${params.get('dir')} to dirHistory`)
+    let path = params.get('dir')
+    if (path) addDirToHistory(path)
+    else console.warn('chpwd: no dir parameter in URL')
+  },
+  // Navigate to route with list of directories and a search input
+  dirHistory(_params: URLSearchParams) {
+    console.log('ToDo dirHistory')
+    console.log(getDirHistory())
   },
 }

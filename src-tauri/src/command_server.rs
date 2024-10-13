@@ -2,7 +2,7 @@ use std::thread;
 use tauri::{Emitter, Manager, WebviewWindow};
 use tiny_http::{Response, Server};
 
-const SERVER_ADDRESS: &str = "127.0.0.1:7878";
+const SERVER_ADDRESS: &str = "127.0.0.1:5431";
 
 pub fn setup_http_server(app: &mut tauri::App) {
     // Get the main window

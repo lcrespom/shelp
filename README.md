@@ -23,11 +23,13 @@ A shell helper popup.
   - [x] Install router
   - [ ] Install UI library
   - [ ] Welcome / home page
-  - [ ] Dirhistory
+  - [ ] Dirhistory route
   - [ ] History
   - [ ] Tab completion
 - zsh
   - [ ] Dirhistory
+    - [x] chpwd
+    - [ ] PgDown: open window on dirhistory route
   - [ ] History
   - [ ] Tab completion
   - [ ] Home / end
