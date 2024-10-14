@@ -1,12 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import '@shoelace-style/shoelace/dist/themes/light.css'
-import '@shoelace-style/shoelace/dist/themes/dark.css'
-import { setBasePath } from '@shoelace-style/shoelace'
 
 import './App.css'
-
-// Required to download icons and other assets
-setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.17.1/cdn/')
 
 function NavBar() {
   return (
