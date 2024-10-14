@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom'
+//import { createBrowserRouter, RouterProvider, NavLink } from 'react-router-dom'
 import '@shoelace-style/shoelace/dist/themes/light.css'
 import '@shoelace-style/shoelace/dist/themes/dark.css'
 import { setBasePath } from '@shoelace-style/shoelace'
@@ -15,27 +16,36 @@ function NavBar() {
   return (
     <>
       <h2>Pages</h2>
-      <ul>
-        <li>
-          <a href="/">Welcome</a>
-        </li>
-        <li>
-          <a href="/demo">FE to BE demo</a>
-        </li>
-        <li>
-          <a href="/dirhistory">Dir History</a>
-        </li>
-      </ul>
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/">Welcome</NavLink>
+          </li>
+          <li>
+            <NavLink to="/demo">FE to BE demo</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dirhistory">Dir History</NavLink>
+          </li>
+        </ul>
+      </nav>
     </>
   )
 }
+
+// const router = createBrowserRouter([
+//   { path: '/', element: <Welcome /> },
+//   { path: '/demo', element: <Demo /> },
+//   { path: '/dirhistory', element: <DirHistory /> },
+// ])
 
 function App() {
   return (
     <div>
       <h1>Shelp</h1>
-      <NavBar />
+      {/* <RouterProvider router={router} /> */}
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/demo" element={<Demo />} />
