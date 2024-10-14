@@ -1,6 +1,7 @@
 import { listen } from '@tauri-apps/api/event'
 import { isTauri } from '@tauri-apps/api/core'
 import { addDirToHistory, getDirHistory } from './commands/dirhistory'
+import { router } from './router'
 
 export function listenTauriEvents() {
   if (isTauri()) {
@@ -36,10 +37,7 @@ const commands: Record<string, Function> = {
 
   // Navigate to route with list of directories and a search input
   dirHistory() {
-    console.log(
-      'ToDo dirHistory: navigate to route with list of directories and a search input'
-    )
-    window.history.pushState({}, '', '/dirhistory')
+    router.navigate('/dirhistory')
     console.log(getDirHistory())
   },
 }

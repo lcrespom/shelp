@@ -1,12 +1,8 @@
-import { BrowserRouter, Route, Routes, NavLink } from 'react-router-dom'
-//import { createBrowserRouter, RouterProvider, NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import '@shoelace-style/shoelace/dist/themes/light.css'
 import '@shoelace-style/shoelace/dist/themes/dark.css'
 import { setBasePath } from '@shoelace-style/shoelace'
 
-import Welcome from './pages/welcome'
-import Demo from './pages/demo'
-import DirHistory from './pages/dirhistory'
 import './App.css'
 
 // Required to download icons and other assets
@@ -33,25 +29,12 @@ function NavBar() {
   )
 }
 
-// const router = createBrowserRouter([
-//   { path: '/', element: <Welcome /> },
-//   { path: '/demo', element: <Demo /> },
-//   { path: '/dirhistory', element: <DirHistory /> },
-// ])
-
 function App() {
   return (
     <div>
       <h1>Shelp</h1>
-      {/* <RouterProvider router={router} /> */}
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/demo" element={<Demo />} />
-          <Route path="/dirhistory" element={<DirHistory />} />
-        </Routes>
-      </BrowserRouter>
+      <NavBar />
+      <Outlet /> {/* Where child routes will render */}
     </div>
   )
 }
