@@ -1,6 +1,6 @@
 import { listen } from '@tauri-apps/api/event'
 import { isTauri } from '@tauri-apps/api/core'
-import { addDirToHistory, getDirHistory, updateDirHistory } from './commands/dirhistory'
+import { addDirToHistory, getDirHistory } from './commands/dirhistory'
 
 export function listenTauriEvents() {
   if (isTauri()) {

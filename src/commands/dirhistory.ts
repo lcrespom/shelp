@@ -19,5 +19,5 @@ export function getDirHistory() {
 export async function initDirHistory() {
   console.log('ToDo: request ~/.shelp/.dirHistory from Tauri')
   let fileData: string = await invoke('get_file', { name: 'dirHistory' })
-  dirHistory = fileData.split('\n')
+  dirHistory = fileData.split('\n').filter(d => d)
 }
