@@ -39,6 +39,7 @@ const commands: Record<string, Function> = {
     console.log(
       'ToDo dirHistory: navigate to route with list of directories and a search input'
     )
+    window.history.pushState({}, '', '/dirhistory')
     console.log(getDirHistory())
   },
 }
