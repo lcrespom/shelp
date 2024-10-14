@@ -1,3 +1,5 @@
+import { invoke } from '@tauri-apps/api/core'
+
 const MAX_ENTRIES = 200
 
 let dirHistory: string[] = []
@@ -14,6 +16,8 @@ export function getDirHistory() {
   return dirHistory
 }
 
-export function initDirHistory() {
+export async function initDirHistory() {
   console.log('ToDo: request ~/.shelp/.dirHistory from Tauri')
+  let fileData: string = await invoke('get_file', { name: 'dirHistory' })
+  dirHistory = fileData.split('\n')
 }

@@ -1,6 +1,6 @@
 import { listen } from '@tauri-apps/api/event'
 import { isTauri } from '@tauri-apps/api/core'
-import { addDirToHistory, getDirHistory } from './commands/dirhistory'
+import { addDirToHistory, getDirHistory, updateDirHistory } from './commands/dirhistory'
 
 export function listenTauriEvents() {
   if (isTauri()) {
@@ -16,21 +16,29 @@ export function listenTauriEvents() {
 
 function runCommand(cmd: string) {
   let [verb, query] = cmd.substring(1).split('?')
-  let params = new URLSearchParams(query || '')
+  let params
+  if (query) {
+    if (query.startsWith('json=')) params = JSON.parse(query.substring(5))
+    else if (query.startsWith('text=')) params = query.substring(5)
+    else params = Object.fromEntries(new URLSearchParams(query).entries())
+  }
   if (!commands[verb]) console.warn('Unrecognized command')
   else commands[verb](params)
 }
 
 const commands: Record<string, Function> = {
   // Called when the user changes directory
-  chpwd(params: URLSearchParams) {
-    let path = params.get('dir')
+  chpwd(params: Record<string, any>) {
+    let path = params.dir
     if (path) addDirToHistory(path)
     else console.warn('chpwd: no dir parameter in URL')
   },
+
   // Navigate to route with list of directories and a search input
-  dirHistory(_params: URLSearchParams) {
-    console.log('ToDo dirHistory')
+  dirHistory() {
+    console.log(
+      'ToDo dirHistory: navigate to route with list of directories and a search input'
+    )
     console.log(getDirHistory())
   },
 }
