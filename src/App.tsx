@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 //TODO apply theme according to user preference
@@ -9,7 +8,7 @@ let theme = 'light'
 function NavBar() {
   return (
     <>
-      <h2>Pages</h2>
+      <h2 className="text-2xl">Pages</h2>
       <nav>
         <ul>
           <li>
@@ -29,8 +28,8 @@ function NavBar() {
 
 function App() {
   return (
-    <div data-bs-theme={theme}>
-      <h1>Shelp</h1>
+    <div className="m-2">
+      <h1 className="text-3xl">Shelp</h1>
       <NavBar />
       <Outlet /> {/* Where child routes will render */}
     </div>
