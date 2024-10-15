@@ -17,13 +17,13 @@ export default function DirHistory() {
     <div>
       <h2 className="text-2xl">ToDo: Dir History</h2>
       <input
-        className="w-full rounded border border-gray-400 p-1 focus:outline-none"
+        className="mb-2 w-full rounded border border-gray-400 p-1 focus:outline-none"
         autoFocus
         onInput={updateFilter}
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col rounded border border-gray-400 p-1">
         {dirs.map((dir, idx) => (
-          <a href="#" className="list-group-item list-group-item-action" key={idx}>
+          <a href="#" className="border-b font-mono text-sm hover:bg-blue-400" key={idx}>
             {dir}
           </a>
         ))}
