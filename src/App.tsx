@@ -2,9 +2,6 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 import './App.css'
 
-//TODO apply theme according to user preference
-let theme = 'light'
-
 function NavBar() {
   return (
     <>
