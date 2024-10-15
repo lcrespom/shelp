@@ -17,8 +17,10 @@ export default function DirHistory() {
     <div>
       <h2 className="text-2xl">ToDo: Dir History</h2>
       <input
+        type="text"
         className="mb-2 w-full rounded border border-gray-400 p-1 focus:outline-none"
         autoFocus
+        spellCheck="false"
         onInput={updateFilter}
       />
       <div className="flex flex-col rounded border border-gray-400 p-1">
