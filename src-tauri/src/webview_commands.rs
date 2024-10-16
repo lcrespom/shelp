@@ -18,3 +18,8 @@ pub fn get_file(name: &str) -> String {
         Err(_error) => "".to_string(),
     }
 }
+
+#[tauri::command]
+pub fn send_response(data: &str) {
+    println!("ToDo: write response '{}' in channel", data);
+}

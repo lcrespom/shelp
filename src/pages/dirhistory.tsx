@@ -24,8 +24,8 @@ export default function DirHistory() {
   return (
     <div className="flex h-screen flex-col dark:bg-black">
       {/*------------------------- List of directories -------------------------*/}
-      <div className="m-2 flex flex-grow flex-col-reverse overflow-auto rounded border border-gray-400 p-1">
-        <div ref={scrollRef} className="dark:bg-gray-800 dark:text-gray-200">
+      <div className="m-2 flex flex-grow flex-col-reverse overflow-auto rounded border border-gray-400 p-1 dark:bg-gray-800 dark:text-gray-200">
+        <div ref={scrollRef}>
           {dirs.map((dir, idx) => (
             <a
               href="#"

@@ -86,3 +86,17 @@ bindkey "^I" custom_tab_function  # ^I is the representation of the Tab key in z
 # Disable default tab completion
 unsetopt complete_in_word
 ```
+
+## Setting focus back to the terminal (MacOS only)
+
+### Step 1: get the name of the terminal program
+
+```zsh
+TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
+```
+
+### Step 2: set focus back to the terminal application
+
+```zsh
+osascript -e "tell application \"$TERMAPP\" to activate"
+```
