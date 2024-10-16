@@ -24,8 +24,15 @@ function runCommand(cmd: string) {
     else if (query.startsWith('text=')) params = query.substring(5)
     else params = Object.fromEntries(new URLSearchParams(query).entries())
   }
-  if (!commands[verb]) console.warn('Unrecognized command')
-  else commands[verb](params)
+  if (!commands[verb]) {
+    console.warn('Unrecognized command')
+  } else {
+    let title = commands[verb](params)
+    let cw = getCurrentWindow()
+    if (title !== undefined) cw.setTitle(title || '')
+    cw.show()
+    cw.setFocus()
+  }
 }
 
 const commands: Record<string, Function> = {
@@ -39,7 +46,13 @@ const commands: Record<string, Function> = {
   // Navigate to route with list of directories and a search input
   dirHistory() {
     router.navigate('/dirhistory')
-    getCurrentWindow().setTitle('Dir History')
     console.log(getDirHistory())
+    return 'Dir History'
+  },
+
+  // Welcome page
+  welcome() {
+    router.navigate('/')
+    return 'Welcome to shelp'
   },
 }

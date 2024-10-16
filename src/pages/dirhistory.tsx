@@ -29,7 +29,7 @@ export default function DirHistory() {
           {dirs.map((dir, idx) => (
             <a
               href="#"
-              className="block border-t font-mono text-sm hover:bg-blue-500 dark:border-gray-600"
+              className="block border-t p-0.5 font-mono text-sm hover:bg-blue-500 dark:border-gray-600"
               key={idx}
             >
               {dir}
