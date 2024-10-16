@@ -21,32 +21,27 @@ export default function DirHistory() {
     console.log(`Dir History: found ${filteredDirs.length} entries`)
   }
 
-  const dirListClasses = `
-    m-2 flex flex-1 flex-col overflow-auto rounded border border-gray-400 p-1
-    dark:bg-gray-800 dark:text-gray-200`
-  const inputClasses = `
-    m-2 rounded border border-gray-400 p-1 font-mono focus:outline-none
-    dark:bg-gray-800 dark:text-gray-200`
-
   return (
     <div className="flex h-screen flex-col dark:bg-black">
       {/*------------------------- List of directories -------------------------*/}
-      <div ref={scrollRef} className={dirListClasses}>
-        {dirs.map((dir, idx) => (
-          <a
-            href="#"
-            className="border-b font-mono text-sm last:border-b-0 hover:bg-blue-500"
-            key={idx}
-          >
-            {dir}
-          </a>
-        ))}
+      <div className="m-2 flex flex-grow flex-col-reverse overflow-auto rounded border border-gray-400 p-1">
+        <div ref={scrollRef} className="dark:bg-gray-800 dark:text-gray-200">
+          {dirs.map((dir, idx) => (
+            <a
+              href="#"
+              className="block border-t font-mono text-sm hover:bg-blue-500 dark:border-gray-600"
+              key={idx}
+            >
+              {dir}
+            </a>
+          ))}
+        </div>
       </div>
 
       {/*------------------------- Search box -------------------------*/}
       <input
         type="text"
-        className={inputClasses}
+        className="m-2 rounded border border-gray-400 p-1 font-mono focus:outline-none dark:bg-gray-800 dark:text-gray-200"
         autoFocus
         spellCheck="false"
         onInput={updateFilter}
