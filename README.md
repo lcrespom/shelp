@@ -19,11 +19,15 @@ A shell helper popup.
   - [ ] Startup
     - [ ] Receive initial configuration from rust
     - [ ] Set window size and position
-  - [ ] Show / Hide window
+  - [x] Show / Hide window
+  - [ ] Refresh window on show
   - [x] Install router
-  - [ ] Install UI library
-  - [ ] Welcome / home page
-  - [ ] Dirhistory route
+  - [x] Install CSS library (Tailwind CSS)
+  - [x] Welcome / home page
+  - [x] Dirhistory route
+    - [ ] Page up / down
+    - [ ] Scroll to make selected item visible
+    - [ ] Write .dirHistory when user changes directory
   - [ ] History
   - [ ] Tab completion
 - zsh
