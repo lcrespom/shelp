@@ -41,7 +41,8 @@ A shell helper popup.
     - [x] Set focus back to terminal
   - [ ] History
   - [ ] Tab completion
-  - [ ] Home / end
+  - [x] Home / end
+  - [ ] Test with oh-my-zsh
 - Documentation
   - [ ] This readme
     - [ ] Installation

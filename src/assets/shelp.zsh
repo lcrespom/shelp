@@ -1,6 +1,8 @@
 # Key codes
-PAGE_UP="^[[5~"
-PAGE_DOWN="^[[6~"
+KB_PAGE_UP="^[[5~"
+KB_PAGE_DOWN="^[[6~"
+KB_HOME="^[[H"
+KB_END="^[[F"
 
 # shelp command server address
 POPUP_HOST="localhost:5431"
@@ -27,4 +29,8 @@ function dir_history_popup() {
 zle -N dir_history_popup
 
 # Bind the key to the widget
-bindkey $PAGE_DOWN dir_history_popup
+bindkey $KB_PAGE_DOWN dir_history_popup
+
+# Bind home and end keys for convenience
+bindkey $KB_HOME beginning-of-line
+bindkey $KB_END end-of-line
