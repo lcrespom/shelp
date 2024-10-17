@@ -38,7 +38,7 @@ A shell helper popup.
   - [ ] Dirhistory
     - [x] chpwd
     - [x] PgDown: open window on dirhistory route
-    - [ ] Set focus back to terminal
+    - [x] Set focus back to terminal
   - [ ] History
   - [ ] Tab completion
   - [ ] Home / end
