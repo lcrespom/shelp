@@ -1,3 +1,4 @@
+mod command_channel;
 mod command_server;
 mod startup;
 mod webview_commands;

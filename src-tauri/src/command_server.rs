@@ -2,6 +2,8 @@ use std::thread;
 use tauri::{Emitter, Manager, WebviewWindow};
 use tiny_http::{Response, Server};
 
+use crate::command_channel::receive_string;
+
 const SERVER_ADDRESS: &str = "127.0.0.1:5431";
 
 pub fn setup_http_server(app: &mut tauri::App) {
@@ -12,16 +14,18 @@ pub fn setup_http_server(app: &mut tauri::App) {
         let server = Server::http(SERVER_ADDRESS).unwrap();
         println!("Server listening in {}", SERVER_ADDRESS);
         for request in server.incoming_requests() {
-            let url = request.url();
+            let url = request.url().to_string();
             println!("Got request: {}", url);
-            let response = if url.starts_with("/_") {
-                handle_back_end_command(&url[2..])
+            if url.starts_with("/_") {
+                let response = handle_back_end_command(&url[2..]);
+                request.respond(Response::from_string(response)).unwrap();
             } else {
-                handle_front_end_command(url, &main_window)
-            };
-            // Respond to the HTTP request
-            let response = Response::from_string(response);
-            request.respond(response).unwrap();
+                handle_front_end_command(&url, &main_window);
+                println!("Waiting for channel message...");
+                let response = receive_string().unwrap();
+                println!("Got channel message: {}", response);
+                request.respond(Response::from_string(response)).unwrap();
+            }
         }
     });
 }

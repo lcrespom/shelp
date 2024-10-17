@@ -1,6 +1,6 @@
 use std::fs;
 
-use crate::startup;
+use crate::{command_channel::send_string, startup};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 
@@ -21,5 +21,8 @@ pub fn get_file(name: &str) -> String {
 
 #[tauri::command]
 pub fn send_response(data: &str) {
-    println!("ToDo: write response '{}' in channel", data);
+    match send_string(data.to_string()) {
+        Ok(()) => println!("send_response sent '{}' to channel", data),
+        Err(error) => println!("ERROR: send_response got error '{}'", error),
+    }
 }
