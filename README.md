@@ -20,7 +20,7 @@ A shell helper popup.
     - [ ] Receive initial configuration from rust
     - [ ] Set window size and position
   - [x] Show / Hide window
-  - [ ] Refresh window on show
+  - [x] Refresh window on show
   - [x] Install router
   - [x] Install CSS library (Tailwind CSS)
   - [x] Welcome / home page
