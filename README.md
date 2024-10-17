@@ -33,7 +33,8 @@ A shell helper popup.
 - zsh
   - [ ] Dirhistory
     - [x] chpwd
-    - [ ] PgDown: open window on dirhistory route
+    - [x] PgDown: open window on dirhistory route
+    - [ ] Set focus back to terminal
   - [ ] History
   - [ ] Tab completion
   - [ ] Home / end

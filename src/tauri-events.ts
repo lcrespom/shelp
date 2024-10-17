@@ -39,6 +39,11 @@ function runCommand(cmd: string) {
   }
 }
 
+function navigateAndRefresh(path: string) {
+  router.navigate(path)
+  refreshApp()
+}
+
 const commands: Record<string, Function> = {
   // Called when the user changes directory
   chpwd(params: Record<string, any>) {
@@ -50,8 +55,7 @@ const commands: Record<string, Function> = {
 
   // Navigate to route with list of directories and a search input
   dirHistory() {
-    router.navigate('/dirhistory')
-    refreshApp()
+    navigateAndRefresh('/dirhistory')
     console.log(getDirHistory())
     return 'Dir History'
   },
