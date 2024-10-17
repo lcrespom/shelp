@@ -27,7 +27,7 @@ A shell helper popup.
   - [x] Dirhistory route
     - [ ] Page up / down
     - [ ] Scroll to make selected item visible
-    - [ ] Write .dirHistory when user changes directory
+    - [x] Write .dirHistory when user changes directory
   - [ ] History
   - [ ] Tab completion
 - zsh

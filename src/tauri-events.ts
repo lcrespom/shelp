@@ -1,5 +1,5 @@
 import { listen } from '@tauri-apps/api/event'
-import { isTauri } from '@tauri-apps/api/core'
+import { invoke, isTauri } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { addDirToHistory, getDirHistory } from './commands/dirhistory'
 import { router } from './router'
@@ -28,10 +28,12 @@ function runCommand(cmd: string) {
     console.warn('Unrecognized command')
   } else {
     let title = commands[verb](params)
-    let cw = getCurrentWindow()
-    if (title !== undefined) cw.setTitle(title || '')
-    cw.show()
-    cw.setFocus()
+    if (title !== undefined) {
+      let cw = getCurrentWindow()
+      cw.setTitle(title || '')
+      cw.show()
+      cw.setFocus()
+    }
   }
 }
 
@@ -41,6 +43,7 @@ const commands: Record<string, Function> = {
     let path = params.dir
     if (path) addDirToHistory(path)
     else console.warn('chpwd: no dir parameter in URL')
+    invoke('send_response', { data: '' })
   },
 
   // Navigate to route with list of directories and a search input
