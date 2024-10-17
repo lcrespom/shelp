@@ -23,6 +23,10 @@ A shell helper popup.
   - [x] Refresh window on show
   - [x] Install router
   - [x] Install CSS library (Tailwind CSS)
+  - [ ] Cool CSS:
+    - [ ] Monokai for dark mode theme
+    - [ ] Some light vs code theme
+    - [ ] Configuration support to force the dark theme
   - [x] Welcome / home page
   - [x] Dirhistory route
     - [ ] Page up / down

@@ -2,7 +2,7 @@ use std::thread;
 use tauri::{Emitter, Manager, WebviewWindow};
 use tiny_http::{Response, Server};
 
-use crate::command_channel::receive_string;
+use crate::command_channel::{clear_queue, receive_string};
 
 const SERVER_ADDRESS: &str = "127.0.0.1:5431";
 
@@ -16,6 +16,7 @@ pub fn setup_http_server(app: &mut tauri::App) {
         for request in server.incoming_requests() {
             let url = request.url().to_string();
             println!("Got request: {}", url);
+            clear_queue();
             if url.starts_with("/_") {
                 let response = handle_back_end_command(&url[2..]);
                 request.respond(Response::from_string(response)).unwrap();

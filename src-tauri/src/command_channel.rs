@@ -27,3 +27,10 @@ pub fn receive_string() -> Result<String, String> {
     // Call recv() blocks until a message is available
     receiver.recv().map_err(|e| e.to_string())
 }
+
+pub fn clear_queue() {
+    let receiver = CHANNEL.receiver.lock().unwrap();
+    for item in receiver.try_iter() {
+        println!("Clearing queue: '{}'", item)
+    }
+}
