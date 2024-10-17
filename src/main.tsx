@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 listenTauriEvents()
 initDirHistory()
 
-document.addEventListener('keydown', evt => {
+document.addEventListener('keyup', evt => {
   if (evt.key == 'Escape' || evt.code == 'Escape') {
     invoke('send_response', { data: '' })
     getCurrentWindow().hide()

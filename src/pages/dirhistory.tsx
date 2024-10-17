@@ -53,6 +53,7 @@ export default function DirHistory() {
     let key = evt.key || evt.code
     let cancelEvent = true
     if (key == 'Enter') {
+      if (!dirs || dirs.length <= 0) return
       invoke('send_response', { data: dirs[row] })
       getCurrentWindow().hide()
     } else if (key == 'ArrowUp') {
