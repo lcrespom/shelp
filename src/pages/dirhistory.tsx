@@ -7,6 +7,8 @@ import { getDirHistory } from '../commands/dirhistory'
 let rowsPerPage = 25
 
 export default function DirHistory() {
+  // #region ------------------------- Setup -------------------------
+
   let fullHistory = getDirHistory()
   let [dirs, setDirs] = useState(fullHistory)
   let [row, setRow] = useState(dirs.length - 1)
@@ -54,9 +56,11 @@ export default function DirHistory() {
       invoke('send_response', { data: dirs[row] })
       getCurrentWindow().hide()
     } else if (key == 'ArrowUp') {
-      updateRow(-1)
+      if (evt.metaKey) updateRow(-dirs.length)
+      else updateRow(-1)
     } else if (key == 'ArrowDown') {
-      updateRow(1)
+      if (evt.metaKey) updateRow(dirs.length)
+      else updateRow(1)
     } else if (key == 'PageUp') {
       updateRow(-rowsPerPage)
     } else if (key == 'PageDown') {
