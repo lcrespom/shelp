@@ -4,6 +4,8 @@ import { getCurrentWindow } from '@tauri-apps/api/window'
 
 import { getDirHistory } from '../commands/dirhistory'
 
+let rowsPerPage = 25
+
 export default function DirHistory() {
   let fullHistory = getDirHistory()
   let [dirs, setDirs] = useState(fullHistory)
@@ -13,6 +15,13 @@ export default function DirHistory() {
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+      let boxH = scrollRef.current.parentElement?.getBoundingClientRect().height || 800
+      let rowElem = scrollRef.current.childNodes.item(0) as HTMLElement
+      if (rowElem) {
+        let rowH = rowElem.getBoundingClientRect().height
+        rowsPerPage = Math.floor(boxH / rowH) - 1
+        console.log({ boxH, rowH, rowsPerPage })
+      }
     }
   }, [dirs])
 
@@ -28,6 +37,16 @@ export default function DirHistory() {
     console.log(`Dir History: found ${filteredDirs.length} entries`)
   }
 
+  function updateRow(steps: number) {
+    let newRow = row + steps
+    if (newRow < 0) newRow = 0
+    else if (newRow >= dirs.length) newRow = dirs.length - 1
+    if (row == newRow) return
+    setRow(newRow)
+    let rowElem = scrollRef.current?.childNodes.item(newRow) as HTMLElement
+    rowElem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+  }
+
   function checkKey(evt: React.KeyboardEvent) {
     let key = evt.key || evt.code
     let cancelEvent = true
@@ -35,19 +54,13 @@ export default function DirHistory() {
       invoke('send_response', { data: dirs[row] })
       getCurrentWindow().hide()
     } else if (key == 'ArrowUp') {
-      // TODO ensure row is visible, update scrollTop if required
-      if (row > 0) setRow(row - 1)
+      updateRow(-1)
     } else if (key == 'ArrowDown') {
-      // TODO ensure row is visible, update scrollTop if required
-      if (row < dirs.length - 1) setRow(row + 1)
+      updateRow(1)
     } else if (key == 'PageUp') {
-      // TODO page up
-      // Requires computation of number of visible rows
-      console.log('ToDo: page up')
+      updateRow(-rowsPerPage)
     } else if (key == 'PageDown') {
-      // TODO page down
-      // Requires computation of number of visible rows
-      console.log('ToDo: page down')
+      updateRow(rowsPerPage)
     } else {
       cancelEvent = false
     }

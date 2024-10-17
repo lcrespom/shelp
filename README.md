@@ -29,8 +29,8 @@ A shell helper popup.
     - [ ] Configuration support to force the dark theme
   - [x] Welcome / home page
   - [x] Dirhistory route
-    - [ ] Page up / down
-    - [ ] Scroll to make selected item visible
+    - [x] Page up / down
+    - [x] Scroll to make selected item visible
     - [x] Write .dirHistory when user changes directory
   - [ ] History
   - [ ] Tab completion
