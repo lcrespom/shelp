@@ -24,7 +24,7 @@ A shell helper popup.
   - [x] Install router
   - [x] Install CSS library (Tailwind CSS)
   - [ ] Cool CSS:
-    - [ ] Monokai for dark mode theme
+    - [x] Monokai for dark mode theme
     - [ ] Some light vs code theme
     - [ ] Configuration support to force the dark theme
   - [x] Welcome / home page
