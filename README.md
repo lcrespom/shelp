@@ -10,8 +10,12 @@ A shell helper popup.
     - [x] Write shelp.zsh in ~/.shelp
     - [ ] Emit instructions in console, show welcome URL
   - [ ] Configuration
-    - [ ] HTTP Port (through env variable)
     - [ ] CSS file
+    - [ ] Settings/preferences (env vars or json file)
+      - [ ] HTTP Port
+      - [ ] Initial window size
+      - [ ] Always on top
+      - [ ] Dark/light/automatic mode
   - [ ] Extensibility
     - [ ] New routes / UIs
     - [ ] Global hotkeys
