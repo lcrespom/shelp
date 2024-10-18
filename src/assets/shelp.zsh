@@ -25,6 +25,12 @@ function dir_history_popup() {
     osascript -e "tell application \"$TERMAPP\" to activate"
 }
 
+# Open shelp popup in the history page
+function history_popup() {
+    #TODO
+    #history -5 | curl -X POST --data-binary @- "localhost:5431/history"
+}
+
 # Register the dirhistory function as a widget
 zle -N dir_history_popup
 

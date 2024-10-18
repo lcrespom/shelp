@@ -34,7 +34,7 @@ function runCommand(cmd: CommandPayload) {
   if (!commands[verb]) {
     console.warn('Unrecognized command')
   } else {
-    let title = commands[verb](params)
+    let title = commands[verb](params, cmd.body)
     if (title !== undefined) {
       let cw = getCurrentWindow()
       cw.setTitle(title || '')
@@ -63,6 +63,11 @@ const commands: Record<string, Function> = {
     navigateAndRefresh('/dirhistory')
     console.log(getDirHistory())
     return 'Dir History'
+  },
+
+  history(_params: any, body: string) {
+    console.log('ToDo History', body.split('\n'))
+    invoke('send_response', { data: '' })
   },
 
   // Welcome page
