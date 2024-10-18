@@ -6,20 +6,25 @@ import { addDirToHistory, getDirHistory } from './commands/dirhistory'
 import { router } from './router'
 import { refreshApp } from './App'
 
+type CommandPayload = {
+  url: string
+  body: string
+}
+
 export function listenTauriEvents() {
   if (isTauri()) {
-    listen<string>('tash-command', event => {
+    listen<CommandPayload>('shelp-command', event => {
       console.log('Got command:', event)
       runCommand(event.payload)
     })
-    console.log('Listening to tash-command events')
+    console.log('Listening to shelp-command events')
   } else {
     console.log('Tauri not detected (maybe running directly from browser?)')
   }
 }
 
-function runCommand(cmd: string) {
-  let [verb, query] = cmd.substring(1).split('?')
+function runCommand(cmd: CommandPayload) {
+  let [verb, query] = cmd.url.substring(1).split('?')
   let params
   if (query) {
     if (query.startsWith('json=')) params = JSON.parse(query.substring(5))
