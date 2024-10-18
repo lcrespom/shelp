@@ -25,7 +25,10 @@ body {
 }
 
 .dirhistory-sel {
-  @apply bg-blue-300 dark:bg-[#75715E];
+  @apply bg-blue-300;
+  @media (prefers-color-scheme: dark) {
+    background-color: hsl(50, 11%, 33%);
+  }
 }
 
 .dirhistory-hover:hover {
