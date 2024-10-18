@@ -5,7 +5,8 @@ KB_HOME="^[[H"
 KB_END="^[[F"
 
 # shelp command server address
-POPUP_HOST="localhost:5431"
+SHELP_HOST="localhost:5431"
+MAX_HISTORY_LINES=200
 
 # Name of the terminal application
 TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
@@ -17,7 +18,7 @@ chpwd() {
 
 # Open shelp popup in the dir history page
 function dir_history_popup() {
-    new_dir=$(curl -s "$POPUP_HOST/dirHistory")
+    new_dir=$(curl -s "$SHELP_HOST/dirHistory")
     if [[ -n "$new_dir" ]]; then
         cd $new_dir
         zle reset-prompt
@@ -27,8 +28,8 @@ function dir_history_popup() {
 
 # Open shelp popup in the history page
 function history_popup() {
-    #TODO
-    #history -5 | curl -X POST --data-binary @- "localhost:5431/history"
+    history_command=$(history -$MAX_HISTORY_LINES | curl -X POST --data-binary @- "$SHELP_HOST/history")
+    echo "ToDo selected command: $history_command"
 }
 
 # Register the dirhistory function as a widget

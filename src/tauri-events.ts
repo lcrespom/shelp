@@ -67,7 +67,7 @@ const commands: Record<string, Function> = {
 
   history(_params: any, body: string) {
     console.log('ToDo History', body.split('\n'))
-    invoke('send_response', { data: '' })
+    invoke('send_response', { data: 'ToDo return selected command' })
   },
 
   // Welcome page
