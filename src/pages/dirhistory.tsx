@@ -81,12 +81,12 @@ export default function DirHistory() {
   return (
     <div className="flex h-screen flex-col">
       {/*------------------------- List of directories -------------------------*/}
-      <div className="m-2 flex flex-grow flex-col-reverse overflow-auto rounded border border-gray-400 p-1 dark:bg-gray-800">
+      <div className="dirhistory-box">
         <div ref={scrollRef}>
           {dirs.map((dir, idx) => (
             <a
               href="#"
-              className={`${row == idx ? 'bg-blue-300 dark:bg-blue-600' : 'hover:bg-blue-100 dark:hover:bg-blue-800'} block border-t p-0.5 font-mono text-sm dark:border-gray-600`}
+              className={`${row == idx ? 'dirhistory-sel' : 'dirhistory-hover'} dirhistory-item`}
               key={idx}
               onClick={_ => selectDirectory(dir)}
             >
@@ -99,7 +99,7 @@ export default function DirHistory() {
       {/*------------------------- Search box -------------------------*/}
       <input
         type="text"
-        className="m-2 rounded border border-gray-400 p-1 font-mono focus:outline-none dark:bg-gray-800 dark:text-gray-200"
+        className="dirhistory-input"
         autoFocus
         spellCheck="false"
         onInput={updateFilter}
