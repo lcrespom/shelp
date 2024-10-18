@@ -19,26 +19,17 @@ A shell helper popup.
   - [ ] Startup
     - [ ] Receive initial configuration from rust
     - [ ] Set window size and position
-  - [x] Show / Hide window
-  - [x] Refresh window on show
-  - [x] Install router
-  - [x] Install CSS library (Tailwind CSS)
   - [ ] Cool CSS:
     - [x] Monokai for dark mode theme
     - [ ] Some light vs code theme
     - [ ] Configuration support to force the dark theme
-  - [x] Welcome / home page
-  - [x] Dirhistory route
-    - [x] Page up / down
-    - [x] Scroll to make selected item visible
-    - [x] Write .dirHistory when user changes directory
-  - [ ] History
-  - [ ] Tab completion
+  - [ ] Routes
+    - [x] Welcome / home page
+    - [x] Dirhistory route
+    - [ ] History
+    - [ ] Tab completion
 - zsh
-  - [ ] Dirhistory
-    - [x] chpwd
-    - [x] PgDown: open window on dirhistory route
-    - [x] Set focus back to terminal
+  - [x] Dirhistory
   - [ ] History
   - [ ] Tab completion
   - [x] Home / end
