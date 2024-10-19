@@ -15,7 +15,8 @@
         "title": "Shelp",
         "width": 1000,
         "height": 800,
-        "alwaysOnTop": false
+        "alwaysOnTop": false,
+        "minimizable": false
       }
     ],
     "security": {

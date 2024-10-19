@@ -19,6 +19,7 @@ A shell helper popup.
   - [ ] Extensibility
     - [ ] New routes / UIs
     - [ ] Global hotkeys
+  - [x] Only quit on cmd+Q, hide window if closing window
 - React
   - [ ] Startup
     - [ ] Receive initial configuration from rust

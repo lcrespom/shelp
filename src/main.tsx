@@ -6,7 +6,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { router } from './router'
 import { listenTauriEvents } from './tauri-events'
 import { initDirHistory } from './commands/dirhistory'
-import { getCurrentWindow } from '@tauri-apps/api/window'
+import { getCurrentWindow, Window as TauriWindow } from '@tauri-apps/api/window'
 import ShelpZsh from './assets/shelp.zsh?raw'
 
 //#region ------------------------- React setup -------------------------
@@ -19,13 +19,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 //#region ------------------------- App startup -------------------------
 
-function handleEsc() {
+function handleWindowHide() {
+  let cw = getCurrentWindow()
   document.addEventListener('keyup', evt => {
-    if (evt.key == 'Escape' || evt.code == 'Escape') {
-      invoke('send_response', { data: '' })
-      getCurrentWindow().hide()
-    }
+    if (evt.key == 'Escape' || evt.code == 'Escape') hideWindow(cw)
   })
+  cw.listen('tauri://close-requested', _ => hideWindow(cw))
+}
+
+function hideWindow(w: TauriWindow) {
+  invoke('send_response', { data: '' })
+  w.hide()
 }
 
 async function initDotShelp() {
@@ -38,7 +42,7 @@ async function initDotShelp() {
 function startup() {
   listenTauriEvents()
   initDirHistory()
-  handleEsc()
+  handleWindowHide()
   initDotShelp()
 }
 
