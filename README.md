@@ -35,9 +35,10 @@ A shell helper popup.
     - [ ] Tab completion
 - zsh
   - [x] Dirhistory
-  - [ ] History
-  - [ ] Tab completion
+  - [x] History
   - [x] Home / end
+  - [ ] Esc => clear line
+  - [ ] Tab completion
   - [ ] Test with oh-my-zsh
 - Documentation
   - [ ] This readme
