@@ -156,4 +156,8 @@ test('Multiple split', _ => {
     { isMatch: true, text: 'ipsum dolor' },
     { isMatch: false, text: ' sit amet' },
   ])
+  expect(splitMatch(line, ['', 'lorem', '', ''])).toEqual([
+    { isMatch: true, text: 'Lorem' },
+    { isMatch: false, text: ' ipsum dolor sit amet' },
+  ])
 })

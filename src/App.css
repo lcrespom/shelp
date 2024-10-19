@@ -23,6 +23,13 @@ body {
   }
 }
 
+.selectlist-item i {
+  @apply bg-blue-400 not-italic;
+  @media (prefers-color-scheme: dark) {
+    background-color: hsl(50, 11%, 25%);
+  }
+}
+
 .selectlist-sel {
   @apply bg-blue-300;
   @media (prefers-color-scheme: dark) {

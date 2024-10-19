@@ -24,13 +24,7 @@ function filterList(list: string[], filterText?: string) {
 function MatchHighlight(props: MatchHighlightProps) {
   if (!props.filterText) return <>{props.line}</>
   let parts = splitMatch(props.line, props.filterText.split(' '))
-  return <span>{parts.map(part => part.text)}</span>
-
-  // {
-  //   parts.map(part => {
-  //   part.isMatch ? <i>{part.text}</i> : part.text
-  // })
-  //return <i>{props.line}</i>
+  return <span>{parts.map(part => (part.isMatch ? <i>{part.text}</i> : part.text))}</span>
 }
 
 export default function SelectList(props: SelectListProps) {

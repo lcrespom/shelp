@@ -28,8 +28,8 @@ A shell helper popup.
     - [x] Different text color for history vs dirHistory
     - [ ] Some light vs code theme
     - [ ] Configuration support to force the dark theme
-  - [ ] SearchList
-    - [ ] Highlight matched text
+  - [x] SearchList
+    - [x] Highlight matched text
     - [x] Search by multiple words
   - [ ] Routes
     - [x] Welcome / home page

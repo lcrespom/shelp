@@ -74,7 +74,10 @@ export function mergeSegments(src: MatchSegment[]): MatchSegment[] {
 
 export function splitMatch(line: string, words: string[]): MatchItem[] {
   let items: MatchItem[] = []
-  let segments = multiSegments(line, words)
+  let segments = multiSegments(
+    line,
+    words.filter(w => !!w) // Remove empty words
+  )
   segments = mergeSegments(segments)
   segments = segments.sort((a, b) => a.from - b.from)
   //let segments = mergeSegments(multiSegments(line, words)).sort((a, b) => a.from - b.from)
