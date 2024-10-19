@@ -35,8 +35,8 @@ function dir_history_popup() {
 function history_popup() {
     history_command=$(history -n -$MAX_HISTORY_LINES | curl -s -X POST --data-binary @- "$SHELP_HOST/history")
     if [[ -n "$history_command" ]]; then
-        $LBUFFER="$history_command"
-        $RBUFFER=""
+        LBUFFER="$history_command"
+        RBUFFER=""
     fi
     focus_term
 }
