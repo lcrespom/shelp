@@ -3,6 +3,11 @@ export type MatchSegment = {
   to: number
 }
 
+export type MatchItem = {
+  text: string
+  isMatch: boolean
+}
+
 export function multiMatch(line: string, words: string[]) {
   let ltlc = line.toLowerCase()
   for (let w of words) {
@@ -33,8 +38,12 @@ function insideSegment(pos: number, segment: MatchSegment): boolean {
 
 function findOverlap(src_segment: MatchSegment, segments: MatchSegment[]): number {
   for (let i = 0; i < segments.length; i++) {
+    // src_segment starts inside segments[i]
     if (insideSegment(src_segment.from, segments[i])) return i
+    // src_segment ends inside segments[i]
     if (insideSegment(src_segment.to, segments[i])) return i
+    // segments[i] is fully inside src_segment
+    if (insideSegment(segments[i].from, src_segment)) return i
   }
   return -1
 }
@@ -61,4 +70,22 @@ export function mergeSegments(src: MatchSegment[]): MatchSegment[] {
     }
   }
   return dst
+}
+
+export function splitMatch(line: string, words: string[]): MatchItem[] {
+  let items: MatchItem[] = []
+  let segments = multiSegments(line, words)
+  segments = mergeSegments(segments)
+  segments = segments.sort((a, b) => a.from - b.from)
+  //let segments = mergeSegments(multiSegments(line, words)).sort((a, b) => a.from - b.from)
+  let pos = 0
+  for (let segment of segments) {
+    if (pos < segment.from) {
+      items.push({ text: line.substring(pos, segment.from), isMatch: false })
+    }
+    items.push({ text: line.substring(segment.from, segment.to + 1), isMatch: true })
+    pos = segment.to + 1
+  }
+  if (pos < line.length - 1) items.push({ text: line.substring(pos), isMatch: false })
+  return items
 }

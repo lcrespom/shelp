@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { mergeSegments, multiMatch, multiSegments } from './multisearch'
+import { mergeSegments, multiMatch, multiSegments, splitMatch } from './multisearch'
 
 const line = 'Lorem ipsum dolor sit amet'
 
@@ -111,5 +111,49 @@ test('Overlapping merges', _ => {
   ).toEqual([
     { from: 1, to: 6 },
     { from: 8, to: 10 },
+  ])
+})
+
+// #region ------------------------- Split Segments -------------------------
+
+test('Single split', _ => {
+  expect(splitMatch(line, [])).toEqual([
+    { isMatch: false, text: 'Lorem ipsum dolor sit amet' },
+  ])
+  expect(splitMatch(line, ['consectetur'])).toEqual([
+    { isMatch: false, text: 'Lorem ipsum dolor sit amet' },
+  ])
+  expect(splitMatch(line, ['lorem'])).toEqual([
+    { isMatch: true, text: 'Lorem' },
+    { isMatch: false, text: ' ipsum dolor sit amet' },
+  ])
+  expect(splitMatch(line, ['AMET'])).toEqual([
+    { isMatch: false, text: 'Lorem ipsum dolor sit ' },
+    { isMatch: true, text: 'amet' },
+  ])
+  expect(splitMatch(line, ['dolor'])).toEqual([
+    { isMatch: false, text: 'Lorem ipsum ' },
+    { isMatch: true, text: 'dolor' },
+    { isMatch: false, text: ' sit amet' },
+  ])
+})
+
+test('Multiple split', _ => {
+  expect(splitMatch(line, ['sit', 'ipsum'])).toEqual([
+    { isMatch: false, text: 'Lorem ' },
+    { isMatch: true, text: 'ipsum' },
+    { isMatch: false, text: ' dolor ' },
+    { isMatch: true, text: 'sit' },
+    { isMatch: false, text: ' amet' },
+  ])
+  expect(splitMatch(line, ['ipsum', 'potato'])).toEqual([
+    { isMatch: false, text: 'Lorem ' },
+    { isMatch: true, text: 'ipsum' },
+    { isMatch: false, text: ' dolor sit amet' },
+  ])
+  expect(splitMatch(line, ['ipsum dolor', 'sum dol'])).toEqual([
+    { isMatch: false, text: 'Lorem ' },
+    { isMatch: true, text: 'ipsum dolor' },
+    { isMatch: false, text: ' sit amet' },
   ])
 })
