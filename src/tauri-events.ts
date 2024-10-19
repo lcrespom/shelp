@@ -5,6 +5,7 @@ import { getCurrentWindow } from '@tauri-apps/api/window'
 import { addDirToHistory, getDirHistory } from './commands/dirhistory'
 import { router } from './router'
 import { refreshApp } from './App'
+import { setHistory } from './pages/history'
 
 type CommandPayload = {
   url: string
@@ -66,8 +67,11 @@ const commands: Record<string, Function> = {
   },
 
   history(_params: any, body: string) {
-    console.log('ToDo History', body.split('\n'))
-    invoke('send_response', { data: 'ToDo return selected command' })
+    // console.log('ToDo History', body.split('\n'))
+    // invoke('send_response', { data: 'ToDo return selected command' })
+    setHistory(body.split('\n'))
+    navigateAndRefresh('/history')
+    return 'Command History'
   },
 
   // Welcome page
