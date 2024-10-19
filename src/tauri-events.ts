@@ -34,6 +34,7 @@ function runCommand(cmd: CommandPayload) {
   }
   if (!commands[verb]) {
     console.warn('Unrecognized command')
+    invoke('send_response', { data: '' })
   } else {
     let title = commands[verb](params, cmd.body)
     if (title !== undefined) {

@@ -25,12 +25,13 @@ A shell helper popup.
     - [ ] Set window size and position
   - [ ] Cool CSS:
     - [x] Monokai for dark mode theme
+    - [ ] Different text color for history vs dirHistory
     - [ ] Some light vs code theme
     - [ ] Configuration support to force the dark theme
   - [ ] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
-    - [ ] History
+    - [x] History
     - [ ] Tab completion
 - zsh
   - [x] Dirhistory
