@@ -18,6 +18,9 @@ body {
 .selectlist-item {
   @apply block border-t p-0.5 font-mono text-sm;
   @apply dark:border-gray-700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   @media (prefers-color-scheme: dark) {
     color: #a6e22e; /* Monokai green by default */
   }

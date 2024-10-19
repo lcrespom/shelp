@@ -39,7 +39,6 @@ export default function SelectList(props: SelectListProps) {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
       let boxH = scrollRef.current.parentElement?.getBoundingClientRect().height || 800
-      // TODO this fails if the first child is very long and takes multiple rows
       let rowElem = scrollRef.current.childNodes.item(0) as HTMLElement
       if (rowElem) {
         let rowH = rowElem.getBoundingClientRect().height
