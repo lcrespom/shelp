@@ -70,3 +70,46 @@ test('Non-overlapping merges', _ => {
     { from: 6, to: 8 },
   ])
 })
+
+test('Overlapping merges', _ => {
+  // Overlap at end
+  expect(
+    mergeSegments([
+      { from: 0, to: 5 },
+      { from: 5, to: 8 },
+    ])
+  ).toEqual([{ from: 0, to: 8 }])
+  // Overlap inside
+  expect(
+    mergeSegments([
+      { from: 0, to: 5 },
+      { from: 3, to: 8 },
+    ])
+  ).toEqual([{ from: 0, to: 8 }])
+  // Overlap around
+  expect(
+    mergeSegments([
+      { from: 4, to: 5 },
+      { from: 3, to: 8 },
+    ])
+  ).toEqual([{ from: 3, to: 8 }])
+  // Overlap across 3 segments
+  expect(
+    mergeSegments([
+      { from: 1, to: 5 },
+      { from: 3, to: 7 },
+      { from: 6, to: 9 },
+    ])
+  ).toEqual([{ from: 1, to: 9 }])
+  // Overlap one, non-overlap other
+  expect(
+    mergeSegments([
+      { from: 1, to: 4 },
+      { from: 3, to: 6 },
+      { from: 8, to: 10 },
+    ]).sort((a, b) => a.from - b.from)
+  ).toEqual([
+    { from: 1, to: 6 },
+    { from: 8, to: 10 },
+  ])
+})
