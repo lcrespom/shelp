@@ -18,7 +18,8 @@ function focus_term() {
 
 # Record every time the user changes directory
 function chpwd() {
-    curl -s -o /dev/null "127.0.0.1:5431/chpwd?dir=$PWD"
+    enc_dir=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$PWD'))")
+    curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir"
 }
 
 # Open shelp popup in the dir history page
@@ -33,7 +34,8 @@ function dir_history_popup() {
 
 # Open shelp popup in the history page
 function history_popup() {
-    history_command=$(history -n -$MAX_HISTORY_LINES | curl -s -X POST --data-binary @- "$SHELP_HOST/history")
+    enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
+    history_command=$(history -n -$MAX_HISTORY_LINES | curl -s -X POST --data-binary @- "$SHELP_HOST/history?filter=$enc_buffer")
     if [[ -n "$history_command" ]]; then
         LBUFFER="$history_command"
         RBUFFER=""

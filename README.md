@@ -28,10 +28,14 @@ A shell helper popup.
     - [ ] Different text color for history vs dirHistory
     - [ ] Some light vs code theme
     - [ ] Configuration support to force the dark theme
+  - [ ] SearchList
+    - [ ] Highlight matched text
+    - [ ] Search by multiple words
   - [ ] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
     - [x] History
+      - [x] Send $BUFFER in request and use it to filter
     - [ ] Tab completion
 - zsh
   - [x] Dirhistory

@@ -4,21 +4,29 @@ import { getCurrentWindow } from '@tauri-apps/api/window'
 
 type SelectListProps = {
   list: string[]
+  selectFilter?: string
 }
 
 let rowsPerPage = 25
 
+function filterList(list: string[], filterText?: string) {
+  if (!filterText) return list
+  return list.filter(line => line.toLowerCase().includes(filterText.toLowerCase()))
+}
+
 export default function SelectList(props: SelectListProps) {
   // #region ------------------------- Setup -------------------------
 
-  let [lines, setLines] = useState(props.list)
+  let [lines, setLines] = useState(filterList(props.list, props.selectFilter))
   let [row, setRow] = useState(lines.length - 1)
+  let [filterText, setFilterText] = useState(props.selectFilter || '')
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
       let boxH = scrollRef.current.parentElement?.getBoundingClientRect().height || 800
+      // TODO this fails if the first child is very long and takes multiple rows
       let rowElem = scrollRef.current.childNodes.item(0) as HTMLElement
       if (rowElem) {
         let rowH = rowElem.getBoundingClientRect().height
@@ -31,12 +39,11 @@ export default function SelectList(props: SelectListProps) {
   // #region ------------------------- Event handlers -------------------------
 
   function updateFilter(evt: React.FormEvent) {
-    let filterText = (evt.target as HTMLInputElement).value || ''
-    let filteredLines = props.list.filter(line =>
-      line.toLowerCase().includes(filterText.toLowerCase())
-    )
+    let value = (evt.target as HTMLInputElement).value || ''
+    let filteredLines = filterList(props.list, value)
     setLines(filteredLines)
     setRow(filteredLines.length - 1)
+    setFilterText(value)
     console.log(`SelectList: found ${filteredLines.length} entries`)
   }
 
@@ -102,6 +109,7 @@ export default function SelectList(props: SelectListProps) {
         className="selectlist-input"
         autoFocus
         spellCheck="false"
+        value={filterText}
         onInput={updateFilter}
         onKeyDown={checkKey}
       />

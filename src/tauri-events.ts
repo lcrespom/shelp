@@ -67,10 +67,9 @@ const commands: Record<string, Function> = {
     return 'Dir History'
   },
 
-  history(_params: any, body: string) {
-    // console.log('ToDo History', body.split('\n'))
-    // invoke('send_response', { data: 'ToDo return selected command' })
-    setHistory(body.split('\n'))
+  history(params: any, body: string) {
+    console.log('History filter:', params.filter)
+    setHistory(body.split('\n'), params.filter)
     navigateAndRefresh('/history')
     return 'Command History'
   },
