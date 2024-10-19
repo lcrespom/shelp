@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { multiMatch, multiSegments } from './multisearch'
+import { mergeSegments, multiMatch, multiSegments } from './multisearch'
 
 const line = 'Lorem ipsum dolor sit amet'
 
@@ -59,4 +59,14 @@ test('Multiple segments', _ => {
 
 // #region ------------------------- Merge Segments -------------------------
 
-test('Non-overlapping merges', _ => {})
+test('Non-overlapping merges', _ => {
+  expect(
+    mergeSegments([
+      { from: 0, to: 5 },
+      { from: 6, to: 8 },
+    ]).sort((a, b) => a.from - b.from)
+  ).toEqual([
+    { from: 0, to: 5 },
+    { from: 6, to: 8 },
+  ])
+})
