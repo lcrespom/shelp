@@ -13,7 +13,6 @@ pub fn run() {
         })
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
-            webview_commands::greet,
             webview_commands::get_file,
             webview_commands::write_file,
             webview_commands::send_response
