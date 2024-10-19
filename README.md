@@ -25,12 +25,12 @@ A shell helper popup.
     - [ ] Set window size and position
   - [ ] Cool CSS:
     - [x] Monokai for dark mode theme
-    - [ ] Different text color for history vs dirHistory
+    - [x] Different text color for history vs dirHistory
     - [ ] Some light vs code theme
     - [ ] Configuration support to force the dark theme
   - [ ] SearchList
     - [ ] Highlight matched text
-    - [ ] Search by multiple words
+    - [x] Search by multiple words
   - [ ] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route

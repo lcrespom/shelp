@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { multiMatch } from '../helpers/multisearch'
+import { multiMatch, splitMatch } from '../helpers/multisearch'
 
 type SelectListProps = {
   list: string[]
   selectFilter?: string
+}
+
+type MatchHighlightProps = {
+  line: string
+  filterText: string
 }
 
 let rowsPerPage = 25
@@ -14,6 +19,18 @@ function filterList(list: string[], filterText?: string) {
   if (!filterText) return list
   let words = filterText.split(' ')
   return list.filter(line => multiMatch(line, words))
+}
+
+function MatchHighlight(props: MatchHighlightProps) {
+  if (!props.filterText) return <>{props.line}</>
+  let parts = splitMatch(props.line, props.filterText.split(' '))
+  return <span>{parts.map(part => part.text)}</span>
+
+  // {
+  //   parts.map(part => {
+  //   part.isMatch ? <i>{part.text}</i> : part.text
+  // })
+  //return <i>{props.line}</i>
 }
 
 export default function SelectList(props: SelectListProps) {
@@ -99,7 +116,7 @@ export default function SelectList(props: SelectListProps) {
               key={idx}
               onClick={_ => selectLine(line)}
             >
-              {line}
+              <MatchHighlight line={line} filterText={filterText} />
             </a>
           ))}
         </div>

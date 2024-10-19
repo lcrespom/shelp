@@ -19,8 +19,7 @@ body {
   @apply block border-t p-0.5 font-mono text-sm;
   @apply dark:border-gray-600;
   @media (prefers-color-scheme: dark) {
-    /* color: #66d9ef; (cyan) */
-    color: #a6e22e;
+    color: #a6e22e; /* Monokai green by default */
   }
 }
 
@@ -40,5 +39,11 @@ body {
   @apply dark:bg-gray-800 dark:text-gray-200;
   @media (prefers-color-scheme: dark) {
     color: #e6db74;
+  }
+}
+
+.dirhistory .selectlist-item {
+  @media (prefers-color-scheme: dark) {
+    color: #66d9ef; /* Monokai cyan for dir history */
   }
 }
