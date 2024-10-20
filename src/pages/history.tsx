@@ -16,7 +16,7 @@ export function setHistory(hist: string[], filter: string) {
 export default function History() {
   return (
     <div className="history">
-      <SelectList list={history} selectFilter={selectFilter} />
+      <SelectList list={history} selectFilter={selectFilter} syntaxHighlight={true} />
     </div>
   )
 }

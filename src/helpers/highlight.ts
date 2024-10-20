@@ -1,4 +1,4 @@
-import parse from 'bash-parser'
+import { parse } from '@ein/bash-parser'
 
 // #region ------------------------- Parsing -------------------------
 export const NodeType = {
@@ -60,17 +60,17 @@ function traverseAST(node: any, nodeCB: Function) {
   }
 }
 
-function parseBash(line: string) {
+async function parseBash(line: string) {
   if (!line) return null
   try {
-    return parse(line, { insertLOC: true })
+    return await parse(line, { insertLOC: true })
   } catch (e: any) {
     if (e.message.startsWith('Unclosed ')) {
       let endQuote = e.message.charAt(e.message.length - 1)
       if (endQuote == '(') endQuote = 'x)'
       else endQuote = 'a' + endQuote
       try {
-        return parse(line + endQuote, { insertLOC: true })
+        return await parse(line + endQuote, { insertLOC: true })
       } catch (ee) {
         // Desperately trying to do partial parsing
         return parseBash(line.substring(0, line.length - 4))
@@ -78,7 +78,7 @@ function parseBash(line: string) {
     }
     line = line.substring(0, line.length - 1)
     if (line.length == 0) return null
-    return parseBash(line)
+    return await parseBash(line)
   }
 }
 
@@ -93,7 +93,7 @@ type ParserLoc = {
   }
 }
 
-type ParserHighlight = {
+export type ParserHighlight = {
   type: string
   start: number
   end: number
@@ -141,8 +141,8 @@ function highlightComment(line: string, ast: any, hls: ParserHighlight[]) {
   }
 }
 
-export function highlight(line: string) {
-  let ast = parseBash(line)
+export async function highlight(line: string) {
+  let ast = await parseBash(line)
   let hls: ParserHighlight[] = []
   if (!ast) return hls
   traverseAST(ast, (n: any) => {
