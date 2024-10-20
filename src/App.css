@@ -27,7 +27,7 @@ body {
 }
 
 .selectlist-item i {
-  @apply bg-blue-400 not-italic;
+  @apply bg-blue-200 not-italic;
   @media (prefers-color-scheme: dark) {
     background-color: hsl(50, 11%, 25%);
   }
