@@ -74,6 +74,18 @@ const commands: Record<string, Function> = {
     return 'Command History'
   },
 
+  // Set dark theme
+  darkTheme() {
+    getCurrentWindow().setTheme('dark')
+    invoke('send_response', { data: 'Dark theme set' })
+  },
+
+  // Set light theme
+  lightTheme() {
+    getCurrentWindow().setTheme('light')
+    invoke('send_response', { data: 'Light theme set' })
+  },
+
   // Welcome page
   welcome() {
     router.navigate('/')
