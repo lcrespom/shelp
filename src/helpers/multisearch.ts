@@ -72,12 +72,19 @@ export function mergeSegments(src: MatchSegment[]): MatchSegment[] {
   return dst
 }
 
+function sanitizeWords(words: string[]): string[] {
+  // Remove duplicate entries
+  return [
+    ...new Set(
+      // Remove empty words
+      words.filter(w => !!w)
+    ),
+  ]
+}
+
 export function splitMatch(line: string, words: string[]): MatchItem[] {
   let items: MatchItem[] = []
-  let segments = multiSegments(
-    line,
-    words.filter(w => !!w) // Remove empty words
-  )
+  let segments = multiSegments(line, sanitizeWords(words))
   segments = mergeSegments(segments)
   segments = segments.sort((a, b) => a.from - b.from)
   //let segments = mergeSegments(multiSegments(line, words)).sort((a, b) => a.from - b.from)
