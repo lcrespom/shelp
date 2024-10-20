@@ -18,7 +18,7 @@ export default function SyntaxHighlight(props: SyntaxHighlightProps) {
     <>
       {parts.map((part, idx) => (
         <span className={`hl-${part.type}`} key={idx}>
-          {props.line.substring(part.start, part.end)}
+          {props.line.substring(part.start, part.end + 2)}
         </span>
       ))}
     </>
