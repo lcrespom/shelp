@@ -93,15 +93,37 @@ body {
   } /* Dark grey */
 }
 
-/* let monokaiHL = {
-	program: '#a6e22e',  // Green monokai
-	builtin: 'underline #a6e22e',
-	alias: 'underline #a6e22e',
-	commandError: '#f92672',  // Fuchsia monokai
-	assignment: 'magentaBright',
-	parameter: '#66d9ef',  // Cyan monokai
-	environment: '#e6db74', // VSCode monokai yellow
-	option: '#ae81ff', // Purple monkai
-	quote: '#fd971f',  // Orange monokai
-	comment: '#666666' // Dark grey
-} */
+@media (prefers-color-scheme: light) {
+  .hl-program {
+    color: #008000;
+  }
+  .hl-builtin {
+    color: #008000;
+    text-decoration: underline;
+  }
+  .hl-alias {
+    color: #008000;
+    text-decoration: underline;
+  }
+  .hl-commandError {
+    color: #f92672;
+  }
+  .hl-assignment {
+    color: magentaBright;
+  }
+  .hl-parameter {
+    color: #0000ff;
+  }
+  .hl-environment {
+    color: #795e26;
+  }
+  .hl-option {
+    color: #af00db;
+  }
+  .hl-quote {
+    color: #267f99;
+  }
+  .hl-comment {
+    color: #001080;
+  }
+}
