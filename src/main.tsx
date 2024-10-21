@@ -81,7 +81,11 @@ function initSettings(zsh: string) {
     let [xx, yy] = settings.window_pos.split(' ')
     let [x, y] = [+xx, +yy]
     console.log({ xx, yy, x, y })
-    if (!isNaN(x) && !isNaN(y)) cw.setPosition(new LogicalPosition(x, y))
+    if (!isNaN(x) && !isNaN(y)) {
+      if (x < 0) x = screen.width - window.innerWidth + x
+      if (y < 0) y = screen.height - window.innerHeight + y
+      cw.setPosition(new LogicalPosition(x, y))
+    }
   }
 }
 
