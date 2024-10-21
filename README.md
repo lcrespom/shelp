@@ -8,17 +8,12 @@ A shell helper popup.
   - [ ] Frist time use (if .shelp directory does not exist)
     - [x] Create ~/.shelp directory
     - [x] Write shelp.zsh in ~/.shelp
-    - [ ] Emit instructions in console, show welcome URL
+    - [ ] Write shelp.css with some examples
   - [ ] Configuration
     - [ ] CSS file
     - [x] Settings/preferences (env vars in shelp.zsh)
-      - [x] HTTP Port
-      - [x] Initial window size and position
-      - [x] Always on top
-      - [x] Dark/light/automatic mode
   - [ ] Extensibility
     - [ ] New routes / UIs
-    - [ ] Global hotkeys
   - [x] Only quit on cmd+Q, hide window if closing window
 - React
   - [ ] Startup
@@ -40,7 +35,7 @@ A shell helper popup.
       - [x] Full syntax highlight
       - [ ] Combine syntax highlight with highlight matched text
     - [ ] Tab completion
-    - [ ] Code refactor (eventually)
+  - [ ] Code refactor (eventually)
 - zsh
   - [x] Dirhistory
   - [x] History
