@@ -11,13 +11,9 @@ A shell helper popup.
     - [ ] New routes / UIs
   - [x] Only quit on cmd+Q, hide window if closing window
 - React
-  - [ ] Startup
-    - [ ] Receive initial configuration from rust
-    - [ ] Set window size and position
+  - [x] Startup
   - [x] Cool CSS
-  - [x] SearchList
-    - [x] Highlight matched text
-    - [x] Search by multiple words
+  - [x] SearchList: multi-search, multi-highlight
   - [ ] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
