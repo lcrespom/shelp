@@ -11,14 +11,14 @@ export default function SyntaxHighlight(props: SyntaxHighlightProps) {
     <>
       {parts ? (
         parts.map((part, idx) => (
-          <>
-            <span className={`hl-${part.type}`} key={idx}>
+          <span key={idx}>
+            <span className={`hl-${part.type}`}>
               {props.line.substring(part.start, part.end + 1)}
             </span>
             {parts[idx + 1]
               ? props.line.substring(part.end + 1, parts[idx + 1].start)
               : ''}
-          </>
+          </span>
         ))
       ) : (
         <b>Line not found: {props.line}</b>
