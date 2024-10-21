@@ -19,11 +19,7 @@ A shell helper popup.
   - [ ] Startup
     - [ ] Receive initial configuration from rust
     - [ ] Set window size and position
-  - [ ] Cool CSS:
-    - [x] Monokai for dark mode theme
-    - [x] Different text color for history vs dirHistory
-    - [ ] Some light vs code theme
-    - [ ] Configuration support to force the dark theme
+  - [x] Cool CSS
   - [x] SearchList
     - [x] Highlight matched text
     - [x] Search by multiple words
