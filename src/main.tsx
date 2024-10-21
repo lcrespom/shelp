@@ -71,10 +71,12 @@ function initSettings(zsh: string) {
   // Always on top
   if (settings.always_on_top == 'true') cw.setAlwaysOnTop(true)
   // Window size
+  let [ww, hh] = [0, 0]
   if (settings.window_size) {
     let [width, height] = settings.window_size.split('x')
-    let [w, h] = [+width, +height]
-    if (!isNaN(w) && !isNaN(h)) cw.setSize(new LogicalSize(w, h))
+    ww = +width
+    hh = +height
+    if (!isNaN(ww) && !isNaN(hh)) cw.setSize(new LogicalSize(ww, hh))
   }
   // Window position
   if (settings.window_pos) {
@@ -82,9 +84,14 @@ function initSettings(zsh: string) {
     let [x, y] = [+xx, +yy]
     console.log({ xx, yy, x, y })
     if (!isNaN(x) && !isNaN(y)) {
-      if (x < 0) x = screen.width - window.innerWidth + x
-      if (y < 0) y = screen.height - window.innerHeight + y
-      cw.setPosition(new LogicalPosition(x, y))
+      // The timeout is required to get the real values of window.innerWidth and window.innerHeight
+      // Unless they are specified in the configuration, then we already have them
+      let timeoutWait = ww > 0 && hh > 0 ? 0 : 250
+      setTimeout(() => {
+        if (x < 0) x = screen.width - (ww || window.innerWidth) + x
+        if (y < 0) y = screen.height - (hh || window.innerHeight) + y
+        cw.setPosition(new LogicalPosition(x, y))
+      }, timeoutWait)
     }
   }
 }
