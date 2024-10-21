@@ -16,7 +16,7 @@ body {
 }
 
 .selectlist-item {
-  @apply block border-t p-0.5 font-mono text-sm;
+  @apply block p-0.5 font-mono text-sm; /* add border-t if required */
   @apply dark:border-gray-700;
   white-space: nowrap;
   overflow: hidden;

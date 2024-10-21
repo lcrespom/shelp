@@ -1,3 +1,10 @@
+# ------------------------- Configuration -------------------------
+SHELP_PORT=5431                             # TODO: implement in rust
+SHELP_HOST="localhost:$SHELP_PORT"
+SHELP_ALWAYS_ON_TOP=false                   # TODO: implement in JavaScript
+SHELP_THEME="dark"                          # TODO: implement in JavaScript
+SHELP_WINDOW_BOUNDS="800x600 -100 -100"     # TODO: implement in JavaScript
+
 # Key codes
 KB_PAGE_UP="^[[5~"
 KB_PAGE_DOWN="^[[6~"
@@ -5,7 +12,6 @@ KB_HOME="^[[H"
 KB_END="^[[F"
 
 # shelp command server address
-SHELP_HOST="localhost:5431"
 MAX_HISTORY_LINES=500
 
 # Get the name of the terminal application, to set focus later

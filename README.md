@@ -13,7 +13,7 @@ A shell helper popup.
     - [ ] CSS file
     - [ ] Settings/preferences (env vars or json file)
       - [ ] HTTP Port
-      - [ ] Initial window size
+      - [ ] Initial window size and position
       - [ ] Always on top
       - [ ] Dark/light/automatic mode
   - [ ] Extensibility
@@ -37,6 +37,8 @@ A shell helper popup.
     - [x] Dirhistory route
     - [x] History
       - [x] Send $BUFFER in request and use it to filter
+      - [x] Full syntax highlight
+      - [ ] Combine syntax highlight with highlight matched text
     - [ ] Tab completion
 - zsh
   - [x] Dirhistory
@@ -45,6 +47,7 @@ A shell helper popup.
   - [ ] Esc => clear line
   - [ ] Tab completion
   - [ ] Test with oh-my-zsh
+  - [ ] Detect when user hits ctrl+c and clean shelp queue
 - Documentation
   - [ ] This readme
     - [ ] Installation
