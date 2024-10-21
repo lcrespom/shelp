@@ -11,9 +11,9 @@ SHELP_ALWAYS_ON_TOP=true
 # SHELP_THEME="dark"
 
 # Shelp window size, in width x height.
-SHELP_WINDOW_SIZE="800x600"           # TODO: implement in JavaScript
+SHELP_WINDOW_SIZE="800x600"
 # Shelp window position. Positive numbers refer to the top left corner, negative numbers to the bottom right.
-SHELP_WINDOW_POS="-100 100"           # TODO: implement in JavaScript
+SHELP_WINDOW_POS="-100 100"           # TODO: negative numbers
 
 # Maximun number of history lines to get from zsh. Duplicates are removed, so the history popup will probably
 # have fewer entries.

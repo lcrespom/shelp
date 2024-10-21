@@ -6,7 +6,12 @@ import { invoke } from '@tauri-apps/api/core'
 import { router } from './router'
 import { listenTauriEvents } from './tauri-events'
 import { initDirHistory } from './commands/dirhistory'
-import { getCurrentWindow, Window as TauriWindow } from '@tauri-apps/api/window'
+import {
+  getCurrentWindow,
+  LogicalPosition,
+  LogicalSize,
+  Window as TauriWindow,
+} from '@tauri-apps/api/window'
 import ShelpZsh from './assets/shelp.zsh?raw'
 
 //#region ------------------------- React setup -------------------------
@@ -61,8 +66,23 @@ function initSettings(zsh: string) {
   let settings = parseSettings(zsh)
   console.log('Got settings from shelp.zsh:', settings)
   let cw = getCurrentWindow()
+  // Theme
   if (settings.theme == 'light' || settings.theme == 'dark') cw.setTheme(settings.theme)
+  // Always on top
   if (settings.always_on_top == 'true') cw.setAlwaysOnTop(true)
+  // Window size
+  if (settings.window_size) {
+    let [width, height] = settings.window_size.split('x')
+    let [w, h] = [+width, +height]
+    if (!isNaN(w) && !isNaN(h)) cw.setSize(new LogicalSize(w, h))
+  }
+  // Window position
+  if (settings.window_pos) {
+    let [xx, yy] = settings.window_pos.split(' ')
+    let [x, y] = [+xx, +yy]
+    console.log({ xx, yy, x, y })
+    if (!isNaN(x) && !isNaN(y)) cw.setPosition(new LogicalPosition(x, y))
+  }
 }
 
 async function startup() {

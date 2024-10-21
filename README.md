@@ -13,7 +13,7 @@ A shell helper popup.
     - [ ] CSS file
     - [ ] Settings/preferences (env vars in shelp.zsh)
       - [ ] HTTP Port
-      - [ ] Initial window size and position
+      - [x] Initial window size and position
       - [x] Always on top
       - [x] Dark/light/automatic mode
   - [ ] Extensibility
