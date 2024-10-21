@@ -1,0 +1,65 @@
+/* Place your custom CSS here under the appropriate classes. */
+
+.selectlist-box {
+  /* Area that displays the list of items (directories, commands...) */
+}
+
+.selectlist-item {
+  /* Each item in the list of items */
+}
+
+.selectlist-item i {
+  /* The matched search text in the list of items */
+}
+
+.selectlist-sel {
+  /* The currently selected item */
+}
+
+.selectlist-hover:hover {
+  /* The item which the user is moving the mouse over it */
+}
+
+.selectlist-input {
+  /* Input box where the user types the search text. */
+}
+
+.dirhistory {
+  /* Class used by the top-level directory history page. 
+     Can be used in combination with any of the above classes, for example:
+       .dirhistory .selectlist-item {
+         (CSS properties specific for items in the directory history page)
+       }
+  */
+}
+
+.history {
+  /* Class used by the top-level command history page */
+}
+
+/* ------------------------- Syntax higlight classes ------------------------- */
+
+.hl-program {
+  /* Programs / commands */
+}
+.hl-builtin {
+  /* Built-in commands, e.g. "ls" */
+}
+.hl-assignment {
+  /* Variable assignment */
+}
+.hl-parameter {
+  /* Program parameters */
+}
+.hl-environment {
+  /* Environment variables */
+}
+.hl-option {
+  /* Program options */
+}
+.hl-quote {
+  /* Quoted strings */
+}
+.hl-comment {
+  /* Shell comments */
+}

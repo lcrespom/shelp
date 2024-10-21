@@ -13,6 +13,7 @@ import {
   Window as TauriWindow,
 } from '@tauri-apps/api/window'
 import ShelpZsh from './assets/shelp.zsh?raw'
+import ShelpCSS from './assets/shelp.css?raw'
 
 //#region ------------------------- React setup -------------------------
 
@@ -22,28 +23,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   </React.StrictMode>
 )
 
-//#region ------------------------- App startup -------------------------
-
-function handleWindowHide() {
-  let cw = getCurrentWindow()
-  document.addEventListener('keyup', evt => {
-    if (evt.key == 'Escape' || evt.code == 'Escape') hideWindow(cw)
-  })
-  cw.listen('tauri://close-requested', _ => hideWindow(cw))
-}
-
-function hideWindow(w: TauriWindow) {
-  invoke('send_response', { data: '' })
-  w.hide()
-}
-
-async function initDotShelp() {
-  let shelp_zsh: string = await invoke('get_file', { name: 'shelp.zsh' })
-  if (shelp_zsh) return shelp_zsh
-  console.log('~/.shelp/shelp.zsh not found, creating default file')
-  invoke('write_file', { name: 'shelp.zsh', data: ShelpZsh })
-  return ShelpZsh
-}
+//#region ------------------------- Settings -------------------------
 
 function parseSettings(zsh: string): Record<string, string> {
   let lines = zsh
@@ -96,12 +76,50 @@ function initSettings(zsh: string) {
   }
 }
 
+//#region ------------------------- App startup -------------------------
+
+function handleWindowHide() {
+  let cw = getCurrentWindow()
+  document.addEventListener('keyup', evt => {
+    if (evt.key == 'Escape' || evt.code == 'Escape') hideWindow(cw)
+  })
+  cw.listen('tauri://close-requested', _ => hideWindow(cw))
+}
+
+function hideWindow(w: TauriWindow) {
+  invoke('send_response', { data: '' })
+  w.hide()
+}
+
+async function initDotShelp() {
+  let shelp_zsh: string = await invoke('get_file', { name: 'shelp.zsh' })
+  if (shelp_zsh) return shelp_zsh
+  console.log('~/.shelp/shelp.zsh not found, creating default file')
+  invoke('write_file', { name: 'shelp.zsh', data: ShelpZsh })
+  return ShelpZsh
+}
+
+async function getCssFile() {
+  let shelp_css: string = await invoke('get_file', { name: 'shelp.css' })
+  if (shelp_css) return shelp_css
+  console.log('~/.shelp/shelp.css not found, creating default file')
+  invoke('write_file', { name: 'shelp.css', data: ShelpCSS })
+  return ShelpCSS
+}
+
+async function initCss() {
+  const style = document.createElement('style')
+  style.innerHTML = await getCssFile()
+  document.body.appendChild(style)
+}
+
 async function startup() {
   listenTauriEvents()
   initDirHistory()
   handleWindowHide()
   let zsh = await initDotShelp()
   initSettings(zsh)
+  initCss()
 }
 
 startup()

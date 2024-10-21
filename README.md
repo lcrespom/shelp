@@ -5,13 +5,8 @@ A shell helper popup.
 ## ToDo
 
 - Rust
-  - [ ] Frist time use (if .shelp directory does not exist)
-    - [x] Create ~/.shelp directory
-    - [x] Write shelp.zsh in ~/.shelp
-    - [ ] Write shelp.css with some examples
-  - [ ] Configuration
-    - [ ] CSS file
-    - [x] Settings/preferences (env vars in shelp.zsh)
+  - [x] Frist time use (if .shelp directory does not exist)
+  - [x] Configuration: CSS and settings
   - [ ] Extensibility
     - [ ] New routes / UIs
   - [x] Only quit on cmd+Q, hide window if closing window
