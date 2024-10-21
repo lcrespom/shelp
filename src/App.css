@@ -57,3 +57,51 @@ body {
     color: #66d9ef; /* Monokai cyan for dir history */
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .hl-program {
+    color: #a6e22e;
+  } /* Green monokai */
+  .hl-builtin {
+    color: #a6e22e;
+    text-decoration: underline;
+  }
+  .hl-alias {
+    color: #a6e22e;
+    text-decoration: underline;
+  }
+  .hl-commandError {
+    color: #f92672;
+  } /* Fuchsia monokai */
+  .hl-assignment {
+    color: magentaBright;
+  }
+  .hl-parameter {
+    color: #66d9ef;
+  } /* Cyan monokai */
+  .hl-environment {
+    color: #e6db74;
+  } /* VSCode monokai yellow */
+  .hl-option {
+    color: #ae81ff;
+  } /* Purple monkai */
+  .hl-quote {
+    color: #fd971f;
+  } /* Orange monokai */
+  .hl-comment {
+    color: #666666;
+  } /* Dark grey */
+}
+
+/* let monokaiHL = {
+	program: '#a6e22e',  // Green monokai
+	builtin: 'underline #a6e22e',
+	alias: 'underline #a6e22e',
+	commandError: '#f92672',  // Fuchsia monokai
+	assignment: 'magentaBright',
+	parameter: '#66d9ef',  // Cyan monokai
+	environment: '#e6db74', // VSCode monokai yellow
+	option: '#ae81ff', // Purple monkai
+	quote: '#fd971f',  // Orange monokai
+	comment: '#666666' // Dark grey
+} */
