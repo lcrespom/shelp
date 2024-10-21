@@ -6,7 +6,7 @@ type HighlightMap = Map<string, ParserHighlight[]>
 
 let history: string[] = []
 let selectFilter = ''
-let highlightTable: HighlightMap = new Map()
+let highlightTable: HighlightMap
 
 export async function setHistory(hist: string[], filter: string) {
   // Remove empty lines and duplicates.
@@ -19,6 +19,7 @@ export async function setHistory(hist: string[], filter: string) {
 }
 
 async function updateHighlights(history: string[]) {
+  if (!highlightTable) highlightTable = new Map()
   for (let line of history) {
     if (highlightTable.get(line)) continue
     let segments = await highlight(line)
@@ -30,10 +31,10 @@ export default function History() {
   let [highlights, setHighlights] = useState<HighlightMap>(highlightTable)
 
   useEffect(() => {
-    ;(async () => {
+    setTimeout(async () => {
       await updateHighlights(history)
       setHighlights(highlightTable)
-    })()
+    }, 0)
   }, [])
 
   return (
