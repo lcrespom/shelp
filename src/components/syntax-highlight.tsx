@@ -5,6 +5,16 @@ type SyntaxHighlightProps = {
   highlightMap: Map<string, ParserHighlight[]>
 }
 
+function textSegment(
+  line: string,
+  part: ParserHighlight,
+  nextPart: ParserHighlight
+): string {
+  let txt = line.substring(part.start, part.end + 1)
+  if (nextPart) txt += line.substring(part.end + 1, nextPart.start)
+  return txt
+}
+
 export default function SyntaxHighlight(props: SyntaxHighlightProps) {
   let parts = props.highlightMap.get(props.line)
   return (
@@ -12,7 +22,7 @@ export default function SyntaxHighlight(props: SyntaxHighlightProps) {
       {parts ? (
         parts.map((part, idx) => (
           <span className={`hl-${part.type}`} key={idx}>
-            {props.line.substring(part.start, part.end + 2)}
+            {textSegment(props.line, part, parts[idx + 1])}
           </span>
         ))
       ) : (

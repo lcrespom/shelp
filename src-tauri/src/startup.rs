@@ -4,9 +4,7 @@ use std::path::{Path, PathBuf};
 const SHELP_HOME: &str = ".shelp";
 
 pub fn check_first_use() {
-    if create_shelp_directory() {
-        //TODO write shelp.zsh file
-    }
+    create_shelp_directory();
 }
 
 pub fn get_shelp_dir() -> PathBuf {
