@@ -33,17 +33,44 @@ function hideWindow(w: TauriWindow) {
 }
 
 async function initDotShelp() {
-  let shelp_zsh = await invoke('get_file', { name: 'shelp.zsh' })
-  if (shelp_zsh) return
+  let shelp_zsh: string = await invoke('get_file', { name: 'shelp.zsh' })
+  if (shelp_zsh) return shelp_zsh
   console.log('~/.shelp/shelp.zsh not found, creating default file')
   invoke('write_file', { name: 'shelp.zsh', data: ShelpZsh })
+  return ShelpZsh
 }
 
-function startup() {
+function parseSettings(zsh: string): Record<string, string> {
+  let lines = zsh
+    .split('\n')
+    .map(l => l.split('#')[0].trim())
+    .filter(l => l && l.startsWith('SHELP_'))
+  let settings: Record<string, string> = {}
+  for (let line of lines) {
+    let [src, dst] = line.split('=')
+    if (!dst || !dst.trim()) continue
+    dst = dst.trim()
+    if (dst.startsWith('"') && dst.endsWith('"')) dst = dst.slice(1, -1)
+    if (dst.startsWith("'") && dst.endsWith("'")) dst = dst.slice(1, -1)
+    settings[src.trim().toLowerCase().substring(6)] = dst.trim()
+  }
+  return settings
+}
+
+function initSettings(zsh: string) {
+  let settings = parseSettings(zsh)
+  console.log('Got settings from shelp.zsh:', settings)
+  let cw = getCurrentWindow()
+  if (settings.theme == 'light' || settings.theme == 'dark') cw.setTheme(settings.theme)
+  if (settings.always_on_top == 'true') cw.setAlwaysOnTop(true)
+}
+
+async function startup() {
   listenTauriEvents()
   initDirHistory()
   handleWindowHide()
-  initDotShelp()
+  let zsh = await initDotShelp()
+  initSettings(zsh)
 }
 
 startup()

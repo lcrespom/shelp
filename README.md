@@ -11,11 +11,11 @@ A shell helper popup.
     - [ ] Emit instructions in console, show welcome URL
   - [ ] Configuration
     - [ ] CSS file
-    - [ ] Settings/preferences (env vars or json file)
+    - [ ] Settings/preferences (env vars in shelp.zsh)
       - [ ] HTTP Port
       - [ ] Initial window size and position
-      - [ ] Always on top
-      - [ ] Dark/light/automatic mode
+      - [x] Always on top
+      - [x] Dark/light/automatic mode
   - [ ] Extensibility
     - [ ] New routes / UIs
     - [ ] Global hotkeys
@@ -40,6 +40,7 @@ A shell helper popup.
       - [x] Full syntax highlight
       - [ ] Combine syntax highlight with highlight matched text
     - [ ] Tab completion
+    - [ ] Code refactor (eventually)
 - zsh
   - [x] Dirhistory
   - [x] History
