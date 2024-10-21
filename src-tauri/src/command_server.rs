@@ -4,16 +4,16 @@ use tauri::{Emitter, Manager, WebviewWindow};
 use tiny_http::{Method, Response, Server};
 
 use crate::command_channel::{clear_queue, receive_string};
-
-const SERVER_ADDRESS: &str = "127.0.0.1:5431";
+use crate::startup::get_server_address;
 
 pub fn setup_http_server(app: &mut tauri::App) {
     // Get the main window
     let main_window = app.get_webview_window("main").unwrap();
     // Spin up a separate thread to run the HTTP server
     thread::spawn(move || {
-        let server = Server::http(SERVER_ADDRESS).unwrap();
-        println!("Server listening in {}", SERVER_ADDRESS);
+        let server_address = get_server_address();
+        let server = Server::http(server_address.clone()).unwrap();
+        println!("Server listening in {}", server_address);
         for mut request in server.incoming_requests() {
             let url = request.url().to_string();
             println!("Got request: {}", url);

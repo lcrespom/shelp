@@ -1,6 +1,6 @@
 # ------------------------- Configuration -------------------------
 # HTTP port used by Shelp to listen to commands
-SHELP_PORT=5431                       # TODO: implement in rust
+SHELP_PORT=5431
 # Full Shelp command server address
 SHELP_HOST="localhost:$SHELP_PORT"
 

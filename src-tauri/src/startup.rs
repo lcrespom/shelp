@@ -12,6 +12,20 @@ pub fn get_shelp_dir() -> PathBuf {
     home_dir.join(SHELP_HOME)
 }
 
+pub fn get_server_address() -> String {
+    let mut port = "5431";
+    let full_path = get_shelp_dir().join("shelp.zsh");
+    let zsh = fs::read_to_string(full_path).unwrap();
+    let lines: Vec<&str> = zsh.lines().collect(); // Collect into a Vec<&str>
+    for line in lines {
+        if line.starts_with("SHELP_PORT=") {
+            port = line.splitn(2, '=').nth(1).unwrap();
+            break;
+        }
+    }
+    "127.0.0.1:".to_owned() + port
+}
+
 fn create_shelp_directory() -> bool {
     // Get the .shelp directory path
     let shelp_dir = get_shelp_dir();
