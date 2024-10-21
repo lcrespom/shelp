@@ -33,7 +33,7 @@ export default function History() {
   useEffect(() => {
     setTimeout(async () => {
       await updateHighlights(history)
-      setHighlights(highlightTable)
+      setHighlights(new Map(highlightTable))
     }, 0)
   }, [])
 
