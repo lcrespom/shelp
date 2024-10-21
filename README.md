@@ -11,7 +11,7 @@ A shell helper popup.
     - [ ] Emit instructions in console, show welcome URL
   - [ ] Configuration
     - [ ] CSS file
-    - [ ] Settings/preferences (env vars in shelp.zsh)
+    - [x] Settings/preferences (env vars in shelp.zsh)
       - [x] HTTP Port
       - [x] Initial window size and position
       - [x] Always on top
