@@ -21,7 +21,7 @@ export default function SyntaxHighlight(props: SyntaxHighlightProps) {
           </span>
         ))
       ) : (
-        <b>Line not found: {props.line}</b>
+        <b>{props.line}</b>
       )}
     </>
   )
