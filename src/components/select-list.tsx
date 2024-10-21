@@ -3,11 +3,12 @@ import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { multiMatch, splitMatch } from '../helpers/multisearch'
 import SyntaxHighlight from './syntax-highlight'
+import { ParserHighlight } from '../helpers/highlight'
 
 type SelectListProps = {
   list: string[]
   selectFilter?: string
-  syntaxHighlight?: boolean
+  highlightMap?: Map<string, ParserHighlight[]>
 }
 
 type MatchHighlightProps = {
@@ -111,8 +112,8 @@ export default function SelectList(props: SelectListProps) {
               key={idx}
               onClick={_ => selectLine(line)}
             >
-              {props.syntaxHighlight ? (
-                <SyntaxHighlight line={line} />
+              {props.highlightMap && props.highlightMap.size > 0 ? (
+                <SyntaxHighlight line={line} highlightMap={props.highlightMap} />
               ) : (
                 <MatchHighlight line={line} filterText={filterText} />
               )}
