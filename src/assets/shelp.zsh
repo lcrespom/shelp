@@ -1,10 +1,24 @@
 # ------------------------- Configuration -------------------------
-SHELP_PORT=5431                             # TODO: implement in rust
-SHELP_ALWAYS_ON_TOP=false                   # TODO: implement in JavaScript
-SHELP_THEME="dark"                          # TODO: implement in JavaScript
-SHELP_WINDOW_BOUNDS="800x600 -100 -100"     # TODO: implement in JavaScript
+# HTTP port used by Shelp to listen to commands
+SHELP_PORT=5431                       # TODO: implement in rust
+# Full Shelp command server address
 SHELP_HOST="localhost:$SHELP_PORT"
+
+# Set to true if you want the Shelp popup always on top when visible
+SHELP_ALWAYS_ON_TOP=true
+
+# By default, Shelp applies the system theme. You can manually force "light" or "dark" theme.
+# SHELP_THEME="dark"
+
+# Shelp window size, in width x height.
+SHELP_WINDOW_SIZE="800x600"           # TODO: implement in JavaScript
+# Shelp window position. Positive numbers refer to the top left corner, negative numbers to the bottom right.
+SHELP_WINDOW_POS="-100 100"           # TODO: implement in JavaScript
+
+# Maximun number of history lines to get from zsh. Duplicates are removed, so the history popup will probably
+# have fewer entries.
 SHELP_MAX_HISTORY_LINES=500
+# ------------------------- Configuration end -------------------------
 
 # Key codes
 KB_PAGE_UP="^[[5~"
