@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { multiMatch, splitMatch, splitWords } from '../helpers/multisearch'
+import { multiMatch, splitWords } from '../helpers/multisearch'
 import SyntaxHighlight from './syntax-highlight'
 import { ParserHighlight } from '../helpers/highlight'
+import MatchHighlight from './match-highlight'
 
 type SelectListProps = {
   list: string[]
@@ -11,22 +12,11 @@ type SelectListProps = {
   highlightMap?: Map<string, ParserHighlight[]>
 }
 
-type MatchHighlightProps = {
-  line: string
-  filterWords: string[]
-}
-
 let rowsPerPage = 25
 
 function filterList(list: string[], words: string[]) {
   if (words.length == 0) return list
   return list.filter(line => multiMatch(line, words))
-}
-
-function MatchHighlight(props: MatchHighlightProps) {
-  if (props.filterWords.length == 0) return <>{props.line}</>
-  let parts = splitMatch(props.line, props.filterWords)
-  return <>{parts.map(part => (part.isMatch ? <i>{part.text}</i> : part.text))}</>
 }
 
 export default function SelectList(props: SelectListProps) {
