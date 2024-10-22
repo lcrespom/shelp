@@ -19,3 +19,11 @@ test('bash-parser', async _ => {
     { type: 'option', start: 11, end: 12 },
   ])
 })
+
+test('Syntax error', async _ => {
+  let line = `bounds=$(osascript -e 'tell application (path to frontmost application as text) to get bounds of front window')`
+  expect(await highlight(line)).toEqual([
+    { type: 'assignment', start: 0, end: 20 },
+    { type: 'unknown', start: 21, end: 110 },
+  ])
+})

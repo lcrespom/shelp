@@ -64,3 +64,6 @@
 .hl-comment {
   /* Shell comments */
 }
+.hl-unknown {
+  /* Parsing error */
+}

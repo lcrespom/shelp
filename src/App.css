@@ -79,6 +79,9 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+  .hl-unknown {
+    color: var(--monokai-orange);
+  }
   .hl-program {
     color: var(--monokai-green);
   }
@@ -114,6 +117,9 @@ body {
 }
 
 @media (prefers-color-scheme: light) {
+  .hl-unknown {
+    color: var(--vscode-cyan);
+  }
   .hl-program {
     color: var(--vscode-green);
   }

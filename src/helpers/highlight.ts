@@ -141,6 +141,12 @@ function highlightComment(line: string, ast: any, hls: ParserHighlight[]) {
   }
 }
 
+function highlightSyntaxError(line: string, ast: any, hls: ParserHighlight[]) {
+  let extra = line.substring(ast.loc.end.char + 1)
+  if (!extra.trim()) return
+  hls.push({ type: NodeType.unknown, start: ast.loc.end.char + 1, end: line.length - 1 })
+}
+
 export async function highlight(line: string) {
   let ast = await parseBash(line)
   let hls: ParserHighlight[] = []
@@ -149,5 +155,6 @@ export async function highlight(line: string) {
     highlightNode(n, hls, line)
   })
   highlightComment(line, ast, hls)
+  highlightSyntaxError(line, ast, hls)
   return hls
 }
