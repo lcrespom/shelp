@@ -105,7 +105,11 @@ export default function SelectList(props: SelectListProps) {
               onClick={_ => selectLine(line)}
             >
               {props.highlightMap && props.highlightMap.size > 0 ? (
-                <SyntaxHighlight line={line} highlightMap={props.highlightMap} />
+                <SyntaxHighlight
+                  line={line}
+                  highlightMap={props.highlightMap}
+                  filterWords={filterWords}
+                />
               ) : (
                 <MatchHighlight line={line} filterWords={filterWords} />
               )}

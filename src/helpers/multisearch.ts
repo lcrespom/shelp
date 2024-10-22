@@ -111,6 +111,6 @@ export function splitMatch(line: string, words: string[]): MatchItem[] {
     items.push({ text: line.substring(segment.from, segment.to + 1), isMatch: true })
     pos = segment.to + 1
   }
-  if (pos < line.length - 1) items.push({ text: line.substring(pos), isMatch: false })
+  if (pos < line.length) items.push({ text: line.substring(pos), isMatch: false })
   return items
 }

@@ -18,9 +18,6 @@ A shell helper popup.
     - [x] Welcome / home page
     - [x] Dirhistory route
     - [x] History
-      - [x] Send $BUFFER in request and use it to filter
-      - [x] Full syntax highlight
-      - [ ] Combine syntax highlight with highlight matched text
     - [ ] Tab completion
   - [ ] Code refactor (eventually)
 - zsh

@@ -1,8 +1,10 @@
 import { ParserHighlight } from '../helpers/highlight'
+import MatchHighlight from './match-highlight'
 
 type SyntaxHighlightProps = {
   line: string
   highlightMap: Map<string, ParserHighlight[]>
+  filterWords: string[]
 }
 
 export default function SyntaxHighlight(props: SyntaxHighlightProps) {
@@ -13,11 +15,19 @@ export default function SyntaxHighlight(props: SyntaxHighlightProps) {
         parts.map((part, idx) => (
           <span key={idx}>
             <span className={`hl-${part.type}`}>
-              {props.line.substring(part.start, part.end + 1)}
+              <MatchHighlight
+                line={props.line.substring(part.start, part.end + 1)}
+                filterWords={props.filterWords}
+              />
             </span>
-            {parts[idx + 1]
-              ? props.line.substring(part.end + 1, parts[idx + 1].start)
-              : ''}
+            {parts[idx + 1] ? (
+              <MatchHighlight
+                line={props.line.substring(part.end + 1, parts[idx + 1].start)}
+                filterWords={props.filterWords}
+              />
+            ) : (
+              ''
+            )}
           </span>
         ))
       ) : (
