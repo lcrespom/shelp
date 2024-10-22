@@ -16,6 +16,7 @@
     - [x] History
     - [ ] Tab completion
   - [ ] Code refactor (eventually)
+  - [ ] Replace full path to home directory to `~`
 - zsh
   - [x] Dirhistory
   - [x] History
@@ -27,6 +28,7 @@
 - Documentation
   - [x] README.md
     - [ ] Installation
+    - [x] Usage
     - [ ] Development / contribution
-  - [ ] Brief guide in welcome page
+  - [ ] Brief guide in app welcome page
   - [ ] Create a proper dmg and publish it in GitHub
