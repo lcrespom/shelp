@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Monokai palette */
+  --monokai-green: #a6e22e;
+  --monokai-fuchsia: #f92672;
+  --monokai-cyan: #66d9ef;
+  --monokai-yellow: #e6db74;
+  --monokai-purple: #ae81ff;
+  --monokai-orange: #fd971f;
+  --monokai-grey: #888888;
+
+  /* VSCode light modern palette */
+  --vscode-green: #008000;
+  --vscode-purple: #f92672;
+  --vscode-magenta: #af00db;
+  --vscode-blue: #0000ff;
+  --vscode-yellow: #795e26;
+  --vscode-cyan: #267f99;
+  --vscode-darkblue: #001080;
+}
+
 html,
 body {
   height: 100%;
@@ -60,70 +80,70 @@ body {
 
 @media (prefers-color-scheme: dark) {
   .hl-program {
-    color: #a6e22e;
-  } /* Green monokai */
+    color: var(--monokai-green);
+  }
   .hl-builtin {
-    color: #a6e22e;
+    color: var(--monokai-green);
     text-decoration: underline;
   }
   .hl-alias {
-    color: #a6e22e;
+    color: var(--monokai-green);
     text-decoration: underline;
   }
   .hl-commandError {
-    color: #f92672;
-  } /* Fuchsia monokai */
+    color: var(--monokai-fuchsia);
+  }
   .hl-assignment {
-    color: #f92672;
+    color: var(--monokai-fuchsia);
   }
   .hl-parameter {
-    color: #66d9ef;
-  } /* Cyan monokai */
+    color: var(--monokai-cyan);
+  }
   .hl-environment {
-    color: #e6db74;
-  } /* VSCode monokai yellow */
+    color: var(--monokai-yellow);
+  }
   .hl-option {
-    color: #ae81ff;
-  } /* Purple monkai */
+    color: var(--monokai-purple);
+  }
   .hl-quote {
-    color: #fd971f;
-  } /* Orange monokai */
+    color: var(--monokai-orange);
+  }
   .hl-comment {
-    color: #666666;
-  } /* Dark grey */
+    color: var(--monokai-grey);
+  }
 }
 
 @media (prefers-color-scheme: light) {
   .hl-program {
-    color: #008000;
+    color: var(--vscode-green);
   }
   .hl-builtin {
-    color: #008000;
+    color: var(--vscode-green);
     text-decoration: underline;
   }
   .hl-alias {
-    color: #008000;
+    color: var(--vscode-green);
     text-decoration: underline;
   }
   .hl-commandError {
-    color: #f92672;
+    color: var(--vscode-purple);
   }
   .hl-assignment {
-    color: magentaBright;
+    color: var(--vscode-purple);
   }
   .hl-parameter {
-    color: #0000ff;
+    color: var(--vscode-blue);
   }
   .hl-environment {
-    color: #795e26;
+    color: var(--vscode-yellow);
   }
   .hl-option {
-    color: #af00db;
+    color: var(--vscode-magenta);
   }
   .hl-quote {
-    color: #267f99;
+    color: var(--vscode-cyan);
   }
   .hl-comment {
-    color: #001080;
+    color: var(--vscode-darkblue);
   }
 }
