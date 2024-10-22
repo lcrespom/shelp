@@ -32,7 +32,7 @@ TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the 
 
 # Give focus back to terminal
 function focus_term() {
-    osascript -e "tell application \"$TERMAPP\" to activate"
+    [[ -n "$TERMAPP" ]] && osascript -e "tell application \"$TERMAPP\" to activate"
 }
 
 # Record every time the user changes directory
