@@ -141,10 +141,15 @@ function highlightComment(line: string, ast: any, hls: ParserHighlight[]) {
   }
 }
 
-function highlightSyntaxError(line: string, ast: any, hls: ParserHighlight[]) {
-  let extra = line.substring(ast.loc.end.char + 1)
-  if (!extra.trim()) return
-  hls.push({ type: NodeType.unknown, start: ast.loc.end.char + 1, end: line.length - 1 })
+function highlightSyntaxError(line: string, _ast: any, hls: ParserHighlight[]) {
+  if (hls.length == 0) {
+    hls.push({ type: 'unknown', start: 0, end: line.length - 1 })
+  } else {
+    let lastHL = hls[hls.length - 1]
+    if (lastHL.end < line.length - 1) {
+      hls.push({ type: 'unknown', start: lastHL.end + 1, end: line.length - 1 })
+    }
+  }
 }
 
 export async function highlight(line: string) {

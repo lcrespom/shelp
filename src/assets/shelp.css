@@ -6,7 +6,9 @@
 
 .selectlist-item {
   /* Each item in the list of items */
-  color: #0000ff; /* Example: set text color in default light mode */
+  @media (prefers-color-scheme: light) {
+    color: #0000ff; /* Example: set text color in default light mode */
+  }
 }
 
 .selectlist-item i {
