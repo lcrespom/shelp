@@ -1,97 +1,72 @@
 # Shelp
 
-A shell helper popup.
+A shell helper popup for **zsh** shells.
 
-## ToDo
+## Introduction
 
-- Rust
-  - [x] Frist time use (if .shelp directory does not exist)
-  - [x] Configuration: CSS and settings
-  - [ ] Extensibility
-    - [ ] New routes / UIs
-  - [x] Only quit on cmd+Q, hide window if closing window
-- React
-  - [x] Startup
-  - [x] Cool CSS
-  - [x] SearchList: multi-search, multi-highlight
-  - [ ] Routes
-    - [x] Welcome / home page
-    - [x] Dirhistory route
-    - [x] History
-    - [ ] Tab completion
-  - [ ] Code refactor (eventually)
-- zsh
-  - [x] Dirhistory
-  - [x] History
-  - [x] Home / end
-  - [ ] Esc => clear line
-  - [ ] Tab completion
-  - [ ] Test with oh-my-zsh
-  - [ ] Detect when user hits ctrl+c and clean shelp queue
-- Documentation
-  - [ ] This readme
-    - [ ] Installation
-    - [ ] Development / contribution
-  - [ ] User manual in HTML
+Shelp captures certain keys in the shell and opens a popup that lets the user
+navigate their command history or change to frequently visited directories.
 
-## zsh setup examples
+The key bindings can be changed by modifying `~/.shelp/shelp.zsh`. By default:
 
-```zsh
-# Key binding constants
-PAGE_UP="^[[5~"
-PAGE_DOWN="^[[6~"
+- The `PageUp` key opens a command history.
+- The `PageDown` key opens a directory history.
 
-# Define the function widget
-function run_on_page_up() {
-  echo "Page Up pressed"
-  # Current buffer is in $BUFFER
-  # $LBUFFER contains text left of cursor, $RBUFFER contains text right of cursor
-}
+## Installation
 
-# Register the function as a widget
-zle -N run_on_page_up
+This tool is still under construction. For the moment, the only way to run it is by cloning
+this repository and building the code. It requires node.js for the UI and Tauri for the
+application shell.
 
-# Bind the key to the widget
-bindkey $PAGE_UP run_on_page_up
+## Usage
 
+Using Shelp requires two steps:
 
-# #----- Predefined lifecycle functions -----
-# Called every time a directory changes
-chpwd() {
-  echo "Current directory: $PWD"
-}
+- Running the Shelp application
+- Sourcing `~/.shelp/shelp.zsh` at the start of a session. The easiest way to do
+  that is by adding `source ~/.shelp/shelp.zsh` at the end of your `~/.zshrc` file.
 
-# # Called before executing any command, $1 contains the whole command line
-preexec() {
-  echo "$(date): Running command: $1" >> ~/command_log.txt
-}
+File `~/.shelp/shelp.zsh` is automatically created after running Shelp for the first time.
 
-# Called after executing any command, but before displaying the prompt
-precmd() {
-  echo "Last command exit status: $?"
-}
+### Command History
 
-#----- Other useful info -----
-# Get the current terminal window bounds (Mac only):
-BOUNDS=$(osascript -e 'tell application (path to frontmost application as text) to get bounds of front window')
-# $BOUNDS will contain "x1, y1, x2, y2" bounds, e.g. "1502, 25, 3008, 1692"
+In a zsh shell, typing the `PageUp` key will open the Shelp popup and show the most recent commands.
+The user can select a command using the keyboard or mouse, and hit enter or click on a history entry
+to paste the command to the shell prompt.
+A search box is provided, to filter out entries using a fuzzy search.
 
-# Handle tab auto-completion
-bindkey "^I" custom_tab_function  # ^I is the representation of the Tab key in zsh
-# Disable default tab completion
-unsetopt complete_in_word
-```
+Example command history in dark mode, filtering entries that contain "hist":
+![Command history example](docs/cmd-hist-dark.png)
 
-## Setting focus back to the terminal (MacOS only)
+### Directory History
 
-### Step 1: get the name of the terminal program
+In a zsh shell, typing the `PageDown` key will open the Shelp popup and show the most directories.
+The user can select a directory using the keyboard or mouse, and hit enter or click on a directory
+entry to change to that directory.
 
-```zsh
-TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
-```
+Example directory history in dark mode, filtering entries that contain "tauri":
+![Command history example](docs/dir-hist-dark.png)
 
-### Step 2: set focus back to the terminal application
+## Settings
 
-```zsh
-osascript -e "tell application \"$TERMAPP\" to activate"
-```
+Shelp can be personalized by editing the _Configuration_ section at the top of `~/.shelp/shelp.zsh`.
+The entries are the following:
+
+- **SHELP_PORT**: HTTP port used by Shelp to listen to commands sent from `zsh`, when the user
+  presses some keys such as `PageUp` or `PageDown`. You probably only need to change it if the
+  default port number is already in use.
+- **SHELP_ALWAYS_ON_TOP**: Set to true if you want the Shelp popup always on top when visible.
+  The command prompt remains blocked until the user either selects an item from Shelp popup or
+  closes it, for example using the `Esc`.
+- **SHELP_THEME**: By default, Shelp applies the system theme. You can manually force "light"
+  or "dark" theme.
+- **SHELP_WINDOW_SIZE**: Shelp window size, in width x height.
+- **SHELP_WINDOW_POS**: Shelp window position. Positive numbers refer to the top left corner,
+  negative numbers to the bottom right.
+- **SHELP_MAX_HISTORY_LINES**: Maximun number of history lines to get from zsh. Duplicates are
+  removed, so the history popup will probably have fewer entries.
+
+## CSS
+
+The look&feel of Shelp can be customized by editing file `~/.shelp/shelp.css`. This file is
+automatically created after running Shelp for the first time.

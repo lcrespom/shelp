@@ -1,0 +1,32 @@
+# ToDo
+
+- Rust
+  - [x] Frist time use (if .shelp directory does not exist)
+  - [x] Configuration: CSS and settings
+  - [ ] Extensibility
+    - [ ] New routes / UIs
+  - [x] Only quit on cmd+Q, hide window if closing window
+- React
+  - [x] Startup
+  - [x] Cool CSS
+  - [x] SearchList: multi-search, multi-highlight
+  - [ ] Routes
+    - [x] Welcome / home page
+    - [x] Dirhistory route
+    - [x] History
+    - [ ] Tab completion
+  - [ ] Code refactor (eventually)
+- zsh
+  - [x] Dirhistory
+  - [x] History
+  - [x] Home / end
+  - [ ] Esc => clear line
+  - [ ] Tab completion
+  - [ ] Test with oh-my-zsh
+  - [ ] Detect when user hits ctrl+c and clean shelp queue
+- Documentation
+  - [x] README.md
+    - [ ] Installation
+    - [ ] Development / contribution
+  - [ ] Brief guide in welcome page
+  - [ ] Create a proper dmg and publish it in GitHub
