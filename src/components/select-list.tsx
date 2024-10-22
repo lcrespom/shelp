@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { multiMatch, splitMatch } from '../helpers/multisearch'
+import { multiMatch, splitMatch, splitWords } from '../helpers/multisearch'
 import SyntaxHighlight from './syntax-highlight'
 import { ParserHighlight } from '../helpers/highlight'
 
@@ -13,29 +13,29 @@ type SelectListProps = {
 
 type MatchHighlightProps = {
   line: string
-  filterText: string
+  filterWords: string[]
 }
 
 let rowsPerPage = 25
 
-function filterList(list: string[], filterText?: string) {
-  if (!filterText) return list
-  let words = filterText.split(' ')
+function filterList(list: string[], words: string[]) {
+  if (words.length == 0) return list
   return list.filter(line => multiMatch(line, words))
 }
 
 function MatchHighlight(props: MatchHighlightProps) {
-  if (!props.filterText) return <>{props.line}</>
-  let parts = splitMatch(props.line, props.filterText.split(' '))
+  if (props.filterWords.length == 0) return <>{props.line}</>
+  let parts = splitMatch(props.line, props.filterWords)
   return <>{parts.map(part => (part.isMatch ? <i>{part.text}</i> : part.text))}</>
 }
 
 export default function SelectList(props: SelectListProps) {
   // #region ------------------------- Setup -------------------------
 
-  let [lines, setLines] = useState(filterList(props.list, props.selectFilter))
-  let [row, setRow] = useState(lines.length - 1)
   let [filterText, setFilterText] = useState(props.selectFilter || '')
+  let [filterWords, setFilterWords] = useState(splitWords(filterText))
+  let [lines, setLines] = useState(filterList(props.list, filterWords))
+  let [row, setRow] = useState(lines.length - 1)
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -55,7 +55,9 @@ export default function SelectList(props: SelectListProps) {
 
   function updateFilter(evt: React.FormEvent) {
     let value = (evt.target as HTMLInputElement).value || ''
-    let filteredLines = filterList(props.list, value)
+    let filterWords = splitWords(value)
+    setFilterWords(filterWords)
+    let filteredLines = filterList(props.list, filterWords)
     setLines(filteredLines)
     setRow(filteredLines.length - 1)
     setFilterText(value)
@@ -115,7 +117,7 @@ export default function SelectList(props: SelectListProps) {
               {props.highlightMap && props.highlightMap.size > 0 ? (
                 <SyntaxHighlight line={line} highlightMap={props.highlightMap} />
               ) : (
-                <MatchHighlight line={line} filterText={filterText} />
+                <MatchHighlight line={line} filterWords={filterWords} />
               )}
             </a>
           ))}

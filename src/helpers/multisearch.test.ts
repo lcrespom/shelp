@@ -1,5 +1,11 @@
 import { expect, test } from 'vitest'
-import { mergeSegments, multiMatch, multiSegments, splitMatch } from './multisearch'
+import {
+  mergeSegments,
+  multiMatch,
+  multiSegments,
+  splitMatch,
+  splitWords,
+} from './multisearch'
 
 const line = 'Lorem ipsum dolor sit amet'
 
@@ -139,7 +145,7 @@ test('Single split', _ => {
 })
 
 test('Multiple split', _ => {
-  expect(splitMatch(line, ['sit', 'ipsum'])).toEqual([
+  expect(splitMatch(line, ['sit', 'ipsum', 'ipsum', 'sit'])).toEqual([
     { isMatch: false, text: 'Lorem ' },
     { isMatch: true, text: 'ipsum' },
     { isMatch: false, text: ' dolor ' },
@@ -156,7 +162,7 @@ test('Multiple split', _ => {
     { isMatch: true, text: 'ipsum dolor' },
     { isMatch: false, text: ' sit amet' },
   ])
-  expect(splitMatch(line, ['', 'lorem', '', ''])).toEqual([
+  expect(splitMatch(line, splitWords('    lorem    '))).toEqual([
     { isMatch: true, text: 'Lorem' },
     { isMatch: false, text: ' ipsum dolor sit amet' },
   ])
