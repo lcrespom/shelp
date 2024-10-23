@@ -4,10 +4,7 @@ type DirInfo = {
   user: string
   group: string
   size: string
-  month: string
-  day: string
-  time: string
-  year: string
+  date: string
   name: string
 }
 
@@ -19,7 +16,9 @@ function lineToDirInfo(line: string): DirInfo {
   let [permissions, links, user, group, size, month, day, time, year, name] = line
     .split(' ')
     .filter(w => !!w)
-  return { permissions, links, user, group, size, month, day, time, year, name }
+  let date = `${month} ${day.padStart(2)} ${year} - ${time}`
+  if (size) size = size.substring(0, size.length - 1) + ' ' + size[size.length - 1]
+  return { permissions, links, user, group, size, date, name }
 }
 
 export function setDirContents(buffer: string, filter: string) {

@@ -9,7 +9,7 @@ type SelectListProps = Record<string, any> & {
   selectFilter?: string
 }
 
-let rowsPerPage = 25
+let rowsPerPage = 20
 
 function filterList(list: string[], words: string[]) {
   if (words.length == 0) return list
@@ -26,15 +26,16 @@ export default function SelectList(props: SelectListProps) {
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight
-      let boxH = scrollRef.current.parentElement?.getBoundingClientRect().height || 800
-      let rowElem = scrollRef.current.childNodes.item(0) as HTMLElement
-      if (rowElem) {
-        let rowH = rowElem.getBoundingClientRect().height
-        rowsPerPage = Math.floor(boxH / rowH) - 1
-        console.log({ boxH, rowH, rowsPerPage })
-      }
+    // Compute rowsPerPage based on the number of lines that fit in the visible area.
+    // This is required to implement PageUp and PageDown navigation.
+    if (!scrollRef.current) return
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight
+    let boxH = scrollRef.current.parentElement?.getBoundingClientRect().height || 800
+    let rowElem = scrollRef.current.childNodes.item(0) as HTMLElement
+    if (rowElem) {
+      let rowH = rowElem.getBoundingClientRect().height
+      rowsPerPage = Math.floor(boxH / rowH) - 1
+      console.log({ boxH, rowH, rowsPerPage })
     }
   }, [lines])
 
@@ -101,7 +102,12 @@ export default function SelectList(props: SelectListProps) {
               key={idx}
               onClick={_ => selectLine(line)}
             >
-              <props.rowComponent line={line} filterWords={filterWords} {...props} />
+              <props.rowComponent
+                line={line}
+                idx={idx}
+                filterWords={filterWords}
+                {...props}
+              />
             </a>
           ))}
         </div>

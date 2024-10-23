@@ -25,7 +25,7 @@ KB_PAGE_UP="^[[5~"
 KB_PAGE_DOWN="^[[6~"
 KB_HOME="^[[H"
 KB_END="^[[F"
-
+KB_TAB="^I"
 
 # Get the name of the terminal application, to set focus later
 TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
@@ -66,23 +66,27 @@ function history_popup() {
 # Open shelp popup in the file search page
 function file_search_popup() {
     enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
-    file_search_command=$(ls -lahT --color=never | \
+    selected_file=$(ls -lahT --color=never | \
         curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_buffer")
-    # if [[ -n "$file_search_command" ]]; then
-    #     LBUFFER="$file_search_command"
-    #     RBUFFER=""
-    # fi
+    if [[ -n "$selected_file" ]]; then
+        echo "Selected file: $selected_file"
+    fi
     focus_term
 }
 
 # Register the functions as widgets
 zle -N dir_history_popup
 zle -N history_popup
+zle -N file_search_popup
 
-# Bind the key to the widget
+# Bind the activation keys to the widgets
 bindkey $KB_PAGE_DOWN dir_history_popup
 bindkey $KB_PAGE_UP history_popup
+bindkey $KB_TAB file_search_popup
 
 # Bind home and end keys for convenience
 bindkey $KB_HOME beginning-of-line
 bindkey $KB_END end-of-line
+
+# Disable default tab completion
+unsetopt complete_in_word
