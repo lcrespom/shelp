@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import SelectList from '../components/select-list'
 import { highlight, ParserHighlight } from '../helpers/highlight'
+import SyntaxHighlight from '../components/syntax-highlight'
+import MatchHighlight from '../components/match-highlight'
 
 type HighlightMap = Map<string, ParserHighlight[]>
 
@@ -39,7 +41,14 @@ export default function History() {
 
   return (
     <div className="history">
-      <SelectList list={history} selectFilter={selectFilter} highlightMap={highlights} />
+      <SelectList
+        list={history}
+        selectFilter={selectFilter}
+        highlightMap={highlights}
+        rowComponent={
+          highlights && highlights.size > 0 ? SyntaxHighlight : MatchHighlight
+        }
+      />
     </div>
   )
 }

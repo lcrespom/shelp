@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, FC } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { multiMatch, splitWords } from '../helpers/multisearch'
-import SyntaxHighlight from './syntax-highlight'
-import { ParserHighlight } from '../helpers/highlight'
-import MatchHighlight from './match-highlight'
 
-type SelectListProps = {
+type SelectListProps = Record<string, any> & {
   list: string[]
+  rowComponent: FC<any>
   selectFilter?: string
-  highlightMap?: Map<string, ParserHighlight[]>
 }
 
 let rowsPerPage = 25
@@ -104,15 +101,7 @@ export default function SelectList(props: SelectListProps) {
               key={idx}
               onClick={_ => selectLine(line)}
             >
-              {props.highlightMap && props.highlightMap.size > 0 ? (
-                <SyntaxHighlight
-                  line={line}
-                  highlightMap={props.highlightMap}
-                  filterWords={filterWords}
-                />
-              ) : (
-                <MatchHighlight line={line} filterWords={filterWords} />
-              )}
+              <props.rowComponent line={line} filterWords={filterWords} {...props} />
             </a>
           ))}
         </div>
