@@ -32,6 +32,6 @@ export function setDirContents(buffer: string, filter: string) {
   console.log({ dirs, selectFilter })
 }
 
-export function getDirLines() {
-  return dirs.map(d => d.name)
+export function getDirInfo() {
+  return dirs
 }
