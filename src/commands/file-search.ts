@@ -1,20 +1,37 @@
 type DirInfo = {
-  all: string
+  permissions: string
+  links: string
+  user: string
+  group: string
+  size: string
+  month: string
+  day: string
+  time: string
+  year: string
+  name: string
 }
 
 let dirs: DirInfo[] = []
 let selectFilter = ''
 
+function lineToDirInfo(line: string): DirInfo {
+  //drwxr-xr-x@  22 luis  staff   704B Oct 23 06:26:15 2024 .
+  let [permissions, links, user, group, size, month, day, time, year, name] = line
+    .split(' ')
+    .filter(w => !!w)
+  return { permissions, links, user, group, size, month, day, time, year, name }
+}
+
 export function setDirContents(buffer: string, filter: string) {
   dirs = buffer
     .split('\n')
     .filter(l => !!l) // Remove empty lines, if any
-    .filter(l => !l.startsWith('total '))
-    .map(l => ({ all: l }))
+    .filter((_l, i) => i >= 2) // Skip first two lines ("total" and ".")
+    .map(lineToDirInfo)
   selectFilter = filter
   console.log({ dirs, selectFilter })
 }
 
 export function getDirLines() {
-  return dirs.map(d => d.all)
+  return dirs.map(d => d.name)
 }
