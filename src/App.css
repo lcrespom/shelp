@@ -28,6 +28,7 @@ body {
   margin: 0;
 }
 
+/* ------------------------- SelectList component styles ------------------------- */
 .selectlist-box {
   @apply m-2 flex flex-grow flex-col-reverse overflow-auto rounded border border-gray-400 p-1;
   @media (prefers-color-scheme: dark) {
@@ -72,12 +73,36 @@ body {
   }
 }
 
+/* ------------------------- DirHistory overrides to SelectList ------------------------- */
 .dirhistory .selectlist-item {
   @media (prefers-color-scheme: dark) {
     color: var(--monokai-cyan);
   }
 }
 
+/* ------------------------- Directory entry styles ------------------------- */
+.dir-permissions {
+  @apply hl-assignment overflow-x-clip pl-1 pr-2;
+}
+
+.dir-user {
+  @apply hl-program w-14 overflow-x-clip pr-2 text-center font-sans;
+}
+.dir-group {
+  @apply hl-program w-14 overflow-x-clip pr-2 text-center font-sans;
+}
+.dir-size {
+  @apply hl-quote w-20 overflow-x-clip pr-4 text-right;
+}
+.dir-date {
+  @apply hl-option w-36 overflow-x-clip whitespace-pre pr-4 text-right font-sans;
+}
+
+.dir-file {
+  @apply flex-1 overflow-x-clip overflow-ellipsis;
+}
+
+/* ------------------------- Comand history syntax highlight ------------------------- */
 @media (prefers-color-scheme: dark) {
   .hl-unknown {
     color: var(--monokai-orange);
