@@ -63,6 +63,18 @@ function history_popup() {
     focus_term
 }
 
+# Open shelp popup in the file search page
+function file_search_popup() {
+    enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
+    file_search_command=$(ls -lahT | \
+        curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_buffer")
+    # if [[ -n "$file_search_command" ]]; then
+    #     LBUFFER="$file_search_command"
+    #     RBUFFER=""
+    # fi
+    focus_term
+}
+
 # Register the functions as widgets
 zle -N dir_history_popup
 zle -N history_popup
