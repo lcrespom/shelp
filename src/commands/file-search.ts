@@ -16,25 +16,30 @@ let dirs: DirInfoTable
 let selectFilter = ''
 
 function lineToDirInfo(line: string): DirInfo {
-  //drwxr-xr-x@  22 luis  staff   704B Oct 23 06:26:15 2024 .
-  let [permissions, links, user, group, size, month, day, time, year, name] = line
+  let [permissions, links, user, group, size, month, day, time, year, ...rest] = line
     .split(' ')
     .filter(w => !!w)
   let date = `${month} ${day.padStart(2)} ${year}`
+  let name = rest.join(' ')
   if (permissions && permissions.endsWith('@')) permissions = permissions.slice(0, -1)
   if (size) size = size.substring(0, size.length - 1) + ' ' + size[size.length - 1]
   return { permissions, links, user, group, size, date, time, name }
 }
 
 export function setDirContents(buffer: string, filter: string) {
-  lines = buffer
+  // Prepare a list of DirInfo entries
+  let dirList = buffer
     .split('\n')
     .filter(l => !!l) // Remove empty lines, if any
     .filter((_l, i) => i >= 2) // Skip first two lines ("total" and ".")
-  dirs = lines.reduce((dirs: DirInfoTable, line: string) => {
-    dirs[line] = lineToDirInfo(line)
+    .map(lineToDirInfo)
+  // Convert it into an object indexed by file name
+  dirs = dirList.reduce((dirs: DirInfoTable, dinfo: DirInfo) => {
+    dirs[dinfo.name] = dinfo
     return dirs
   }, {})
+  // Create a list of file names, to be used by the SelectList widget
+  lines = dirList.map(dinfo => dinfo.name)
   selectFilter = filter
   console.log({ dirs, selectFilter })
 }
