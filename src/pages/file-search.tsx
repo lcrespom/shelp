@@ -1,16 +1,7 @@
-import { invoke } from '@tauri-apps/api/core'
-import { getCurrentWindow } from '@tauri-apps/api/window'
+import SelectList from '../components/select-list'
 
-function close() {
-  invoke('send_response', { data: '' })
-  getCurrentWindow().hide()
-}
+let list = 'lorem ipsum dolor sit amet'.split(' ')
 
 export default function FileSearch() {
-  return (
-    <div className="file-search">
-      <h1 className="mb-4 text-2xl">ToDo file search</h1>
-      <button onClick={close}>Close</button>
-    </div>
-  )
+  return <SelectList list={list} />
 }
