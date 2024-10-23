@@ -67,11 +67,19 @@ const commands: Record<string, Function> = {
     return 'Dir History'
   },
 
-  history(params: any, body: string) {
+  // Navigate to route with list of recent commands and a search input
+  history(params: Record<string, any>, body: string) {
     console.log('History filter:', params.filter)
     setHistory(body.split('\n'), params.filter)
     navigateAndRefresh('/history')
     return 'Command History'
+  },
+
+  // Navigate to route with directory contents and a search input
+  filesearch(_params: Record<string, any>, body: string) {
+    console.log('Dir output:', body)
+    navigateAndRefresh('/filesearch')
+    return 'File Search'
   },
 
   // Set dark theme
