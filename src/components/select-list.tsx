@@ -102,12 +102,7 @@ export default function SelectList(props: SelectListProps) {
               key={idx}
               onClick={_ => selectLine(line)}
             >
-              <props.rowComponent
-                line={line}
-                idx={idx}
-                filterWords={filterWords}
-                {...props}
-              />
+              <props.rowComponent line={line} filterWords={filterWords} {...props} />
             </a>
           ))}
         </div>

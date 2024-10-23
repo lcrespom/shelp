@@ -1,9 +1,7 @@
-import { getDirInfo } from '../commands/file-search'
-import MatchHighlight from '../components/match-highlight'
+import { getDirLines } from '../commands/file-search'
+import DirEntry from '../components/dir-entry'
 import SelectList from '../components/select-list'
 
 export default function FileSearch() {
-  return (
-    <SelectList list={getDirInfo().map(di => di.name)} rowComponent={MatchHighlight} />
-  )
+  return <SelectList list={getDirLines()} rowComponent={DirEntry} />
 }

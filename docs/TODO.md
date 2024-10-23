@@ -21,8 +21,8 @@
   - [x] Dirhistory
   - [x] History
   - [x] Home / end
-  - [ ] Esc => clear line
   - [ ] Tab completion
+  - [ ] Esc => clear line
   - [ ] Test with oh-my-zsh
   - [ ] Detect when user hits ctrl+c and clean shelp queue
 - Documentation
