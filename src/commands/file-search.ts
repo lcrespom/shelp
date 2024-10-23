@@ -21,6 +21,7 @@ function lineToDirInfo(line: string): DirInfo {
     .split(' ')
     .filter(w => !!w)
   let date = `${month} ${day.padStart(2)} ${year}`
+  if (permissions && permissions.endsWith('@')) permissions = permissions.slice(0, -1)
   if (size) size = size.substring(0, size.length - 1) + ' ' + size[size.length - 1]
   return { permissions, links, user, group, size, date, time, name }
 }

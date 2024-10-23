@@ -74,7 +74,7 @@ body {
 
 .dirhistory .selectlist-item {
   @media (prefers-color-scheme: dark) {
-    color: #66d9ef; /* Monokai cyan for dir history */
+    color: var(--monokai-cyan);
   }
 }
 

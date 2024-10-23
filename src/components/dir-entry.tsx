@@ -5,11 +5,19 @@ type DirEntryProps = {
   filterWords: string[]
 }
 
+function fileColor(permissions: string) {
+  if (permissions[0] == 'd') return 'hl-parameter'
+  if (permissions.includes('x')) return 'hl-assignment'
+  else return 'hl-program'
+}
+
 export default function DirEntry(props: DirEntryProps) {
   let info = getDirInfo(props.line)
   return (
     <div className="flex">
-      <span className="hl-assignment w-28 overflow-x-clip pr-2">{info.permissions}</span>
+      <span className="hl-assignment w-26 overflow-x-clip pl-1 pr-2">
+        {info.permissions}
+      </span>
       <span className="hl-program w-14 overflow-x-clip pr-2 text-center font-sans">
         {info.user}
       </span>
@@ -21,7 +29,11 @@ export default function DirEntry(props: DirEntryProps) {
         {info.date} {info.time.slice(0, -3)}
       </span>
       {/* TODO: file hilight depending on permissions */}
-      <span className="overflow-x-clip overflow-ellipsis">{info.name}</span>
+      <span
+        className={`overflow-x-clip overflow-ellipsis ${fileColor(info.permissions)}`}
+      >
+        {info.name}
+      </span>
     </div>
   )
 }
