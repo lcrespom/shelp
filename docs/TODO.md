@@ -3,6 +3,7 @@
 - Rust
   - [x] Frist time use (if .shelp directory does not exist)
   - [x] Configuration: CSS and settings
+    - [ ] Enable/disable fuzzy search
   - [ ] Extensibility
     - [ ] New routes / UIs
   - [x] Only quit on cmd+Q, hide window if closing window
@@ -11,13 +12,15 @@
   - [x] Cool CSS
   - [x] SearchList: multi-search, multi-highlight
   - [ ] Avoid flash of white when starting up with light mode and switching to dark modes
+  - [ ] Shortcut to toggle fuzzy search
   - [x] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
     - [x] History
     - [x] Tab completion
       - [x] Send current directory $(pwd) as parameter and display it in window title
-      - [ ] Shortcut to navigate one directory up
+      - [ ] Directory navigation shortcuts: left => parent directory, right => enter directory
+      - [ ] Cmd+click => enter directory
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)
