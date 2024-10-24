@@ -6,7 +6,11 @@ import { addDirToHistory, getDirHistory } from './commands/dirhistory'
 import { router } from './router'
 import { refreshApp } from './App'
 import { setHistory } from './pages/history'
-import { setDirContents } from './commands/file-search'
+import {
+  fileSearchMatch,
+  immediateFileSearchMatch,
+  setDirContents,
+} from './commands/file-search'
 
 type CommandPayload = {
   url: string
@@ -79,8 +83,13 @@ const commands: Record<string, Function> = {
   // Navigate to route with directory contents and a search input
   filesearch(params: Record<string, any>, body: string) {
     setDirContents(body, params.filter)
-    navigateAndRefresh('/filesearch')
-    return 'File Search'
+    let match = immediateFileSearchMatch()
+    if (match != undefined) {
+      invoke('send_response', { data: fileSearchMatch(match) })
+    } else {
+      navigateAndRefresh('/filesearch')
+      return 'File Search'
+    }
   },
 
   // Set dark theme

@@ -13,10 +13,15 @@
   - [ ] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
+      - [ ] Replace full path to home directory to `~`
     - [x] History
     - [ ] Tab completion
+      - [x] File selection popup
+      - [x] Emit selection
+      - [ ] Navigate to subdirectories
+      - [ ] Detect paths in prompt and list subdir accordingly
+      - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)
-  - [ ] Replace full path to home directory to `~`
 - zsh
   - [x] Dirhistory
   - [x] History

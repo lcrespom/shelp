@@ -66,10 +66,10 @@ function history_popup() {
 # Open shelp popup in the file search page
 function file_search_popup() {
     enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
-    selected_file=$(ls -lahT --color=never | \
+    search_out=$(ls -lahT --color=never | \
         curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_buffer")
-    if [[ -n "$selected_file" ]]; then
-        echo "Selected file: $selected_file"
+    if [[ -n "$search_out" ]]; then
+        LBUFFER="$search_out"
     fi
     focus_term
 }

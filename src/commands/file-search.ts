@@ -14,6 +14,7 @@ type DirInfoTable = Record<string, DirInfo>
 let lines: string[]
 let dirs: DirInfoTable
 let selectFilter = ''
+let beforeFilter = ''
 
 function lineToDirInfo(line: string): DirInfo {
   let [permissions, links, user, group, size, month, day, time, year, ...rest] = line
@@ -40,8 +41,10 @@ export function setDirContents(buffer: string, filter: string) {
   }, {})
   // Create a list of file names, to be used by the SelectList widget
   lines = dirList.map(dinfo => dinfo.name)
-  selectFilter = filter
-  console.log({ dirs, selectFilter })
+  let filterWords = filter.split(' ')
+  selectFilter = filterWords.pop() || ''
+  beforeFilter = filterWords.join(' ')
+  console.log({ dirs, beforeFilter, selectFilter })
 }
 
 export function getDirInfo(line: string) {
@@ -50,4 +53,34 @@ export function getDirInfo(line: string) {
 
 export function getDirLines() {
   return lines
+}
+
+export function getSelectFilter() {
+  return selectFilter
+}
+
+/** Matches selectFilter with file list
+ * Returns:
+ *  - undefined if there is no exact match and the popup should open
+ *  - a non-empty string if there is only one file that starts with the selectFilter
+ *  - an empty string if there is no fuzzy match whatsoever
+ */
+export function immediateFileSearchMatch() {
+  // If selectFilter is empty, the popup should open
+  if (!selectFilter) return
+  // If there is only one file that starts with the filter, return it
+  let matchedFile = ''
+  let matchCount = 0
+  for (let match of lines) {
+    if (match.toLowerCase().startsWith(selectFilter.toLowerCase())) {
+      matchedFile = match
+      matchCount++
+    }
+  }
+  if (matchCount === 1) return matchedFile
+  // TODO return '' if there is not even a fuzzy match, but then the terminal should beep
+}
+
+export function fileSearchMatch(match: string) {
+  return beforeFilter + ' ' + match + ' '
 }

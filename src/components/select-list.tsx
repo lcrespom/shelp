@@ -7,6 +7,7 @@ type SelectListProps = Record<string, any> & {
   list: string[]
   rowComponent: FC<any>
   selectFilter?: string
+  selectionHandler?: (selection: string) => void
 }
 
 let rowsPerPage = 20
@@ -63,8 +64,12 @@ export default function SelectList(props: SelectListProps) {
   }
 
   function selectLine(line: string) {
-    invoke('send_response', { data: line })
-    getCurrentWindow().hide()
+    if (props.selectionHandler) {
+      props.selectionHandler(line)
+    } else {
+      invoke('send_response', { data: line })
+      getCurrentWindow().hide()
+    }
   }
 
   function checkKey(evt: React.KeyboardEvent) {
