@@ -21,7 +21,7 @@
       - [x] Highlight matches
       - [x] Navigate to subdirectories
       - [ ] Colorful permissions: cyan dir, green read, orange write, purple execute
-      - [ ] Remove redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
+      - [ ] Collapse redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)

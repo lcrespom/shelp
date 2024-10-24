@@ -82,24 +82,54 @@ body {
 
 /* ------------------------- Directory entry styles ------------------------- */
 .dir-permissions {
-  @apply hl-assignment overflow-x-clip pl-1 pr-2;
+  @apply hl-dir-permissions overflow-x-clip pl-1 pr-2;
 }
-
 .dir-user {
-  @apply hl-program w-14 overflow-x-clip pr-2 text-center font-sans;
+  @apply hl-dir-user w-14 overflow-x-clip pr-2 text-center font-sans;
 }
 .dir-group {
-  @apply hl-program w-14 overflow-x-clip pr-2 text-center font-sans;
+  @apply hl-dir-group w-14 overflow-x-clip pr-2 text-center font-sans;
 }
 .dir-size {
-  @apply hl-quote w-20 overflow-x-clip pr-4 text-right;
+  @apply hl-dir-size w-16 overflow-x-clip pr-4 text-right font-sans;
 }
 .dir-date {
-  @apply hl-option w-36 overflow-x-clip whitespace-pre pr-4 text-right font-sans;
+  @apply hl-dir-date w-36 overflow-x-clip whitespace-pre pr-4 text-right font-sans;
 }
-
 .dir-file {
   @apply flex-1 overflow-x-clip overflow-ellipsis;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hl-dir-permissions {
+    color: var(--monokai-fuchsia);
+  }
+  .hl-dir-user,
+  .hl-dir-group {
+    color: var(--monokai-green);
+  }
+  .hl-dir-size {
+    color: var(--monokai-orange);
+  }
+  .hl-dir-date {
+    color: var(--monokai-purple);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .hl-dir-permissions {
+    color: var(--vscode-purple);
+  }
+  .hl-dir-user,
+  .hl-dir-group {
+    color: var(--vscode-green);
+  }
+  .hl-dir-size {
+    color: var(--vscode-cyan);
+  }
+  .hl-dir-date {
+    color: var(--vscode-magenta);
+  }
 }
 
 /* ------------------------- Comand history syntax highlight ------------------------- */
