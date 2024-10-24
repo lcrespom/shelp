@@ -15,6 +15,7 @@ let lines: string[]
 let dirs: DirInfoTable
 let selectFilter = ''
 let beforeFilter = ''
+let currentDir = ''
 
 function lineToDirInfo(line: string): DirInfo {
   let [permissions, links, user, group, size, month, day, time, year, ...rest] = line
@@ -27,7 +28,7 @@ function lineToDirInfo(line: string): DirInfo {
   return { permissions, links, user, group, size, date, time, name }
 }
 
-export function setDirContents(buffer: string, filter: string) {
+export function setDirContents(buffer: string, filter: string, dir: string) {
   // Prepare a list of DirInfo entries
   let dirList = buffer
     .split('\n')
@@ -41,10 +42,12 @@ export function setDirContents(buffer: string, filter: string) {
   }, {})
   // Create a list of file names, to be used by the SelectList widget
   lines = dirList.map(dinfo => dinfo.name)
+  // Setup filter and dir
   let filterWords = filter.split(' ')
   selectFilter = filterWords.pop() || ''
   beforeFilter = filterWords.join(' ')
-  console.log({ dirs, beforeFilter, selectFilter })
+  currentDir = dir
+  console.log({ dirs, beforeFilter, selectFilter, currentDir })
 }
 
 export function getDirInfo(line: string) {
@@ -82,5 +85,6 @@ export function immediateFileSearchMatch() {
 }
 
 export function fileSearchMatch(match: string) {
-  return beforeFilter + ' ' + match + ' '
+  let lastChar = dirs[match] && dirs[match].permissions[0] == 'd' ? '/' : ' '
+  return beforeFilter + ' ' + currentDir + match + lastChar
 }

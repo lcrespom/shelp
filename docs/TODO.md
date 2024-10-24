@@ -19,7 +19,8 @@
       - [x] File selection popup
       - [x] Emit selection
       - [x] Highlight matches
-      - [ ] Navigate to subdirectories
+      - [x] Navigate to subdirectories
+      - [ ] Remove redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
       - [ ] Colorful permissions: cyan dir, green read, orange write, purple execute
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt

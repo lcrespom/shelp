@@ -82,7 +82,7 @@ const commands: Record<string, Function> = {
 
   // Navigate to route with directory contents and a search input
   filesearch(params: Record<string, any>, body: string) {
-    setDirContents(body, params.filter)
+    setDirContents(body, params.filter, params.dir)
     let match = immediateFileSearchMatch()
     if (match != undefined) {
       invoke('send_response', { data: fileSearchMatch(match) })

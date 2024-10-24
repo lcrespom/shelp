@@ -65,12 +65,22 @@ function history_popup() {
 
 # Open shelp popup in the file search page
 function file_search_popup() {
-    enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
-    search_out=$(ls -lahT --color=never | \
-        curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_buffer")
-    if [[ -n "$search_out" ]]; then
-        LBUFFER="$search_out"
-    fi
+    enc_lbuffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LBUFFER'))")
+    dir=""
+    while true; do 
+        search_out=$(ls -lahT --color=never $dir | \
+            curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_lbuffer&dir=$dir")
+        if [[ -n "$search_out" ]]; then
+            if [[ $search_out == ">>>"* ]]; then
+                dir=${dir}${search_out:3}
+            else
+                LBUFFER=$search_out
+                break 
+            fi
+        else
+            break
+        fi
+    done
     focus_term
 }
 
