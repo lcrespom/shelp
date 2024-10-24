@@ -12,10 +12,26 @@ function fileColor(permissions: string) {
   else return 'hl-program'
 }
 
+// function AccessPermissions({ rwx }: { rwx: string }) {
+//   return (
+//     <>
+//       <span className="hl-alias">{rwx[0]}</span>
+//       <span className="hl-quote">{rwx[1]}</span>
+//       <span className="hl-assignment">{rwx[2]}</span>
+//     </>
+//   )
+// }
+
 export default function DirEntry(props: DirEntryProps) {
   let info = getDirInfo(props.line)
   return (
     <div className="dir-entry flex">
+      {/* <span className="dir-permissions">
+        <span className="hl-parameter">{info.permissions[0]}</span>
+        <AccessPermissions rwx={info.permissions.substring(1)} />
+        <AccessPermissions rwx={info.permissions.substring(4)} />
+        <AccessPermissions rwx={info.permissions.substring(7)} />
+      </span> */}
       <span className="dir-permissions">{info.permissions}</span>
       <span className="dir-user">{info.user}</span>
       <span className="dir-group">{info.group}</span>
