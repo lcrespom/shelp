@@ -25,7 +25,7 @@
   - [x] Dirhistory
   - [x] History
   - [x] Home / end
-  - [ ] Tab completion
+  - [x] Tab completion
   - [ ] Esc => clear line
   - [ ] Shift-up => cd to parent directory
   - [ ] Shift-down => cd to previous directory in dirhistory
