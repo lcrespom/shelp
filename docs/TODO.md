@@ -10,11 +10,12 @@
   - [x] Startup
   - [x] Cool CSS
   - [x] SearchList: multi-search, multi-highlight
+  - [ ] Avoid flash of white when starting up with light mode and switching to dark modes
   - [ ] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
-      - [ ] Replace full path to home directory to `~`
-      - [ ] Only remove last directory in list if different from $(pwd)
+      - [x] Replace full path to home directory to `~`
+      - [x] Only remove last directory in list if different from $(pwd)
     - [x] History
     - [x] Tab completion
       - [x] File selection popup

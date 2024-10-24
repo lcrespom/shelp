@@ -44,12 +44,12 @@ function normalize_path() {
 # Record every time the user changes directory
 function chpwd() {
     local enc_dir=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$PWD'))")
-    curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir"
+    curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir&home=$HOME"
 }
 
 # Open shelp popup in the dir history page
 function dir_history_popup() {
-    local new_dir=$(curl -s "$SHELP_HOST/dirHistory")
+    local new_dir=$(curl -s "$SHELP_HOST/dirHistory?pwd=$PWD")
     if [[ -n "$new_dir" ]]; then
         cd $new_dir
         zle reset-prompt

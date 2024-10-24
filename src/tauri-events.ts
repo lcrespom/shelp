@@ -2,7 +2,12 @@ import { listen } from '@tauri-apps/api/event'
 import { invoke, isTauri } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 
-import { addDirToHistory, getDirHistory } from './commands/dirhistory'
+import {
+  addDirToHistory,
+  getDirHistory,
+  setDirHistoryHomeDirectory,
+  setDirHistoryWorkingDirectory,
+} from './commands/dirhistory'
 import { router } from './router'
 import { refreshApp } from './App'
 import { setHistory } from './pages/history'
@@ -16,6 +21,8 @@ type CommandPayload = {
   url: string
   body: string
 }
+
+type CommandParams = Record<string, string>
 
 export function listenTauriEvents() {
   if (isTauri()) {
@@ -58,22 +65,23 @@ function navigateAndRefresh(path: string) {
 
 const commands: Record<string, Function> = {
   // Called when the user changes directory
-  chpwd(params: Record<string, any>) {
-    let path = params.dir
-    if (path) addDirToHistory(path)
+  chpwd(params: CommandParams) {
+    setDirHistoryHomeDirectory(params.home)
+    if (params.dir) addDirToHistory(params.dir)
     else console.warn('chpwd: no dir parameter in URL')
     invoke('send_response', { data: '' })
   },
 
   // Navigate to route with list of directories and a search input
-  dirHistory() {
+  dirHistory(params: CommandParams) {
+    setDirHistoryWorkingDirectory(params.pwd)
     navigateAndRefresh('/dirhistory')
     console.log(getDirHistory())
     return 'Dir History'
   },
 
   // Navigate to route with list of recent commands and a search input
-  history(params: Record<string, any>, body: string) {
+  history(params: CommandParams, body: string) {
     console.log('History filter:', params.filter)
     setHistory(body.split('\n'), params.filter)
     navigateAndRefresh('/history')
@@ -81,7 +89,7 @@ const commands: Record<string, Function> = {
   },
 
   // Navigate to route with directory contents and a search input
-  filesearch(params: Record<string, any>, body: string) {
+  filesearch(params: CommandParams, body: string) {
     setDirContents(body, params.filter, params.dir)
     let match = immediateFileSearchMatch()
     if (match != undefined) {
