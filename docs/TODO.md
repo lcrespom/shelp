@@ -15,13 +15,13 @@
     - [x] Dirhistory route
       - [ ] Replace full path to home directory to `~`
     - [x] History
-    - [ ] Tab completion
+    - [x] Tab completion
       - [x] File selection popup
       - [x] Emit selection
       - [x] Highlight matches
       - [x] Navigate to subdirectories
-      - [ ] Remove redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
       - [ ] Colorful permissions: cyan dir, green read, orange write, purple execute
+      - [ ] Remove redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)
@@ -37,6 +37,7 @@
   - [x] README.md
     - [ ] Installation
     - [x] Usage
+      - [ ] Tab completion
     - [ ] Development / contribution
   - [ ] Brief guide in app welcome page
   - [ ] Create a proper dmg and publish it in GitHub
