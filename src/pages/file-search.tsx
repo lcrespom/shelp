@@ -26,7 +26,6 @@ function openSubdirectory(file: string, evt: React.UIEvent) {
 
 function handleSelection(file: string, evt: React.UIEvent) {
   if (openSubdirectory(file, evt)) {
-    console.log('ToDo: navigate to directory', file)
     invoke('send_response', { data: '>>>' + file + '/' })
   } else {
     invoke('send_response', { data: fileSearchMatch(file) })

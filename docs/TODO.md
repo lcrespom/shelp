@@ -14,6 +14,7 @@
     - [x] Welcome / home page
     - [x] Dirhistory route
       - [ ] Replace full path to home directory to `~`
+      - [ ] Only remove last directory in list if different from $(pwd)
     - [x] History
     - [x] Tab completion
       - [x] File selection popup
@@ -21,7 +22,7 @@
       - [x] Highlight matches
       - [x] Navigate to subdirectories
       - [x] Colorful permissions (tested and discarded)
-      - [ ] Collapse redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
+      - [x] Collapse redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)

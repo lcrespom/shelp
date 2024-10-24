@@ -35,15 +35,21 @@ function focus_term() {
     [[ -n "$TERMAPP" ]] && osascript -e "tell application \"$TERMAPP\" to activate"
 }
 
+# Normalize a directory by removing any redundant paths
+function normalize_path() {
+  local pth="$1"
+  python3 -c "import os; print(os.path.normpath('$pth') + '/')"
+}
+
 # Record every time the user changes directory
 function chpwd() {
-    enc_dir=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$PWD'))")
+    local enc_dir=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$PWD'))")
     curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir"
 }
 
 # Open shelp popup in the dir history page
 function dir_history_popup() {
-    new_dir=$(curl -s "$SHELP_HOST/dirHistory")
+    local new_dir=$(curl -s "$SHELP_HOST/dirHistory")
     if [[ -n "$new_dir" ]]; then
         cd $new_dir
         zle reset-prompt
@@ -53,8 +59,8 @@ function dir_history_popup() {
 
 # Open shelp popup in the history page
 function history_popup() {
-    enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
-    history_command=$(history -n -$SHELP_MAX_HISTORY_LINES | \
+    local enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
+    local history_command=$(history -n -$SHELP_MAX_HISTORY_LINES | \
         curl -s -X POST --data-binary @- "$SHELP_HOST/history?filter=$enc_buffer")
     if [[ -n "$history_command" ]]; then
         LBUFFER="$history_command"
@@ -65,14 +71,14 @@ function history_popup() {
 
 # Open shelp popup in the file search page
 function file_search_popup() {
-    enc_lbuffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LBUFFER'))")
-    dir=""
+    local enc_lbuffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LBUFFER'))")
+    local dir=""
     while true; do 
-        search_out=$(ls -lahT --color=never $dir | \
+        local search_out=$(ls -lahT --color=never $dir | \
             curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_lbuffer&dir=$dir")
         if [[ -n "$search_out" ]]; then
             if [[ $search_out == ">>>"* ]]; then
-                dir=${dir}${search_out:3}
+                dir=$(normalize_path ${dir}${search_out:3})
             else
                 LBUFFER=$search_out
                 break 
