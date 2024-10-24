@@ -26,8 +26,8 @@
   - [x] History
   - [x] Home / end
   - [x] Tab completion
+  - [x] Shift-up => cd to parent directory
   - [ ] Esc => clear line
-  - [ ] Shift-up => cd to parent directory
   - [ ] Shift-down => cd to previous directory in dirhistory
   - [ ] Test with oh-my-zsh
   - [ ] Detect when user hits ctrl+c and clean shelp queue
