@@ -66,7 +66,6 @@ function navigateAndRefresh(path: string) {
 const commands: Record<string, Function> = {
   // Called when the user changes directory
   chpwd(params: CommandParams) {
-    setDirHistoryHomeDirectory(params.home)
     if (params.dir) addDirToHistory(params.dir)
     else console.warn('chpwd: no dir parameter in URL')
     invoke('send_response', { data: '' })
@@ -74,6 +73,7 @@ const commands: Record<string, Function> = {
 
   // Navigate to route with list of directories and a search input
   dirHistory(params: CommandParams) {
+    setDirHistoryHomeDirectory(params.home)
     setDirHistoryWorkingDirectory(params.pwd)
     navigateAndRefresh('/dirhistory')
     console.log(getDirHistory())

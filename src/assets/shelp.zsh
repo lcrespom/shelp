@@ -24,6 +24,7 @@ SHELP_MAX_HISTORY_LINES=500
 KB_PAGE_UP="^[[5~"
 KB_PAGE_DOWN="^[[6~"
 KB_HOME="^[[H"
+KB_SHIFT_UP="^[[1;2A"
 KB_END="^[[F"
 KB_TAB="^I"
 
@@ -44,13 +45,14 @@ function normalize_path() {
 # Record every time the user changes directory
 function chpwd() {
     local enc_dir=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$PWD'))")
-    curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir&home=$HOME"
+    curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir"
 }
 
 # Open shelp popup in the dir history page
 function dir_history_popup() {
-    local new_dir=$(curl -s "$SHELP_HOST/dirHistory?pwd=$PWD")
+    local new_dir=$(curl -s "$SHELP_HOST/dirHistory?pwd=$PWD&home=$HOME")
     if [[ -n "$new_dir" ]]; then
+        # echo "\ncd $new_dir" # Uncomment this line if you want visual feedback of the dir change
         cd $new_dir
         zle reset-prompt
     fi

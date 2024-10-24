@@ -15,14 +15,14 @@ export async function addDirToHistory(path: string) {
 }
 
 export function getDirHistory() {
+  let dh = [...dirHistory]
+  // Remove last directory if it's the same as the current directory
+  if (dh.at(-1) == workingDirectory) dh.pop()
   // Replace full path to home directory with "~"
-  let dh = dirHistory.map(dir => {
+  return dh.map(dir => {
     if (dir.startsWith(homeDirectory)) return '~' + dir.substring(homeDirectory.length)
     else return dir
   })
-  // Remove last directory if it's the same as the current directory
-  if (dh.at(-1) == workingDirectory) return dh.slice(0, -1)
-  return dh
 }
 
 export async function initDirHistory() {
@@ -36,4 +36,9 @@ export function setDirHistoryWorkingDirectory(pwd: string) {
 
 export function setDirHistoryHomeDirectory(home: string) {
   homeDirectory = home
+}
+
+export function relativeToAbsolute(dir: string) {
+  if (dir.startsWith('~')) dir = homeDirectory + dir.substring(1)
+  return dir
 }
