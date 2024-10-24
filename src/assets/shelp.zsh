@@ -38,13 +38,17 @@ function focus_term() {
 
 # Normalize a directory by removing any redundant paths
 function normalize_path() {
-  local pth="$1"
-  python3 -c "import os; print(os.path.normpath('$pth') + '/')"
+  python3 -c "import os; print(os.path.normpath('$1') + '/')"
+}
+
+# URL-encode any text
+function url_encode() {
+    python3 -c "import urllib.parse; print(urllib.parse.quote('$1'))"
 }
 
 # Record every time the user changes directory
 function chpwd() {
-    local enc_dir=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$PWD'))")
+    local enc_dir=$(url_encode $PWD)
     curl -s -o /dev/null "$SHELP_HOST/chpwd?dir=$enc_dir"
 }
 
@@ -61,7 +65,7 @@ function dir_history_popup() {
 
 # Open shelp popup in the history page
 function history_popup() {
-    local enc_buffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$BUFFER'))")
+    local enc_buffer=$(url_encode $BUFFER)
     local history_command=$(history -n -$SHELP_MAX_HISTORY_LINES | \
         curl -s -X POST --data-binary @- "$SHELP_HOST/history?filter=$enc_buffer")
     if [[ -n "$history_command" ]]; then
@@ -73,11 +77,12 @@ function history_popup() {
 
 # Open shelp popup in the file search page
 function file_search_popup() {
-    local enc_lbuffer=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$LBUFFER'))")
     local dir=""
-    while true; do 
+    while true; do
+        local pwd=$(normalize_path $PWD/$dir)
+        local enc_query="filter=$(url_encode $LBUFFER)&dir=$(url_encode $dir)&pwd=$(url_encode $pwd)"
         local search_out=$(ls -lahT --color=never $dir | \
-            curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?filter=$enc_lbuffer&dir=$dir")
+            curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?$enc_query")
         if [[ -n "$search_out" ]]; then
             if [[ $search_out == ">>>"* ]]; then
                 dir=$(normalize_path ${dir}${search_out:3})

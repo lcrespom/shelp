@@ -96,7 +96,7 @@ const commands: Record<string, Function> = {
       invoke('send_response', { data: fileSearchMatch(match) })
     } else {
       navigateAndRefresh('/filesearch')
-      return 'File Search'
+      return 'File Search: ' + params.pwd
     }
   },
 

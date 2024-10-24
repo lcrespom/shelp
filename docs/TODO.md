@@ -16,7 +16,7 @@
     - [x] Dirhistory route
     - [x] History
     - [x] Tab completion
-      - [ ] Send current directory $(pwd) as parameter and display it in window title
+      - [x] Send current directory $(pwd) as parameter and display it in window title
       - [ ] Shortcut to navigate one directory up
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
