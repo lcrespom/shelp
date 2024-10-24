@@ -5,12 +5,14 @@ A shell helper popup for **zsh** shells.
 ## Introduction
 
 Shelp captures certain keys in the shell and opens a popup that lets the user
-navigate their command history or change to frequently visited directories.
+navigate their command history, change to frequently visited directories,
+or select a file via tab-completion.
 
 The key bindings can be changed by modifying `~/.shelp/shelp.zsh`. By default:
 
 - The `PageUp` key opens a command history.
 - The `PageDown` key opens a directory history.
+- The `Tab` key opens a directory listing.
 
 ## Installation
 
@@ -46,6 +48,20 @@ entry to change to that directory.
 
 Example directory history in dark mode, filtering entries that contain "tauri":
 ![Command history example](docs/dir-hist-dark.png)
+
+### Tab completion
+
+In a zsh shell, typing the `Tab` key will open the Shelp popup and show the contents of the current
+directory. The user can select a file to copy its name to the command prompt. This is very similar
+to the tab-completion feature of the shell, but the user can interactively filter the list of files
+and directories. A file or directory is selected by navigating with the keyboard an hitting enter.
+
+If the selected item is a directory and enter is typed with a modifier key such as `Shift`, `Alt`
+or `Cmd`, the contents of that directory will be displayed, letting the user navigate across the
+directory tree.
+
+Example directory contents in dark mode:
+![Command history example](docs/file-search-dark.png)
 
 ## Settings
 

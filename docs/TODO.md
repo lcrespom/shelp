@@ -23,6 +23,8 @@
       - [x] Navigate to subdirectories
       - [x] Colorful permissions (tested and discarded)
       - [x] Collapse redundant navigation, e.g. "docs/../docs/../docs/TODO.md" => "docs/TODO.md"
+      - [ ] Send current directory $(pwd) as parameter and display it in window title
+      - [ ] Shortcut to navigate one directory up
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)
@@ -32,13 +34,14 @@
   - [x] Home / end
   - [ ] Tab completion
   - [ ] Esc => clear line
+  - [ ] Shift-up => cd to parent directory
+  - [ ] Shift-down => cd to previous directory in dirhistory
   - [ ] Test with oh-my-zsh
   - [ ] Detect when user hits ctrl+c and clean shelp queue
 - Documentation
   - [x] README.md
     - [ ] Installation
     - [x] Usage
-      - [ ] Tab completion
     - [ ] Development / contribution
   - [ ] Brief guide in app welcome page
   - [ ] Create a proper dmg and publish it in GitHub

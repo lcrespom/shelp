@@ -40,6 +40,26 @@
   /* Class used by the top-level command history page */
 }
 
+/* ------------------------- Directory entry styles ------------------------- */
+.dir-permissions {
+  /* Permissions column */
+}
+.dir-user {
+  /* Owner user */
+}
+.dir-group {
+  /* Owner group */
+}
+.dir-size {
+  /* File size */
+}
+.dir-date {
+  /* Date column */
+}
+.dir-file {
+  /* The file or directory name */
+}
+
 /* ------------------------- Syntax higlight classes ------------------------- */
 
 .hl-program {
