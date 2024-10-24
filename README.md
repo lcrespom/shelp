@@ -33,7 +33,7 @@ File `~/.shelp/shelp.zsh` is automatically created after running Shelp for the f
 ### Command History
 
 In a zsh shell, typing the `PageUp` key will open the Shelp popup and show the most recent commands.
-The user can select a command using the keyboard or mouse, and hit enter or click on a history entry
+The user can select a command using the keyboard or mouse, and hit `Enter` or click on a history entry
 to paste the command to the shell prompt.
 A search box is provided, to filter out entries using a fuzzy search.
 
@@ -43,7 +43,7 @@ Example command history in dark mode, filtering entries that contain "hist":
 ### Directory History
 
 In a zsh shell, typing the `PageDown` key will open the Shelp popup and show the most directories.
-The user can select a directory using the keyboard or mouse, and hit enter or click on a directory
+The user can select a directory using the keyboard or mouse, and hit `Enter` or click on a directory
 entry to change to that directory.
 
 Example directory history in dark mode, filtering entries that contain "tauri":
@@ -54,9 +54,9 @@ Example directory history in dark mode, filtering entries that contain "tauri":
 In a zsh shell, typing the `Tab` key will open the Shelp popup and show the contents of the current
 directory. The user can select a file to copy its name to the command prompt. This is very similar
 to the tab-completion feature of the shell, but the user can interactively filter the list of files
-and directories. A file or directory is selected by navigating with the keyboard an hitting enter.
+and directories. A file or directory is selected by navigating with the keyboard an hitting `Enter`.
 
-If the selected item is a directory and enter is typed with a modifier key such as `Shift`, `Alt`
+If the selected item is a directory and `Enter` is typed with a modifier key such as `Shift`, `Alt`
 or `Cmd`, the contents of that directory will be displayed, letting the user navigate across the
 directory tree.
 
