@@ -20,6 +20,7 @@
       - [x] Emit selection
       - [x] Highlight matches
       - [ ] Navigate to subdirectories
+      - [ ] Colorful permissions: cyan dir, green read, orange write, purple execute
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)

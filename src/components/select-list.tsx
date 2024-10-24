@@ -7,7 +7,7 @@ type SelectListProps = Record<string, any> & {
   list: string[]
   rowComponent: FC<any>
   selectFilter?: string
-  selectionHandler?: (selection: string) => void
+  selectionHandler?: (selection: string, evt: React.UIEvent) => void
 }
 
 let rowsPerPage = 20
@@ -63,9 +63,9 @@ export default function SelectList(props: SelectListProps) {
     rowElem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
   }
 
-  function selectLine(line: string) {
+  function selectLine(line: string, evt: React.UIEvent) {
     if (props.selectionHandler) {
-      props.selectionHandler(line)
+      props.selectionHandler(line, evt)
     } else {
       invoke('send_response', { data: line })
       getCurrentWindow().hide()
@@ -77,7 +77,7 @@ export default function SelectList(props: SelectListProps) {
     let cancelEvent = true
     if (key == 'Enter') {
       if (!lines || lines.length <= 0) return
-      selectLine(lines[row])
+      selectLine(lines[row], evt)
     } else if (key == 'ArrowUp') {
       if (evt.metaKey) updateRow(-lines.length)
       else updateRow(-1)
@@ -105,7 +105,7 @@ export default function SelectList(props: SelectListProps) {
               href="#"
               className={`${row == idx ? 'selectlist-sel' : 'selectlist-hover'} selectlist-item`}
               key={idx}
-              onClick={_ => selectLine(line)}
+              onClick={evt => selectLine(line, evt)}
             >
               <props.rowComponent line={line} filterWords={filterWords} {...props} />
             </a>
