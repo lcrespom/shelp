@@ -1,4 +1,5 @@
 import { getDirInfo } from '../commands/file-search'
+import MatchHighlight from './match-highlight'
 
 type DirEntryProps = {
   line: string
@@ -22,7 +23,9 @@ export default function DirEntry(props: DirEntryProps) {
       <span className="dir-date">
         {info.date} {info.time.slice(0, -3)}
       </span>
-      <span className={`dir-file ${fileColor(info.permissions)}`}>{info.name}</span>
+      <span className={`dir-file ${fileColor(info.permissions)}`}>
+        <MatchHighlight line={info.name} filterWords={props.filterWords} />
+      </span>
     </div>
   )
 }

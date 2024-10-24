@@ -18,7 +18,7 @@
     - [ ] Tab completion
       - [x] File selection popup
       - [x] Emit selection
-      - [ ] Highlight matches
+      - [x] Highlight matches
       - [ ] Navigate to subdirectories
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
