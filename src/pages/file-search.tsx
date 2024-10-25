@@ -34,18 +34,16 @@ function handleSelection(file: string, evt: React.UIEvent) {
     invoke('send_response', { data: '>>>' + file + '/' })
   } else {
     invoke('send_response', { data: fileSearchMatch(file) })
+    getCurrentWindow().hide()
   }
-  getCurrentWindow().hide()
 }
 
 function handleExtraKeys(file: string, evt: React.KeyboardEvent) {
   if (evt.code == 'ArrowLeft') {
     invoke('send_response', { data: '>>>../' })
-    getCurrentWindow().hide()
     return true
   } else if (evt.code == 'ArrowRight' && isDirectory(file)) {
     invoke('send_response', { data: '>>>' + file + '/' })
-    getCurrentWindow().hide()
     return true
   }
   return false

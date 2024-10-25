@@ -21,7 +21,7 @@
       - [x] Send current directory $(pwd) as parameter and display it in window title
       - [x] Directory navigation shortcuts: left => parent directory, right => enter directory
       - [x] Cmd+click => enter directory
-      - [ ] Avoid popup close+open when navigating directories (requires calling 'ls' from Rust)
+      - [x] Avoid popup close+open when navigating directories
       - [ ] Detect paths in prompt and list subdir accordingly
       - [ ] Match commands instead of files if at start of prompt
   - [ ] Code refactor (eventually)

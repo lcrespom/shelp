@@ -58,7 +58,9 @@ and directories. A file or directory is selected by navigating with the keyboard
 
 If the selected item is a directory, and the mouse is clicked or `Enter` is typed while holding a
 modifier key such as `Shift`, `Alt` or `Cmd`, the contents of that directory will be displayed,
-letting the user navigate across the directory tree.
+letting the user navigate across the directory tree. Additionally, the `Right` key also navigates
+into the selected directory, and the `Left` key navigates to the parent directory. This allows for
+very fast navigation across the directory tree.
 
 Example directory contents in dark mode:
 ![Command history example](docs/file-search-dark.png)
