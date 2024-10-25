@@ -6,7 +6,11 @@
     - [ ] Enable/disable fuzzy search
   - [ ] Extensibility
     - [ ] New routes / UIs
-  - [x] Only quit on cmd+Q, hide window if closing window
+  - [ ] Eventually get rid of dependencies
+    - [ ] Use shelp to talk to itself to get rid of `curl` and `python3`
+    - [ ] Get/set window focus in Rust to get rid of `osascript`
+    - [ ] Reduce `shelp.zsh` to a minimum
+    - [ ] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
 - React
   - [x] Startup
   - [x] Cool CSS
@@ -41,4 +45,5 @@
     - [x] Usage
     - [ ] Development / contribution
   - [ ] Brief guide in app welcome page
+  - [ ] Custom app icon
   - [ ] Create a proper dmg and publish it in GitHub
