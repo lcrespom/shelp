@@ -56,9 +56,9 @@ directory. The user can select a file to copy its name to the command prompt. Th
 to the tab-completion feature of the shell, but the user can interactively filter the list of files
 and directories. A file or directory is selected by navigating with the keyboard an hitting `Enter`.
 
-If the selected item is a directory and `Enter` is typed with a modifier key such as `Shift`, `Alt`
-or `Cmd`, the contents of that directory will be displayed, letting the user navigate across the
-directory tree.
+If the selected item is a directory, and the mouse is clicked or `Enter` is typed while holding a
+modifier key such as `Shift`, `Alt` or `Cmd`, the contents of that directory will be displayed,
+letting the user navigate across the directory tree.
 
 Example directory contents in dark mode:
 ![Command history example](docs/file-search-dark.png)

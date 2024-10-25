@@ -10,18 +10,20 @@ import SelectList from '../components/select-list'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import React from 'react'
 
+function withModifierKey(evt: React.KeyboardEvent | React.MouseEvent) {
+  return evt.shiftKey || evt.altKey || evt.ctrlKey || evt.metaKey
+}
+
 function openSubdirectory(file: string, evt: React.UIEvent) {
-  if (evt.nativeEvent instanceof KeyboardEvent) {
-    let kbevt = evt as React.KeyboardEvent
-    if (
-      kbevt.code == 'Enter' &&
-      (kbevt.shiftKey || kbevt.altKey || kbevt.ctrlKey || kbevt.metaKey)
-    ) {
-      let dirInfo = getDirInfo(file)
-      return dirInfo.permissions.startsWith('d')
-    }
-  }
-  return false
+  let natEvt = evt.nativeEvent
+  if (!(natEvt instanceof KeyboardEvent || natEvt instanceof MouseEvent)) return false
+  if (!withModifierKey(evt as React.KeyboardEvent | React.MouseEvent)) return false
+  if (natEvt instanceof KeyboardEvent && (evt as React.KeyboardEvent).code != 'Enter')
+    return false
+  else if (natEvt instanceof MouseEvent && (evt as React.MouseEvent).button != 0)
+    return false
+  let dirInfo = getDirInfo(file)
+  return dirInfo.permissions.startsWith('d')
 }
 
 function handleSelection(file: string, evt: React.UIEvent) {
