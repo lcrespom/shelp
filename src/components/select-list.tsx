@@ -8,6 +8,7 @@ type SelectListProps = Record<string, any> & {
   rowComponent: FC<any>
   selectFilter?: string
   selectionHandler?: (selection: string, evt: React.UIEvent) => void
+  keyboardHandler?: (selection: string, evt: React.KeyboardEvent) => boolean
 }
 
 let rowsPerPage = 20
@@ -73,6 +74,7 @@ export default function SelectList(props: SelectListProps) {
   }
 
   function checkKey(evt: React.KeyboardEvent) {
+    if (props.keyboardHandler && props.keyboardHandler(lines[row], evt)) return
     let key = evt.key || evt.code
     let cancelEvent = true
     if (key == 'Enter') {
