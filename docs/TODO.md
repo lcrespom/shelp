@@ -9,6 +9,7 @@
   - [ ] Eventually get rid of dependencies
     - [ ] Use shelp to talk to itself to get rid of `curl` and `python3`
     - [ ] Get/set window focus in Rust to get rid of `osascript`
+    - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
     - [ ] Reduce `shelp.zsh` to a minimum
     - [ ] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
 - React
@@ -16,18 +17,18 @@
   - [x] Cool CSS
   - [x] SearchList: multi-search, multi-highlight
   - [ ] Avoid flash of white when starting up with light mode and switching to dark modes
-  - [ ] Shortcut to toggle fuzzy search
+  - [ ] Keyboard shortcut to toggle fuzzy search
   - [x] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
     - [x] History
     - [x] Tab completion
-      - [x] Send current directory $(pwd) as parameter and display it in window title
-      - [x] Directory navigation shortcuts: left => parent directory, right => enter directory
-      - [x] Cmd+click => enter directory
-      - [x] Avoid popup close+open when navigating directories
       - [ ] Detect paths in prompt and list subdir accordingly
-      - [ ] Match commands instead of files if at start of prompt
+            (easier to implement when directory contents is obtained from Rust)
+      - [ ] Contextual matching
+        - [ ] Match commands instead of files if at start of prompt
+        - [ ] Match env vars if current word starts with $
+        - [ ] Support command completion settings (or delegate to zsh)
   - [ ] Code refactor (eventually)
 - zsh
   - [x] Dirhistory
@@ -38,6 +39,9 @@
   - [ ] Esc => clear line
   - [ ] Shift-down => cd to previous directory in dirhistory
   - [ ] Test with oh-my-zsh
+  - [ ] Test from VSCode terminal
+    - [ ] Set focus back fails
+    - [ ] PageUp / PageDown not detected
   - [ ] Detect when user hits ctrl+c and clean shelp queue
 - Documentation
   - [x] README.md
