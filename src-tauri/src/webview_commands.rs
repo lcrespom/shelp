@@ -1,5 +1,6 @@
 use std::fs;
 use std::io;
+use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
 use std::time::{Duration, SystemTime};
 
@@ -62,6 +63,9 @@ fn get_dir_lines(path: &str) -> io::Result<String> {
                 .as_millis()
                 .to_string(),
         );
+        lines.push(' ');
+        // File size
+        lines.push_str(&metadata.size().to_string());
         lines.push(' ');
         // File name
         lines.push_str(&entry.file_name().to_string_lossy());
