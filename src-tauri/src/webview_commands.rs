@@ -64,6 +64,9 @@ fn get_dir_lines(path: &str) -> io::Result<String> {
                 .to_string(),
         );
         lines.push(' ');
+        // User id number TODO: convert to user name
+        lines.push_str(&metadata.uid().to_string());
+        lines.push(' ');
         // File size
         lines.push_str(&metadata.size().to_string());
         lines.push(' ');
