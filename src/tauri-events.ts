@@ -101,11 +101,11 @@ const commands: Record<string, Function> = {
   },
 
   rustdir() {
-    setTimeout(async () => {
+    ;(async () => {
       let result: string = await invoke('get_dir', { data: '.' })
-      console.log('>>>>>>>>>', result.split('\n'))
-    }, 0)
-    invoke('send_response', { data: 'Calling get_dir in rust\n' })
+      setDirContents2(result)
+      invoke('send_response', { data: 'Calling get_dir in rust\n' })
+    })()
   },
 
   // Set dark theme
@@ -125,4 +125,32 @@ const commands: Record<string, Function> = {
     router.navigate('/')
     return 'Welcome to shelp'
   },
+}
+
+//------------------------- Temporary -------------------------
+
+type DirInfo = {
+  permissions: string
+  user: string
+  size: string
+  modified: string
+  name: string
+}
+
+function lineToDirInfo(line: string): DirInfo {
+  let [permissions, user, size, modified, ...rest] = line.split(' ').filter(w => !!w)
+  let name = rest.join(' ')
+  permissions = permissions.substring(0, 10)
+  return { permissions, user, size, modified, name }
+}
+
+export function setDirContents2(buffer: string) {
+  console.log('>>>>>>>>', buffer.split('\n'))
+  // Prepare a list of DirInfo entries
+  let dirList = buffer
+    .split('\n')
+    .filter(l => !!l) // Remove empty lines, if any
+    .map(lineToDirInfo)
+    .sort((a, b) => (a.name < b.name ? -1 : +1))
+  console.log('>>>>>>>>>', dirList)
 }

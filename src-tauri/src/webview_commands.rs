@@ -57,14 +57,14 @@ fn get_dir_lines(path: &str) -> io::Result<String> {
         // Dir and permissions
         lines.push_str(&get_permissions(&metadata));
         lines.push(' ');
-        // Last modification date
-        lines.push_str(&systime_to_millis(metadata.modified()?));
-        lines.push(' ');
-        // User id number TODO: convert to user name
+        // User id
         lines.push_str(&get_username(metadata.uid(), &mut uid_cache));
         lines.push(' ');
         // File size
         lines.push_str(&metadata.size().to_string());
+        lines.push(' ');
+        // Last modification date
+        lines.push_str(&systime_to_millis(metadata.modified()?));
         lines.push(' ');
         // File name
         lines.push_str(&entry.file_name().to_string_lossy());
