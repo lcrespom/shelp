@@ -3,6 +3,7 @@ use std::fs;
 use std::io;
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
+use std::path::Path;
 use std::time::{Duration, SystemTime};
 use users::get_user_by_uid;
 
@@ -51,26 +52,39 @@ pub fn send_response(data: &str) {
 fn get_dir_lines(path: &str) -> io::Result<String> {
     let mut lines = String::new();
     let mut uid_cache: HashMap<u32, String> = HashMap::new();
+    // Get metadata from parent directory
+    let parent_meta = fs::metadata(Path::new(path).join(".."))?;
+    lines.push_str(&metadata_to_string(&parent_meta, &mut uid_cache));
+    lines.push_str("..\n");
+    // Scan directory for rest of files
     for entry in fs::read_dir(path)? {
         let entry = entry?;
         let metadata = entry.metadata()?;
-        // Dir and permissions
-        lines.push_str(&get_permissions(&metadata));
-        lines.push(' ');
-        // User id
-        lines.push_str(&get_username(metadata.uid(), &mut uid_cache));
-        lines.push(' ');
-        // File size
-        lines.push_str(&metadata.size().to_string());
-        lines.push(' ');
-        // Last modification date
-        lines.push_str(&systime_to_millis(metadata.modified()?));
-        lines.push(' ');
+        lines.push_str(&metadata_to_string(&metadata, &mut uid_cache));
         // File name
         lines.push_str(&entry.file_name().to_string_lossy());
         lines.push('\n');
     }
     Ok(lines)
+}
+
+fn metadata_to_string(metadata: &fs::Metadata, uid_cache: &mut HashMap<u32, String>) -> String {
+    let mut result = String::new();
+    // Dir and permissions
+    result.push_str(&get_permissions(&metadata));
+    result.push(' ');
+    // User id
+    result.push_str(&get_username(metadata.uid(), uid_cache));
+    result.push(' ');
+    // File size
+    result.push_str(&metadata.size().to_string());
+    result.push(' ');
+    // Last modification date
+    result.push_str(&systime_to_millis(
+        metadata.modified().unwrap_or(SystemTime::UNIX_EPOCH),
+    ));
+    result.push(' ');
+    result
 }
 
 fn systime_to_millis(systime: SystemTime) -> String {
