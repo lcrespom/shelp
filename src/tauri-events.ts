@@ -100,6 +100,14 @@ const commands: Record<string, Function> = {
     }
   },
 
+  rustdir() {
+    setTimeout(async () => {
+      let result: string = await invoke('get_dir', { data: '.' })
+      console.log('>>>>>>>>>', result.split('\n'))
+    }, 0)
+    invoke('send_response', { data: 'Calling get_dir in rust\n' })
+  },
+
   // Set dark theme
   darkTheme() {
     getCurrentWindow().setTheme('dark')

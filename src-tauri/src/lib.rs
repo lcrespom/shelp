@@ -15,6 +15,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             webview_commands::get_file,
             webview_commands::write_file,
+            webview_commands::get_dir,
             webview_commands::send_response
         ])
         .run(tauri::generate_context!())
