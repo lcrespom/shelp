@@ -1,7 +1,7 @@
 use std::fs;
-use std::fs::DirEntry;
 use std::io;
 use std::os::unix::fs::PermissionsExt;
+use std::time::{Duration, SystemTime};
 
 use crate::{command_channel::send_string, startup};
 
@@ -49,21 +49,34 @@ fn get_dir_lines(path: &str) -> io::Result<String> {
     let mut lines = String::new();
     for entry in fs::read_dir(path)? {
         let entry = entry?;
-        lines.push_str(&get_permissions(&entry).unwrap_or("----------".to_string()));
+        let metadata = entry.metadata()?;
+        // Dir and permissions
+        lines.push_str(&get_permissions(&metadata));
         lines.push(' ');
+        // Last modification date
+        lines.push_str(
+            &metadata
+                .modified()?
+                .duration_since(SystemTime::UNIX_EPOCH)
+                .unwrap_or(Duration::new(0, 0))
+                .as_millis()
+                .to_string(),
+        );
+        lines.push(' ');
+        // File name
         lines.push_str(&entry.file_name().to_string_lossy());
         lines.push('\n');
     }
     Ok(lines)
 }
 
-fn get_permissions(entry: &DirEntry) -> io::Result<String> {
+fn get_permissions(metadata: &fs::Metadata) -> String {
     let mut str_perms = String::new();
-    let dirch = if entry.metadata()?.is_dir() { 'd' } else { '-' };
+    let dirch = if metadata.is_dir() { 'd' } else { '-' };
     str_perms.push(dirch);
-    let perms = entry.metadata()?.permissions();
+    let perms = metadata.permissions();
     str_perms.push_str(&to_rwx(perms.mode()));
-    Ok(str_perms)
+    str_perms
 }
 
 fn to_rwx(perms: u32) -> String {
