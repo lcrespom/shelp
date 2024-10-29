@@ -1,8 +1,10 @@
+use std::collections::HashMap;
 use std::fs;
 use std::io;
 use std::os::unix::fs::MetadataExt;
 use std::os::unix::fs::PermissionsExt;
 use std::time::{Duration, SystemTime};
+use users::get_user_by_uid;
 
 use crate::{command_channel::send_string, startup};
 
@@ -48,6 +50,7 @@ pub fn send_response(data: &str) {
 
 fn get_dir_lines(path: &str) -> io::Result<String> {
     let mut lines = String::new();
+    let mut uid_cache: HashMap<u32, String> = HashMap::new();
     for entry in fs::read_dir(path)? {
         let entry = entry?;
         let metadata = entry.metadata()?;
@@ -55,17 +58,10 @@ fn get_dir_lines(path: &str) -> io::Result<String> {
         lines.push_str(&get_permissions(&metadata));
         lines.push(' ');
         // Last modification date
-        lines.push_str(
-            &metadata
-                .modified()?
-                .duration_since(SystemTime::UNIX_EPOCH)
-                .unwrap_or(Duration::new(0, 0))
-                .as_millis()
-                .to_string(),
-        );
+        lines.push_str(&systime_to_millis(metadata.modified()?));
         lines.push(' ');
         // User id number TODO: convert to user name
-        lines.push_str(&metadata.uid().to_string());
+        lines.push_str(&get_username(metadata.uid(), &mut uid_cache));
         lines.push(' ');
         // File size
         lines.push_str(&metadata.size().to_string());
@@ -75,6 +71,25 @@ fn get_dir_lines(path: &str) -> io::Result<String> {
         lines.push('\n');
     }
     Ok(lines)
+}
+
+fn systime_to_millis(systime: SystemTime) -> String {
+    systime
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap_or(Duration::new(0, 0))
+        .as_millis()
+        .to_string()
+}
+
+fn get_username(uid: u32, uid_cache: &mut HashMap<u32, String>) -> String {
+    uid_cache
+        .entry(uid)
+        .or_insert_with(|| {
+            get_user_by_uid(uid)
+                .map(|user| user.name().to_string_lossy().to_string())
+                .unwrap_or_else(|| "Unknown".to_string())
+        })
+        .to_string()
 }
 
 fn get_permissions(metadata: &fs::Metadata) -> String {
