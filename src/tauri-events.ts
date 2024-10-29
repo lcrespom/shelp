@@ -141,10 +141,20 @@ function lineToDirInfo(line: string): DirInfo {
   let [permissions, user, size, modified, ...rest] = line.split(' ').filter(w => !!w)
   let name = rest.join(' ')
   permissions = permissions.substring(0, 10)
+  modified = new Date(+modified).toLocaleString().slice(0, -3)
+  size = readableSize(+size)
   return { permissions, user, size, modified, name }
 }
 
-export function setDirContents2(buffer: string) {
+function readableSize(size: number): string {
+  const fitSize = (size: number) => (size < 10 ? size.toFixed(1) : Math.round(size))
+  if (size < 1_000) return size + ' b'
+  if (size < 1_000_000) return fitSize(size / 1024) + ' k'
+  if (size < 1_000_000_000) return fitSize(size / (1024 * 1024)) + ' m'
+  return fitSize(size / (1024 * 1024 * 1024)) + ' g'
+}
+
+function setDirContents2(buffer: string) {
   console.log('>>>>>>>>', buffer.split('\n'))
   // Prepare a list of DirInfo entries
   let dirList = buffer
