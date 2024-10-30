@@ -91,10 +91,10 @@ function lineToDirInfo(line: string): DirInfo {
 
 function readableSize(size: number): string {
   const fitSize = (size: number) => (size < 10 ? size.toFixed(1) : Math.round(size))
-  if (size < 1_000) return size + ' b'
-  if (size < 1_000_000) return fitSize(size / 1024) + ' k'
-  if (size < 1_000_000_000) return fitSize(size / (1024 * 1024)) + ' m'
-  return fitSize(size / (1024 * 1024 * 1024)) + ' g'
+  if (size < 1_000) return size + ' B'
+  if (size < 1_000_000) return fitSize(size / 1024) + ' K'
+  if (size < 1_000_000_000) return fitSize(size / (1024 * 1024)) + ' M'
+  return fitSize(size / (1024 * 1024 * 1024)) + ' G'
 }
 
 function setDirContents(buffer: string) {
