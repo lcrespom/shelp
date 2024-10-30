@@ -64,6 +64,7 @@ export function immediateFileSearchMatch() {
   // If there is only one file that starts with the filter, return it
   let matchedFile = ''
   let matchCount = 0
+  //TODO match in subdirectories
   for (let match of lines) {
     if (match.toLowerCase().startsWith(selectFilter.toLowerCase())) {
       matchedFile = match
@@ -75,8 +76,26 @@ export function immediateFileSearchMatch() {
 }
 
 export function fileSearchMatch(match: string) {
-  let lastChar = dirs[match] && dirs[match].permissions[0] == 'd' ? '/' : ' '
-  return beforeFilter + ' ' + match + lastChar
+  let lastChar = isDir(match) ? '/' : ' '
+  let prefix = ''
+  if (fullPath.endsWith('/')) fullPath = fullPath.slice(0, -1)
+  if (fullPath == pwd) {
+    // User is in his working directory, no prefix needed
+  } else if (fullPath.startsWith(pwd)) {
+    // User went deeper: relative path
+    prefix = fullPath.substring(pwd.length + 1) + '/'
+  } else if (pwd.startsWith(fullPath)) {
+    // User went above but not sideways: use ..
+    prefix = '../'.repeat(pwd.split('/').length - fullPath.split('/').length)
+  } else {
+    // Could compute nice relative path, but let's just use absolute path
+    prefix = fullPath + '/'
+  }
+  return beforeFilter + ' ' + prefix + match + lastChar
+}
+
+function isDir(file: string): boolean {
+  return dirs[file] && dirs[file].permissions[0] == 'd'
 }
 
 function lineToDirInfo(line: string): DirInfo {
