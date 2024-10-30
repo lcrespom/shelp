@@ -49,7 +49,7 @@ The user can select a directory using the keyboard or mouse, and hit `Enter` or 
 entry to change to that directory.
 
 Example directory history in dark mode, filtering entries that contain "tauri":
-![Command history example](docs/dir-hist-dark.png)
+![Directory history example](docs/dir-hist-dark.png)
 
 ### Tab completion
 
@@ -65,7 +65,7 @@ into the selected directory, and the `Left` key navigates to the parent director
 very fast directory navigation.
 
 Example directory contents in dark mode:
-![Command history example](docs/file-search-dark.png)
+![Directory contents example](docs/file-search-dark.png)
 
 ## Settings
 
