@@ -1,11 +1,8 @@
 export type DirInfo = {
   permissions: string
-  links: string
   user: string
-  group: string
   size: string
-  date: string
-  time: string
+  modified: string
   name: string
 }
 
@@ -18,14 +15,20 @@ let beforeFilter = ''
 let currentDir = ''
 
 function lineToDirInfo(line: string): DirInfo {
-  let [permissions, links, user, group, size, month, day, time, year, ...rest] = line
-    .split(' ')
-    .filter(w => !!w)
-  let date = `${month} ${day.padStart(2)} ${year}`
+  let [permissions, user, size, modified, ...rest] = line.split(' ').filter(w => !!w)
   let name = rest.join(' ')
   permissions = permissions.substring(0, 10)
-  if (size) size = size.substring(0, size.length - 1) + ' ' + size[size.length - 1]
-  return { permissions, links, user, group, size, date, time, name }
+  modified = new Date(+modified).toLocaleString().slice(0, -3).replace(',', '')
+  size = readableSize(+size)
+  return { permissions, user, size, modified, name }
+}
+
+function readableSize(size: number): string {
+  const fitSize = (size: number) => (size < 10 ? size.toFixed(1) : Math.round(size))
+  if (size < 1_000) return size + ' b'
+  if (size < 1_000_000) return fitSize(size / 1024) + ' k'
+  if (size < 1_000_000_000) return fitSize(size / (1024 * 1024)) + ' m'
+  return fitSize(size / (1024 * 1024 * 1024)) + ' g'
 }
 
 export function setDirContents(buffer: string, filter: string, dir: string) {
@@ -33,8 +36,8 @@ export function setDirContents(buffer: string, filter: string, dir: string) {
   let dirList = buffer
     .split('\n')
     .filter(l => !!l) // Remove empty lines, if any
-    .filter((_l, i) => i >= 2) // Skip first two lines ("total" and ".")
     .map(lineToDirInfo)
+    .sort((a, b) => (a.name < b.name ? -1 : +1))
   // Convert it into an object indexed by file name
   dirs = dirList.reduce((dirs: DirInfoTable, dinfo: DirInfo) => {
     dirs[dinfo.name] = dinfo

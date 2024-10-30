@@ -18,11 +18,8 @@ export default function DirEntry(props: DirEntryProps) {
     <div className="dir-entry flex">
       <span className="dir-permissions">{info.permissions}</span>
       <span className="dir-user">{info.user}</span>
-      <span className="dir-group">{info.group}</span>
       <span className="dir-size">{info.size}</span>
-      <span className="dir-date">
-        {info.date} {info.time.slice(0, -3)}
-      </span>
+      <span className="dir-date">{info.modified}</span>
       <span className={`dir-file ${fileColor(info.permissions)}`}>
         <MatchHighlight line={info.name} filterWords={props.filterWords} />
       </span>

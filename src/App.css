@@ -85,16 +85,13 @@ body {
   @apply hl-dir-permissions overflow-x-clip pl-1 pr-2;
 }
 .dir-user {
-  @apply hl-dir-user w-14 overflow-x-clip pr-2 text-center font-sans;
-}
-.dir-group {
-  @apply hl-dir-group w-14 overflow-x-clip pr-2 text-center font-sans;
+  @apply hl-dir-user w-16 overflow-x-clip pl-1 pr-1 text-center font-sans;
 }
 .dir-size {
   @apply hl-dir-size w-16 overflow-x-clip pr-4 text-right font-sans;
 }
 .dir-date {
-  @apply hl-dir-date w-36 overflow-x-clip whitespace-pre pr-4 text-right font-sans;
+  @apply hl-dir-date w-40 overflow-x-clip whitespace-pre pr-4 text-right;
 }
 .dir-file {
   @apply flex-1 overflow-x-clip overflow-ellipsis;

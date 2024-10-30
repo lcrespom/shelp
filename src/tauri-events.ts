@@ -36,7 +36,7 @@ export function listenTauriEvents() {
   }
 }
 
-function runCommand(cmd: CommandPayload) {
+async function runCommand(cmd: CommandPayload) {
   let [verb, query] = cmd.url.substring(1).split('?')
   let params
   if (query) {
@@ -49,6 +49,7 @@ function runCommand(cmd: CommandPayload) {
     invoke('send_response', { data: '' })
   } else {
     let title = commands[verb](params, cmd.body)
+    if (title instanceof Promise) title = await title
     if (title !== undefined) {
       let cw = getCurrentWindow()
       cw.setTitle(title || '')
@@ -89,8 +90,9 @@ const commands: Record<string, Function> = {
   },
 
   // Navigate to route with directory contents and a search input
-  filesearch(params: CommandParams, body: string) {
-    setDirContents(body, params.filter, params.dir)
+  async filesearch(params: CommandParams) {
+    let dirLines: string = await invoke('get_dir', { data: params.pwd })
+    setDirContents(dirLines, params.filter, params.pwd)
     let match = immediateFileSearchMatch()
     if (match != undefined) {
       invoke('send_response', { data: fileSearchMatch(match) })
@@ -98,14 +100,6 @@ const commands: Record<string, Function> = {
       navigateAndRefresh('/filesearch')
       return 'File Search: ' + params.pwd
     }
-  },
-
-  rustdir() {
-    ;(async () => {
-      let result: string = await invoke('get_dir', { data: '.' })
-      setDirContents2(result)
-      invoke('send_response', { data: 'Calling get_dir in rust\n' })
-    })()
   },
 
   // Set dark theme
@@ -125,42 +119,4 @@ const commands: Record<string, Function> = {
     router.navigate('/')
     return 'Welcome to shelp'
   },
-}
-
-//------------------------- Temporary -------------------------
-
-type DirInfo = {
-  permissions: string
-  user: string
-  size: string
-  modified: string
-  name: string
-}
-
-function lineToDirInfo(line: string): DirInfo {
-  let [permissions, user, size, modified, ...rest] = line.split(' ').filter(w => !!w)
-  let name = rest.join(' ')
-  permissions = permissions.substring(0, 10)
-  modified = new Date(+modified).toLocaleString().slice(0, -3)
-  size = readableSize(+size)
-  return { permissions, user, size, modified, name }
-}
-
-function readableSize(size: number): string {
-  const fitSize = (size: number) => (size < 10 ? size.toFixed(1) : Math.round(size))
-  if (size < 1_000) return size + ' b'
-  if (size < 1_000_000) return fitSize(size / 1024) + ' k'
-  if (size < 1_000_000_000) return fitSize(size / (1024 * 1024)) + ' m'
-  return fitSize(size / (1024 * 1024 * 1024)) + ' g'
-}
-
-function setDirContents2(buffer: string) {
-  console.log('>>>>>>>>', buffer.split('\n'))
-  // Prepare a list of DirInfo entries
-  let dirList = buffer
-    .split('\n')
-    .filter(l => !!l) // Remove empty lines, if any
-    .map(lineToDirInfo)
-    .sort((a, b) => (a.name < b.name ? -1 : +1))
-  console.log('>>>>>>>>>', dirList)
 }
