@@ -81,24 +81,6 @@ function file_search_popup() {
     local search_out=$(curl -s "$SHELP_HOST/filesearch?$enc_query")
     [[ -n "$search_out" ]] && LBUFFER=$search_out
     focus_term
-    # local dir=""
-    # while true; do
-    #     local pwd=$(normalize_path $PWD/$dir)
-    #     local enc_query="filter=$(url_encode $LBUFFER)&dir=$(url_encode $dir)&pwd=$(url_encode $pwd)"
-    #     local search_out=$(ls -lahT --color=never $dir | \
-    #         curl -s -X POST --data-binary @- "$SHELP_HOST/filesearch?$enc_query")
-    #     if [[ -n "$search_out" ]]; then
-    #         if [[ $search_out == ">>>"* ]]; then
-    #             dir=$(normalize_path ${dir}${search_out:3})
-    #         else
-    #             LBUFFER=$search_out
-    #             break 
-    #         fi
-    #     else
-    #         break
-    #     fi
-    # done
-    # focus_term
 }
 
 function cd_to_parent_dir() {
