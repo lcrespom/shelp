@@ -49,9 +49,9 @@
   - [ ] Detect when user hits ctrl+c and clean shelp queue
 - Documentation
   - [x] README.md
-    - [ ] Installation
+    - [x] Installation
     - [x] Usage
     - [ ] Development / contribution
   - [ ] Brief guide in app welcome page
   - [ ] Custom app icon
-  - [ ] Create a proper dmg and publish it in GitHub
+  - [x] Create a proper dmg and publish it in GitHub
