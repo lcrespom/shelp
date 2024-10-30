@@ -22,15 +22,18 @@ let fullPath = ''
 //#region ------------------------- Exported functions -------------------------
 
 export async function initFileSearch(filter: string, workingDir: string) {
-  let dirLines: string = await invoke('get_dir', { data: workingDir })
-  setDirContents(dirLines)
   // Setup filter and dir
   let filterWords = filter.split(' ')
   selectFilter = filterWords.pop() || ''
   beforeFilter = filterWords.join(' ')
+  // Read directory
   pwd = workingDir
-  fullPath = pwd
-  console.log({ dirs, beforeFilter, selectFilter, pwd })
+  fullPath = computeFullPath(workingDir)
+  console.log({ dirs, beforeFilter, selectFilter, fullPath })
+  let dirLines: string = await invoke('get_dir', { data: fullPath })
+  setDirContents(dirLines)
+  refreshApp()
+  await updateWindowTitle()
 }
 
 export async function navigateFileSearch(dir: string) {
@@ -39,10 +42,10 @@ export async function navigateFileSearch(dir: string) {
   console.log('>>> Invoking get_dir for directory', fullPath)
   let dirLines: string = await invoke('get_dir', { data: fullPath })
   console.log('>>> Got dirLines:', dirLines)
+  selectFilter = '' // Cleaning the search filter when navigating improves usability
   setDirContents(dirLines)
   refreshApp()
-  let cw = getCurrentWindow()
-  cw.setTitle('File Search: ' + fullPath)
+  await updateWindowTitle()
 }
 
 export function getDirInfo(line: string) {
@@ -131,7 +134,7 @@ function setDirContents(buffer: string) {
     .filter(l => !!l) // Remove empty lines, if any
     .map(lineToDirInfo)
     .sort((a, b) => (a.name < b.name ? -1 : +1))
-  // Convert it into an object indexed by file name
+  // Convert it into an object ind  exed by file name
   dirs = dirList.reduce((dirs: DirInfoTable, dinfo: DirInfo) => {
     dirs[dinfo.name] = dinfo
     return dirs
@@ -144,5 +147,24 @@ function normalizePath(path: string) {
   path = path.replace(/\/\//g, '/')
   let base = window.location.origin + '/'
   return new URL(path, base).pathname
+}
+
+function computeFullPath(workingDir: string): string {
+  // Filter does not contain any directory
+  if (!selectFilter.includes('/')) return workingDir
+  // Split dir part and file part
+  let parts = selectFilter.split('/')
+  let filePart = parts.pop() || ''
+  let dirPart = parts.join('/')
+  selectFilter = filePart
+  // Filter is an absolute path
+  if (dirPart.startsWith('/')) return dirPart
+  // Filter is a relative path
+  return workingDir + '/' + dirPart
+}
+
+async function updateWindowTitle() {
+  let cw = getCurrentWindow()
+  await cw.setTitle('File Search: ' + fullPath)
 }
 //#endregion

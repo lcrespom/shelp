@@ -27,8 +27,8 @@
     - [x] Dirhistory route
     - [x] History
     - [x] Tab completion
-      - [ ] Detect paths in prompt and list subdir accordingly
-            (easier to implement when directory contents is obtained from Rust)
+      - [x] Detect paths in prompt and list subdir accordingly
+            (minor bug in absolute paths)
       - [ ] Contextual matching
         - [ ] Match commands instead of files if at start of prompt
         - [ ] Match env vars if current word starts with $

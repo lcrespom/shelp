@@ -53,9 +53,9 @@ async function runCommand(cmd: CommandPayload) {
     if (title instanceof Promise) title = await title
     if (title !== undefined) {
       let cw = getCurrentWindow()
-      cw.setTitle(title || '')
-      cw.show()
-      cw.setFocus()
+      if (title.length) await cw.setTitle(title)
+      await cw.show()
+      await cw.setFocus()
     }
   }
 }
@@ -100,7 +100,7 @@ const commands: Record<string, Function> = {
       invoke('send_response', { data: fileSearchMatch(match) })
     } else {
       navigateAndRefresh('/filesearch')
-      return 'File Search: ' + params.pwd
+      return ''
     }
   },
 
