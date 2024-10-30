@@ -26,11 +26,12 @@ export async function initFileSearch(filter: string, workingDir: string) {
   selectFilter = filterWords.pop() || ''
   beforeFilter = filterWords.join(' ')
   pwd = workingDir
+  subdir = ''
   console.log({ dirs, beforeFilter, selectFilter, pwd })
 }
 
 export async function navigateFileSearch(dir: string) {
-  subdir = normalizePath(subdir + '/' + dir)
+  subdir = subdir + '/' + dir
   let fullPath = normalizePath(pwd + '/' + subdir)
   console.log({ dir, subdir, pwd, fullPath })
   console.log('>>> Invoking get_dir for directory', fullPath)
@@ -113,7 +114,7 @@ function setDirContents(buffer: string) {
 }
 
 function normalizePath(path: string) {
-  const base = new URL('http://localhost') // dummy base URL for relative resolution
-  const url = new URL(path.replace('//', '/'), base) // resolves and normalizes the path
-  return url.pathname // normalized path
+  path = path.replace(/\/\//g, '/')
+  let base = window.location.origin + '/'
+  return new URL(path, base).pathname
 }
