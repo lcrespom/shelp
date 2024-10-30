@@ -18,6 +18,8 @@ let beforeFilter = ''
 let pwd = ''
 let fullPath = ''
 
+//#region ------------------------- Exported functions -------------------------
+
 export async function initFileSearch(filter: string, workingDir: string) {
   let dirLines: string = await invoke('get_dir', { data: workingDir })
   setDirContents(dirLines)
@@ -93,6 +95,9 @@ export function fileSearchMatch(match: string) {
   }
   return beforeFilter + ' ' + prefix + match + lastChar
 }
+//#endregion
+
+//#region ------------------------- Internal implementations -------------------------
 
 function isDir(file: string): boolean {
   return dirs[file] && dirs[file].permissions[0] == 'd'
@@ -136,3 +141,4 @@ function normalizePath(path: string) {
   let base = window.location.origin + '/'
   return new URL(path, base).pathname
 }
+//#endregion
