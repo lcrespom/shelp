@@ -16,7 +16,7 @@ let dirs: DirInfoTable
 let selectFilter = ''
 let beforeFilter = ''
 let pwd = ''
-let subdir = ''
+let fullPath = ''
 
 export async function initFileSearch(filter: string, workingDir: string) {
   let dirLines: string = await invoke('get_dir', { data: workingDir })
@@ -26,14 +26,13 @@ export async function initFileSearch(filter: string, workingDir: string) {
   selectFilter = filterWords.pop() || ''
   beforeFilter = filterWords.join(' ')
   pwd = workingDir
-  subdir = ''
+  fullPath = pwd
   console.log({ dirs, beforeFilter, selectFilter, pwd })
 }
 
 export async function navigateFileSearch(dir: string) {
-  subdir = subdir + '/' + dir
-  let fullPath = normalizePath(pwd + '/' + subdir)
-  console.log({ dir, subdir, pwd, fullPath })
+  fullPath = normalizePath(fullPath + '/' + dir)
+  console.log({ dir, pwd, fullPath })
   console.log('>>> Invoking get_dir for directory', fullPath)
   let dirLines: string = await invoke('get_dir', { data: fullPath })
   console.log('>>> Got dirLines:', dirLines)
