@@ -11,7 +11,11 @@
     - [ ] Get/set window focus in Rust to get rid of `osascript`
     - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
     - [ ] Reduce `shelp.zsh` to a minimum
+    - [ ] Support all Unix environments: MacOS, Linux and WSL.
+    - [ ] Support even Windows cmd / PowerShell
     - [x] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
+  - [ ] Dock shelp in menu bar
+  - [ ] Hide the app icon from the alt-tab sequence (skipTaskbar is not available in Mac)
 - React
   - [x] Startup
   - [x] Cool CSS
