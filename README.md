@@ -16,9 +16,11 @@ The key bindings can be changed by modifying `~/.shelp/shelp.zsh`. By default:
 
 ## Installation
 
-This tool is still under construction. For the moment, the only way to run it is by cloning
-this repository and building the code. It requires node.js for the UI and Tauri for the
-application shell.
+Currently, only a MacOS for Apple Silicon version is available for download. The `.dmg` file
+can be downloaded from [here](https://github.com/lcrespom/shelp/releases/download/v0.1.0/shelp_0.1.0_aarch64.dmg).
+
+You can also try the most recent version by cloning this repository and building the code.
+It requires node.js to build the UI, and Rust + Tauri to build the application shell.
 
 ## Usage
 
