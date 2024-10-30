@@ -14,7 +14,7 @@ import { setHistory } from './pages/history'
 import {
   fileSearchMatch,
   immediateFileSearchMatch,
-  setDirContents,
+  initFileSearch,
 } from './commands/file-search'
 
 type CommandPayload = {
@@ -24,6 +24,7 @@ type CommandPayload = {
 
 type CommandParams = Record<string, string>
 
+//#region ------------------------- Command handling -------------------------
 export function listenTauriEvents() {
   if (isTauri()) {
     listen<CommandPayload>('shelp-command', event => {
@@ -63,7 +64,9 @@ function navigateAndRefresh(path: string) {
   router.navigate(path)
   refreshApp()
 }
+//#endregion
 
+//#region ------------------------- Commands -------------------------
 const commands: Record<string, Function> = {
   // Called when the user changes directory
   chpwd(params: CommandParams) {
@@ -91,8 +94,7 @@ const commands: Record<string, Function> = {
 
   // Navigate to route with directory contents and a search input
   async filesearch(params: CommandParams) {
-    let dirLines: string = await invoke('get_dir', { data: params.pwd })
-    setDirContents(dirLines, params.filter, params.pwd)
+    initFileSearch(params.filter, params.pwd)
     let match = immediateFileSearchMatch()
     if (match != undefined) {
       invoke('send_response', { data: fileSearchMatch(match) })
@@ -120,3 +122,4 @@ const commands: Record<string, Function> = {
     return 'Welcome to shelp'
   },
 }
+//#endregion

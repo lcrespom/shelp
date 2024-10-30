@@ -6,6 +6,7 @@ import {
   getDirInfo,
   getDirLines,
   getSelectFilter,
+  navigateFileSearch,
 } from '../commands/file-search'
 import DirEntry from '../components/dir-entry'
 import SelectList from '../components/select-list'
@@ -18,7 +19,7 @@ function isDirectory(file: string) {
   return getDirInfo(file).permissions.startsWith('d')
 }
 
-function openSubdirectory(file: string, evt: React.UIEvent) {
+function shouldOpenSubdirectory(file: string, evt: React.UIEvent) {
   let natEvt = evt.nativeEvent
   if (!(natEvt instanceof KeyboardEvent || natEvt instanceof MouseEvent)) return false
   if (!withModifierKey(evt as React.KeyboardEvent | React.MouseEvent)) return false
@@ -30,8 +31,8 @@ function openSubdirectory(file: string, evt: React.UIEvent) {
 }
 
 function handleSelection(file: string, evt: React.UIEvent) {
-  if (openSubdirectory(file, evt)) {
-    invoke('send_response', { data: '>>>' + file + '/' })
+  if (shouldOpenSubdirectory(file, evt)) {
+    navigateFileSearch(file)
   } else {
     invoke('send_response', { data: fileSearchMatch(file) })
     getCurrentWindow().hide()
@@ -40,10 +41,10 @@ function handleSelection(file: string, evt: React.UIEvent) {
 
 function handleExtraKeys(file: string, evt: React.KeyboardEvent) {
   if (evt.code == 'ArrowLeft') {
-    invoke('send_response', { data: '>>>../' })
+    navigateFileSearch('..')
     return true
   } else if (evt.code == 'ArrowRight' && isDirectory(file)) {
-    invoke('send_response', { data: '>>>' + file + '/' })
+    navigateFileSearch(file)
     return true
   }
   return false
