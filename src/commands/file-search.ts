@@ -58,7 +58,7 @@ export function getSelectFilter() {
  * Returns:
  *  - undefined if there is no exact match and the popup should open
  *  - a non-empty string if there is only one file that starts with the selectFilter
- *  - an empty string if there is no fuzzy match whatsoever
+ *  - an empty string if there is no fuzzy match whatsoever (pending beep)
  */
 export function immediateFileSearchMatch() {
   // If selectFilter is empty, the popup should open
