@@ -20,7 +20,7 @@
   - [x] Startup
   - [x] Cool CSS
   - [x] SearchList: multi-search, multi-highlight
-  - [ ] Avoid flash of white when starting up with light mode and switching to dark modes
+  - [ ] Avoid flash of white when starting up with light mode and switching to dark mode
   - [ ] Keyboard shortcut to toggle fuzzy search
   - [x] Routes
     - [x] Welcome / home page
