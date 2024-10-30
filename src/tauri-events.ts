@@ -94,7 +94,7 @@ const commands: Record<string, Function> = {
 
   // Navigate to route with directory contents and a search input
   async filesearch(params: CommandParams) {
-    initFileSearch(params.filter, params.pwd)
+    await initFileSearch(params.filter, params.pwd)
     let match = immediateFileSearchMatch()
     if (match != undefined) {
       invoke('send_response', { data: fileSearchMatch(match) })

@@ -36,11 +36,6 @@ function focus_term() {
     [[ -n "$TERMAPP" ]] && osascript -e "tell application \"$TERMAPP\" to activate"
 }
 
-# Normalize a directory by removing any redundant paths
-function normalize_path() {
-  python3 -c "import os; print(os.path.normpath('$1') + '/')"
-}
-
 # URL-encode any text
 function url_encode() {
     python3 -c "import urllib.parse; print(urllib.parse.quote('$1'))"

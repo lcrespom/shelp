@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/core'
 import { refreshApp } from '../App'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 
 export type DirInfo = {
   permissions: string
@@ -40,6 +41,8 @@ export async function navigateFileSearch(dir: string) {
   console.log('>>> Got dirLines:', dirLines)
   setDirContents(dirLines)
   refreshApp()
+  let cw = getCurrentWindow()
+  cw.setTitle('File Search: ' + fullPath)
 }
 
 export function getDirInfo(line: string) {
@@ -79,6 +82,7 @@ export function immediateFileSearchMatch() {
 
 export function fileSearchMatch(match: string) {
   let lastChar = isDir(match) ? '/' : ' '
+  // Compute directory prefix for matched file
   let prefix = ''
   if (fullPath.endsWith('/')) fullPath = fullPath.slice(0, -1)
   if (fullPath == pwd) {
