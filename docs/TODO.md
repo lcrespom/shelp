@@ -11,7 +11,7 @@
     - [ ] Get/set window focus in Rust to get rid of `osascript`
     - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
     - [ ] Reduce `shelp.zsh` to a minimum
-    - [ ] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
+    - [x] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
 - React
   - [x] Startup
   - [x] Cool CSS
