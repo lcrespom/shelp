@@ -20,7 +20,7 @@
   - [x] Startup
   - [x] Cool CSS
   - [x] SearchList: multi-search, multi-highlight
-  - [ ] Avoid flash of white when starting up with light mode and switching to dark mode
+  - [x] Avoid flash of white when starting up with light mode and switching to dark mode
   - [ ] Keyboard shortcut to toggle fuzzy search
   - [x] Routes
     - [x] Welcome / home page
@@ -28,12 +28,11 @@
     - [x] History
     - [x] Tab completion
       - [x] Detect paths in prompt and list subdir accordingly
-            (minor bug in absolute paths)
       - [ ] Contextual matching
         - [ ] Match commands instead of files if at start of prompt
         - [ ] Match env vars if current word starts with $
         - [ ] Support command completion settings (or delegate to zsh)
-  - [ ] Code refactor (eventually)
+  - [ ] Code refactor / make React part more canonical (eventually)
 - zsh
   - [x] Dirhistory
   - [x] History
