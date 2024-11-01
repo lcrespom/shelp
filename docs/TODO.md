@@ -37,7 +37,7 @@
   - [x] Shift-up => cd to parent directory
   - [x] Esc => clear line
   - [x] Test with oh-my-zsh (to enjoy nice prompt, syntax higlight, autocomplete...)
-  - [ ] Test from VSCode terminal
+  - [x] Test from VSCode terminal
     - [ ] Set focus back fails
     - [ ] PageUp / PageDown not detected
   - [ ] Detect when user hits ctrl+c and clean shelp queue
