@@ -51,9 +51,9 @@ entry to change to that directory.
 Example directory history in dark mode, filtering entries that contain "tauri":
 ![Directory history example](docs/dir-hist-dark.png)
 
-### Tab completion
+### File search / directory navigation
 
-In a zsh shell, typing the `Tab` key will open the Shelp popup and show the contents of the current
+In a zsh shell, typing `Shift+Right` will open the Shelp popup and show the contents of the current
 directory. The user can select a file to copy its name to the command prompt. This is very similar
 to the tab-completion feature of the shell, but the user can interactively filter the list of files
 and directories. A file or directory is selected by navigating with the keyboard an hitting `Enter`.
@@ -66,6 +66,20 @@ very fast directory navigation.
 
 Example directory contents in dark mode:
 ![Directory contents example](docs/file-search-dark.png)
+
+### Other convenience shortcuts
+
+All the above features open the Shelp popup to let the user select among commands, directories
+or files. The script at `~/.shelp/shelp.zsh` provides other keyboard shortcuts with some
+additional convenience features:
+
+- `Shift+Up`: immediately changes to the parent directory.
+- `Esc`: clears the current line.
+- `Home`: moves the cursor to the start of the line.
+- `End`: moves the cursor to the end of the line.
+
+The code at `shelp.zsh` is well documented, so these features can be easily disabled or bound to
+different key combinations.
 
 ## Settings
 

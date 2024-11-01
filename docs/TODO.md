@@ -21,17 +21,12 @@
   - [x] Cool CSS
   - [x] SearchList: multi-search, multi-highlight
   - [x] Avoid flash of white when starting up with light mode and switching to dark mode
-  - [ ] Keyboard shortcut to toggle fuzzy search
   - [x] Routes
     - [x] Welcome / home page
     - [x] Dirhistory route
     - [x] History
     - [x] Tab completion
-      - [x] Detect paths in prompt and list subdir accordingly
-      - [ ] Contextual matching
-        - [ ] Match commands instead of files if at start of prompt
-        - [ ] Match env vars if current word starts with $
-        - [ ] Support command completion settings (or delegate to zsh)
+  - [ ] Keyboard shortcut to toggle fuzzy search
   - [ ] Code refactor / make React part more canonical (eventually)
 - zsh
   - [x] Dirhistory
@@ -40,12 +35,12 @@
   - [x] Tab completion
   - [x] Shift-up => cd to parent directory
   - [x] Esc => clear line
-  - [ ] Shift-down => cd to previous directory in dirhistory
   - [x] Test with oh-my-zsh (to enjoy nice prompt, syntax higlight, autocomplete...)
   - [ ] Test from VSCode terminal
     - [ ] Set focus back fails
     - [ ] PageUp / PageDown not detected
   - [ ] Detect when user hits ctrl+c and clean shelp queue
+  - [ ] Shift-down => cd to previous directory in dirhistory
 - Documentation
   - [x] README.md
     - [x] Installation
