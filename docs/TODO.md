@@ -38,8 +38,12 @@
   - [x] Esc => clear line
   - [x] Test with oh-my-zsh (to enjoy nice prompt, syntax higlight, autocomplete...)
   - [x] Test from VSCode terminal
-    - [ ] Set focus back fails
-    - [ ] PageUp / PageDown not detected
+    - [x] Set focus back fails, but can be fixed by using this alternate script pair:
+      - Get focus: `FOCUSED_PID=$(osascript -e 'tell application "System Events" to get the unix id of the first application process whose frontmost is true')`
+      - Set focus: `osascript -e "tell application \"System Events\" to set frontmost of (every process whose unix id is $FOCUSED_PID) to true"`
+    - [x] PageUp / PageDown not detected by VSCode terminal, but the history_popup and
+          dir_history_popup widgets can be bound to other keys that are captured by VSCode
+          terminal, such as "^F".
   - [ ] Detect when user hits ctrl+c and clean shelp queue
   - [ ] Shift-down => cd to previous directory in dirhistory
 - Documentation
