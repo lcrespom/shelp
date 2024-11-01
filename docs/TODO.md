@@ -39,7 +39,7 @@
   - [x] Home / end
   - [x] Tab completion
   - [x] Shift-up => cd to parent directory
-  - [ ] Esc => clear line
+  - [x] Esc => clear line
   - [ ] Shift-down => cd to previous directory in dirhistory
   - [ ] Test with oh-my-zsh
   - [ ] Test from VSCode terminal

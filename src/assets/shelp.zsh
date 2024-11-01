@@ -27,6 +27,7 @@ KB_HOME="^[[H"
 KB_SHIFT_UP="^[[1;2A"
 KB_END="^[[F"
 KB_TAB="^I"
+KB_ESC="\e"
 
 # Get the name of the terminal application, to set focus later
 TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
@@ -82,17 +83,25 @@ function cd_to_parent_dir() {
     zle reset-prompt
 }
 
+# Clear the whole line
+function clear_line() {
+    LBUFFER=""
+    RBUFFER=""
+}
+
 # Register the functions as widgets
 zle -N dir_history_popup
 zle -N history_popup
 zle -N file_search_popup
-zle -N cd_to_parent_dir
+zle -N cd_to_parent_di
+zle -N clear_line
 
 # Bind the activation keys to the widgets
 bindkey $KB_PAGE_DOWN dir_history_popup
 bindkey $KB_PAGE_UP history_popup
 bindkey $KB_TAB file_search_popup
 bindkey $KB_SHIFT_UP cd_to_parent_dir
+bindkey $KB_ESC clear_line
 
 # Bind home and end keys for convenience
 bindkey $KB_HOME beginning-of-line
@@ -100,3 +109,6 @@ bindkey $KB_END end-of-line
 
 # Disable default tab completion
 unsetopt complete_in_word
+
+# Reduce key sequence timeout to only 100ms to make ESC key react faster
+KEYTIMEOUT=10
