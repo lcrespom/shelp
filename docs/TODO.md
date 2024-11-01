@@ -32,7 +32,8 @@
   - [x] Dirhistory
   - [x] History
   - [x] Home / end
-  - [x] Tab completion
+  - [x] File Search
+    - [x] Do not show size of directories
   - [x] Shift-up => cd to parent directory
   - [x] Esc => clear line
   - [x] Test with oh-my-zsh (to enjoy nice prompt, syntax higlight, autocomplete...)

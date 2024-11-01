@@ -103,7 +103,7 @@ function lineToDirInfo(line: string): DirInfo {
   let name = rest.join(' ')
   permissions = permissions.substring(0, 10)
   modified = new Date(+modified).toLocaleString().slice(0, -3).replace(',', '')
-  size = readableSize(+size)
+  size = permissions[0] == 'd' ? '' : readableSize(+size)
   return { permissions, user, size, modified, name }
 }
 
