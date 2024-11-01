@@ -63,10 +63,7 @@ function history_popup() {
     local enc_buffer=$(url_encode $BUFFER)
     local history_command=$(history -n -$SHELP_MAX_HISTORY_LINES | \
         curl -s -X POST --data-binary @- "$SHELP_HOST/history?filter=$enc_buffer")
-    if [[ -n "$history_command" ]]; then
-        LBUFFER="$history_command"
-        RBUFFER=""
-    fi
+    [[ -n "$history_command" ]] && LBUFFER="$history_command" && RBUFFER=""
     focus_term
 }
 
@@ -78,6 +75,7 @@ function file_search_popup() {
     focus_term
 }
 
+# Just move one directory up
 function cd_to_parent_dir() {
     echo
     cd ..
