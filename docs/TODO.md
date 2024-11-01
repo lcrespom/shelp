@@ -41,7 +41,7 @@
   - [x] Shift-up => cd to parent directory
   - [x] Esc => clear line
   - [ ] Shift-down => cd to previous directory in dirhistory
-  - [ ] Test with oh-my-zsh
+  - [x] Test with oh-my-zsh (to enjoy nice prompt, syntax higlight, autocomplete...)
   - [ ] Test from VSCode terminal
     - [ ] Set focus back fails
     - [ ] PageUp / PageDown not detected
