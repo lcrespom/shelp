@@ -85,29 +85,17 @@ export function immediateFileSearchMatch() {
 
 export function fileSearchMatch(match: string) {
   let lastChar = isDir(match) ? '/' : ' '
-  // Compute directory prefix for matched file
-  let prefix = ''
   if (fullPath.endsWith('/')) fullPath = fullPath.slice(0, -1)
-  if (fullPath == pwd) {
-    // User is in his working directory, no prefix needed
-  } else if (fullPath.startsWith(pwd)) {
-    // User went deeper: relative path
-    prefix = fullPath.substring(pwd.length + 1) + '/'
-  } else if (pwd.startsWith(fullPath)) {
-    // User went above but not sideways: use ..
-    prefix = '../'.repeat(pwd.split('/').length - fullPath.split('/').length)
-  } else {
-    // Could compute nice relative path, but let's just use absolute path
-    prefix = fullPath + '/'
-  }
-  return beforeFilter + ' ' + prefix + match + lastChar
+  let dir = computeRelativePath(pwd, fullPath)
+  return beforeFilter + ' ' + dir + match + lastChar
 }
 //#endregion
 
 //#region ------------------------- Internal implementations -------------------------
 
-function isDir(file: string): boolean {
-  return dirs[file] && dirs[file].permissions[0] == 'd'
+async function updateWindowTitle() {
+  let cw = getCurrentWindow()
+  await cw.setTitle('File Search: ' + fullPath)
 }
 
 function lineToDirInfo(line: string): DirInfo {
@@ -143,6 +131,10 @@ function setDirContents(buffer: string) {
   lines = dirList.map(dinfo => dinfo.name)
 }
 
+function isDir(file: string): boolean {
+  return dirs[file] && dirs[file].permissions[0] == 'd'
+}
+
 function normalizePath(path: string) {
   path = path.replace(/\/\//g, '/')
   let base = window.location.origin + '/'
@@ -163,8 +155,27 @@ function computeFullPath(workingDir: string): string {
   return workingDir + '/' + dirPart
 }
 
-async function updateWindowTitle() {
-  let cw = getCurrentWindow()
-  await cw.setTitle('File Search: ' + fullPath)
+function computeRelativePath(currentDir: string, absoluteDir: string) {
+  // In working directory, no relative path needed
+  if (absoluteDir == currentDir) return ''
+  // Edge case: root dir
+  if (absoluteDir == '') return '/'
+  // User went deeper inside: relative path
+  if (absoluteDir.startsWith(currentDir))
+    return absoluteDir.substring(currentDir.length + 1) + '/'
+  // User went above but not sideways: use '../'
+  if (currentDir.startsWith(absoluteDir)) {
+    let numParents = currentDir.split('/').length - absoluteDir.split('/').length
+    return '../'.repeat(numParents)
+  }
+  // "Sideways" navigation: compute nice relative path, use absolute path if required
+  let segmentCount = 0
+  let currDirSegments = currentDir.split('/')
+  let absDirSegments = absoluteDir.split('/')
+  while (currDirSegments[segmentCount] == absDirSegments[segmentCount]) segmentCount++
+  if (segmentCount <= 1) return absoluteDir + '/'
+  let upSegments = '../'.repeat(currDirSegments.length - segmentCount)
+  let otherBranch = absDirSegments.slice(segmentCount).join('/') + '/'
+  return upSegments + otherBranch
 }
 //#endregion
