@@ -77,6 +77,8 @@ additional convenience features:
 - `Esc`: clears the current line.
 - `Home`: moves the cursor to the start of the line.
 - `End`: moves the cursor to the end of the line.
+- `Option+Left`: moves the cursor to the beginning of the previous word
+- `Option+Right`: moves the cursor to the beginning of the next word
 
 The code at `shelp.zsh` is well documented, so these features can be easily disabled or bound to
 different key combinations.

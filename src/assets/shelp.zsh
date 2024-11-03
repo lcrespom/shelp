@@ -29,6 +29,8 @@ KB_SHIFT_RIGHT="^[[1;2C"
 KB_END="^[[F"
 KB_TAB="^I"
 KB_ESC="\e"
+KB_OPTION_LEFT="^[^[[D"
+KB_OPTION_RIGHT="^[^[[C"
 
 # Get the name of the terminal application, to set focus later
 TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
@@ -107,6 +109,8 @@ bindkey $KB_ESC clear_line
 # Bind home and end keys for convenience
 bindkey $KB_HOME beginning-of-line
 bindkey $KB_END end-of-line
+bindkey $KB_OPTION_LEFT backward-word
+bindkey $KB_OPTION_RIGHT forward-word
 
 # Disable default tab completion
 # unsetopt complete_in_word
