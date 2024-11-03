@@ -133,11 +133,15 @@ fn to_rwx(perms: u32) -> String {
 extern crate autopilot;
 use autopilot::key;
 
+#[cfg(target_os = "macos")]
+const TAB_META_KEY: key::Flag = key::Flag::Meta;
+
+#[cfg(any(target_os = "windows", target_os = "linux"))]
+const TAB_META_KEY: key::Flag = key::Flag::Alt;
+
 fn cmd_tab() {
     let tab_key = key::Code(key::KeyCode::Tab);
     let return_key = key::Code(key::KeyCode::Return);
-    let meta_flag = [key::Flag::Meta];
-    //std::thread::sleep(std::time::Duration::from_millis(1000));
-    autopilot::key::tap(&tab_key, &meta_flag, 10, 10);
+    autopilot::key::tap(&tab_key, &[TAB_META_KEY], 10, 10);
     autopilot::key::tap(&return_key, &[], 10, 10);
 }
