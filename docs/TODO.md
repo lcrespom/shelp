@@ -12,7 +12,9 @@
     - [ ] Use shelp to talk to itself to get rid of `curl` and `python3`
     - [ ] Reduce `shelp.zsh` to a minimum
     - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
-    - [ ] Support all Unix environments: MacOS, Linux and WSL.
+    - [x] Support all Unix environments: MacOS, Linux and WSL.
+      - [ ] Test in Windows
+      - [ ] Test in Linux
     - [ ] Support even Windows cmd / PowerShell
     - [x] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
   - [ ] Dock shelp in menu bar
