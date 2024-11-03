@@ -36,6 +36,7 @@ function handleSelection(file: string, evt: React.UIEvent) {
   } else {
     invoke('send_response', { data: fileSearchMatch(file) })
     getCurrentWindow().hide()
+    invoke('focus_terminal')
   }
 }
 

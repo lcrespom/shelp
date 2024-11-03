@@ -70,6 +70,7 @@ export default function SelectList(props: SelectListProps) {
     } else {
       invoke('send_response', { data: line })
       getCurrentWindow().hide()
+      invoke('focus_terminal')
     }
   }
 

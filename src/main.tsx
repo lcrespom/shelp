@@ -89,6 +89,7 @@ function handleWindowHide() {
 function hideWindow(w: TauriWindow) {
   invoke('send_response', { data: '' })
   w.hide()
+  invoke('focus_terminal')
 }
 
 async function initDotShelp() {

@@ -8,6 +8,7 @@ import SelectList from '../components/select-list'
 function handleSelection(dir: string) {
   invoke('send_response', { data: relativeToAbsolute(dir) })
   getCurrentWindow().hide()
+  invoke('focus_terminal')
 }
 
 export default function DirHistory() {

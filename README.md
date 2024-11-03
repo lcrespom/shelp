@@ -12,7 +12,7 @@ The key bindings can be changed by modifying `~/.shelp/shelp.zsh`. By default:
 
 - The `PageUp` key opens a command history.
 - The `PageDown` key opens a directory history.
-- The `Tab` key opens a directory listing.
+- The `Shift+Right` key combination opens a directory listing.
 
 ## Installation
 
@@ -101,6 +101,11 @@ The entries are the following:
   negative numbers to the bottom right.
 - **SHELP_MAX_HISTORY_LINES**: Maximun number of history lines to get from zsh. Duplicates are
   removed, so the history popup will probably have fewer entries.
+
+The key bindings for all features can be modified by updating the lines starting with `bindkey`
+at the end of `~/.shelp/shelp.zsh`. To know the key code of a specific key combination, you can
+run `cat -v` and type the key you want to bind. This command will echo all keys and key codes,
+so you can press it and copy it into the zsh file.
 
 ## CSS
 

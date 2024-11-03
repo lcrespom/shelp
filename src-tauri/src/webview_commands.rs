@@ -47,6 +47,11 @@ pub fn send_response(data: &str) {
     }
 }
 
+#[tauri::command]
+pub fn focus_terminal() {
+    cmd_tab();
+}
+
 // ------------------------- Helpers -------------------------
 
 fn get_dir_lines(path: &str) -> io::Result<String> {
@@ -123,4 +128,16 @@ fn to_rwx(perms: u32) -> String {
             _ => '-',
         })
         .collect()
+}
+
+extern crate autopilot;
+use autopilot::key;
+
+fn cmd_tab() {
+    let tab_key = key::Code(key::KeyCode::Tab);
+    let return_key = key::Code(key::KeyCode::Return);
+    let meta_flag = [key::Flag::Meta];
+    //std::thread::sleep(std::time::Duration::from_millis(1000));
+    autopilot::key::tap(&tab_key, &meta_flag, 10, 10);
+    autopilot::key::tap(&return_key, &[], 10, 10);
 }

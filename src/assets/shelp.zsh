@@ -20,26 +20,6 @@ SHELP_WINDOW_POS="100 100"
 SHELP_MAX_HISTORY_LINES=500
 # ------------------------- Configuration end -------------------------
 
-# Key codes
-KB_PAGE_UP="^[[5~"
-KB_PAGE_DOWN="^[[6~"
-KB_HOME="^[[H"
-KB_SHIFT_UP="^[[1;2A"
-KB_SHIFT_RIGHT="^[[1;2C"
-KB_END="^[[F"
-KB_TAB="^I"
-KB_ESC="\e"
-KB_OPTION_LEFT="^[^[[D"
-KB_OPTION_RIGHT="^[^[[C"
-
-# Get the name of the terminal application, to set focus later
-TERMAPP=$(osascript -e 'tell application "System Events" to get the name of the first application process whose frontmost is true')
-
-# Give focus back to terminal
-function focus_term() {
-    [[ -n "$TERMAPP" ]] && osascript -e "tell application \"$TERMAPP\" to activate"
-}
-
 # URL-encode any text
 function url_encode() {
     python3 -c "import urllib.parse; print(urllib.parse.quote('$1'))"
@@ -59,7 +39,6 @@ function dir_history_popup() {
         cd $new_dir
         zle reset-prompt
     fi
-    focus_term
 }
 
 # Open shelp popup in the history page
@@ -68,7 +47,6 @@ function history_popup() {
     local history_command=$(history -n -$SHELP_MAX_HISTORY_LINES | \
         curl -s -X POST --data-binary @- "$SHELP_HOST/history?filter=$enc_buffer")
     [[ -n "$history_command" ]] && LBUFFER="$history_command" && RBUFFER=""
-    focus_term
 }
 
 # Open shelp popup in the file search page
@@ -76,7 +54,6 @@ function file_search_popup() {
     local enc_query="filter=$(url_encode $LBUFFER)&pwd=$(url_encode $PWD)"
     local search_out=$(curl -s "$SHELP_HOST/filesearch?$enc_query")
     [[ -n "$search_out" ]] && LBUFFER=$search_out
-    focus_term
 }
 
 # Just move one directory up
@@ -98,6 +75,18 @@ zle -N history_popup
 zle -N file_search_popup
 zle -N cd_to_parent_dir
 zle -N clear_line
+
+# Key codes
+KB_PAGE_UP="^[[5~"
+KB_PAGE_DOWN="^[[6~"
+KB_HOME="^[[H"
+KB_SHIFT_UP="^[[1;2A"
+KB_SHIFT_RIGHT="^[[1;2C"
+KB_END="^[[F"
+KB_TAB="^I"
+KB_ESC="\e"
+KB_OPTION_LEFT="^[^[[D"
+KB_OPTION_RIGHT="^[^[[C"
 
 # Bind the activation keys to the widgets
 bindkey $KB_PAGE_DOWN dir_history_popup

@@ -7,10 +7,11 @@
   - [ ] Extensibility
     - [ ] New routes / UIs
   - [ ] Eventually get rid of dependencies
+    - [x] Get/set window focus in Rust to get rid of `osascript`
+      - [x] Using `autopilot` crate to simulate Cmd+Tab press
     - [ ] Use shelp to talk to itself to get rid of `curl` and `python3`
-    - [ ] Get/set window focus in Rust to get rid of `osascript`
-    - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
     - [ ] Reduce `shelp.zsh` to a minimum
+    - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
     - [ ] Support all Unix environments: MacOS, Linux and WSL.
     - [ ] Support even Windows cmd / PowerShell
     - [x] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
@@ -38,14 +39,13 @@
   - [x] Esc => clear line
   - [x] Test with oh-my-zsh (to enjoy nice prompt, syntax higlight, autocomplete...)
   - [x] Test from VSCode terminal
-    - [x] Set focus back fails, but can be fixed by using this alternate script pair:
-      - Get focus: `FOCUSED_PID=$(osascript -e 'tell application "System Events" to get the unix id of the first application process whose frontmost is true')`
-      - Set focus: `osascript -e "tell application \"System Events\" to set frontmost of (every process whose unix id is $FOCUSED_PID) to true"`
+    - [x] Set focus back works after simulating Cmd+Tab with autopilot
     - [x] PageUp / PageDown not detected by VSCode terminal, but the history_popup and
           dir_history_popup widgets can be bound to other keys that are captured by VSCode
           terminal, such as "^F".
   - [ ] Detect when user hits ctrl+c and clean shelp queue
   - [ ] Shift-down => cd to previous directory in dirhistory
+        Low priority, can be implemented with PageDown + Return
 - Documentation
   - [x] README.md
     - [x] Installation
