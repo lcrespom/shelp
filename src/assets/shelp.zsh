@@ -106,7 +106,7 @@ bindkey $KB_SHIFT_RIGHT file_search_popup
 bindkey $KB_SHIFT_UP cd_to_parent_dir
 bindkey $KB_ESC clear_line
 
-# Bind home and end keys for convenience
+# Bind home, end, opt+left and opt+right keys for convenience
 bindkey $KB_HOME beginning-of-line
 bindkey $KB_END end-of-line
 bindkey $KB_OPTION_LEFT backward-word
