@@ -9,6 +9,8 @@
   - [ ] Eventually get rid of dependencies
     - [x] Get/set window focus in Rust to get rid of `osascript`
       - [x] Using `autopilot` crate to simulate Cmd+Tab press
+            (Notice it will not work for the rare users that have reassigned the
+            application switcher to a different key combination).
     - [ ] Use shelp to talk to itself to get rid of `curl` and `python3`
     - [ ] Reduce `shelp.zsh` to a minimum
     - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
