@@ -15,8 +15,8 @@
     - [ ] Reduce `shelp.zsh` to a minimum
     - [ ] Global key listener in Rust to even get rid of zsh "bindkey"
     - [x] Support all Unix environments: MacOS, Linux and WSL.
-      - [ ] Test in Windows
-      - [ ] Test in Linux
+      - [x] Test in Windows WSL (Ubuntu)
+      - [x] Test in Linux (Ubuntu)
     - [ ] Support even Windows cmd / PowerShell
     - [x] Get directory contents in Rust to avoid the loop in zsh and improve responsiveness
   - [ ] Dock shelp in menu bar
