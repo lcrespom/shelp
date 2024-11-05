@@ -15,8 +15,8 @@ pub fn get_shelp_dir() -> PathBuf {
 pub fn get_server_address() -> String {
     let mut port = "5431";
     let full_path = get_shelp_dir().join("shelp.zsh");
-    let zsh = fs::read_to_string(full_path).unwrap();
-    let lines: Vec<&str> = zsh.lines().collect(); // Collect into a Vec<&str>
+    let zsh = fs::read_to_string(full_path).unwrap_or("SHELP_PORT=5431".to_string());
+    let lines: Vec<&str> = zsh.lines().collect();
     for line in lines {
         if line.starts_with("SHELP_PORT=") {
             port = line.splitn(2, '=').nth(1).unwrap();
