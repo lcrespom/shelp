@@ -17,7 +17,7 @@ The key bindings can be changed by modifying `~/.shelp/shelp.zsh`. By default:
 ## Installation
 
 Currently, only a MacOS for Apple Silicon version is available for download. The `.dmg` file
-can be downloaded from [here](https://github.com/lcrespom/shelp/releases/download/v0.1.3/shelp_0.1.3_aarch64.dmg).
+can be downloaded from [here](https://github.com/lcrespom/shelp/releases/download/v0.1.4/shelp_0.1.4_aarch64.dmg).
 
 You can also try the most recent version by cloning this repository and building the code.
 It requires node.js to build the UI, and Rust + Tauri to build the application shell.
